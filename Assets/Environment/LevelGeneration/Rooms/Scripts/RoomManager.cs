@@ -1,4 +1,5 @@
-﻿using Sirenix.Utilities;
+﻿using Core.DataStructures;
+using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,6 +9,8 @@ namespace Environment.LevelGeneration.Rooms.Scripts
     {
         public Room[] rooms;
         public UnityEvent onRoomGeneration;
+
+        public SerializableDictionary<Room, GameObject[]> roomFloorTiles;
 
 
         public static RoomManager Instance { get; set; }

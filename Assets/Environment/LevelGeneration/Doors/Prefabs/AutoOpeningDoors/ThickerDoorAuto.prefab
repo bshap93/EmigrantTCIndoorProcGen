@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3182054116377743289}
   - component: {fileID: 552112369742742924}
   - component: {fileID: 86913707968982550}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: scifi-door-frame-metal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 5208170024266657905}
   - component: {fileID: 1337705188272763859}
   - component: {fileID: 8115442023825011231}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: scifi-door-metal_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 785096833158986226}
   - component: {fileID: 7648720187976473374}
   - component: {fileID: 6719093403603847077}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: scifi-door-metal_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -331,7 +331,7 @@ GameObject:
   - component: {fileID: 5005645422337425252}
   - component: {fileID: 8946024874601147014}
   - component: {fileID: 7848941969696027826}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: ThickerDoorAuto
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -373,7 +373,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 3.9936147, y: 3, z: 5.908349}
   m_Center: {x: -0.14900729, y: 1.5, z: -0.15534675}
@@ -395,7 +395,7 @@ MonoBehaviour:
   TileA: {fileID: 0}
   TileB: {fileID: 0}
   dontCullBehind: 0
-  isOpen: 0
+  isOpen: 1
 --- !u!208 &8946024874601147014
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -427,5 +427,7 @@ MonoBehaviour:
   speed: 3
   hatchRightHalf: {fileID: 6918261059419849087}
   hatchLeftHalf: {fileID: 6738898161063047157}
+  defaultState: 0
+  stateCanChange: 1
   hatchRightOpenOffset: {x: -1, y: 0, z: 0}
   hatchLeftOpenOffset: {x: 1, y: 0, z: 0}

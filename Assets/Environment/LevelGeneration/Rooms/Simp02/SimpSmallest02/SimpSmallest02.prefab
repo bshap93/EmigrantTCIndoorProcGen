@@ -2161,7 +2161,7 @@ GameObject:
   - component: {fileID: 7849647533766424636}
   - component: {fileID: 7366468080636793263}
   m_Layer: 7
-  m_Name: Smallest02
+  m_Name: SimpSmallest02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

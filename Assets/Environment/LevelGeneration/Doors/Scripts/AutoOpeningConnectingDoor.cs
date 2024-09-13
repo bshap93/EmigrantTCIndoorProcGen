@@ -21,11 +21,12 @@ namespace Environment.LevelGeneration.Doors.Scripts
         public GameObject hatchRightHalf;
         public GameObject hatchLeftHalf;
 
+        public OpenableState defaultState;
+
         public Vector3 hatchRightOpenOffset = new(-1f, 0f, 0);
         public Vector3 hatchLeftOpenOffset = new(1f, 0f, 0);
 
-        float _currentFramePosition;
-        OpenableState _currentState = OpenableState.Closed;
+        OpenableState _currentState;
         Door _doorComponent;
         Vector3 _hatchLeftClosedPosition;
         Vector3 _hatchRightClosedPosition;
@@ -40,10 +41,14 @@ namespace Environment.LevelGeneration.Doors.Scripts
             _hatchRightClosedPosition = hatchRightHalf.transform.localPosition;
             _navMeshObstacle = GetComponent<NavMeshObstacle>();
 
-            _navMeshObstacle.carving = true;
 
             OpenCommand = new OpenHatchCommand(this, _navMeshObstacle);
             CloseCommand = new CloseHatchCommand(this, _navMeshObstacle);
+            _currentState = defaultState;
+
+            SetState(_currentState);
+
+            if (_currentState == OpenableState.Open) OpenCommand.Execute();
         }
 
         // Update is called once per frame
@@ -57,6 +62,8 @@ namespace Environment.LevelGeneration.Doors.Scripts
             {
                 var playerController = other.GetComponent<CharacterController>();
                 if (playerController == null) return;
+
+                // EventManager.EDoorOpened.Invoke();
 
                 OpenCommand.Execute();
             }
