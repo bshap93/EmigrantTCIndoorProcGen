@@ -1845,7 +1845,7 @@ MonoBehaviour:
   - {fileID: 5810817284587446310}
   - {fileID: 2824638887960180033}
   enemyPrefabs:
-  - {fileID: 1814846774995447090, guid: c07a552c282c3cf4aa618a92afc366dd, type: 3}
+  - {fileID: 2459124710024299112, guid: fdee9fb9d19d48c4687994bae8767686, type: 3}
   baseEnemyCount: 2
   hasVerticality: 0
   roomCenter: {fileID: 2721416617380887085}
@@ -5458,6 +5458,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4181682914811192, guid: e22d03e3d1c9ecb4c9fee97f23b613f2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23212260322488272, guid: e22d03e3d1c9ecb4c9fee97f23b613f2, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -51,6 +51,8 @@ namespace Characters.Enemies
         EnemyAttack _enemyAttack;
         string _enemyName;
         HealthSystem _healthSystem;
+
+        bool _isDead;
         float _memoryTimer;
         EnemyNavigation _navigation;
         EnemyStateController _stateController;
@@ -102,12 +104,17 @@ namespace Characters.Enemies
                 dealDamageCommand.Execute(dmgeable, damage, enemyEventManager);
                 var healthSystem = dmgeable.GetHealthSystem();
                 if (healthSystem.CurrentHealth <= 0)
+                {
                     ChangeState(new DeadState(enemyAnimator, _stateController.GetCurrentState()));
+                    _isDead = true;
+                }
                 else
+                {
                     ChangeState(
                         new StaggeredState(
                             enemyAnimator,
                             _stateController.GetCurrentState(), staggerTime, null));
+                }
             }
         }
         public HealthSystem GetHealthSystem()
@@ -143,7 +150,8 @@ namespace Characters.Enemies
 
         public void ChangeState(EnemyState newState)
         {
-            _stateController.ChangeState(newState);
+            if (!_isDead)
+                _stateController.ChangeState(newState);
         }
 
         public bool CanSeePlayer()

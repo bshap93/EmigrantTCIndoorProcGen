@@ -15,7 +15,6 @@ namespace Combat.Weapons.Scripts.PlayerWeapons
 
         void Start()
         {
-            damage = 10f;
             range = laserRange;
             AttackCommand = new RangedAttackCommand(this, range, firePoint);
         }
