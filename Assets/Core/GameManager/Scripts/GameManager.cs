@@ -1,7 +1,9 @@
 using Characters.Health.Scripts;
 using Characters.Player.Scripts;
+using Combat.TurnManager;
 using Core.Events.EventManagers;
 using Core.SaveSystem.Scripts;
+using Core.Services;
 using UI.ETCCustomCursor.Scripts.Commands;
 using UI.InGameConsole.Scripts;
 using UnityEngine;
@@ -21,6 +23,8 @@ namespace Core.GameManager.Scripts
         public SaveManager saveManager;
 
         public InGameConsoleManager inGameConsoleManager;
+
+        public TurnManager turnManager;
         DisableCursorCommand _disableCursorCommand;
 
         EnableFreeCursorCommand _enableFreeCursorCommand;
@@ -33,6 +37,8 @@ namespace Core.GameManager.Scripts
                 Instance = this;
             else
                 Destroy(gameObject);
+
+            ServiceLocator.Instance.RegisterService(turnManager);
         }
 
 

@@ -29,7 +29,7 @@ namespace Combat.TurnManager
         }
         public void StartTurn(IDamageable character)
         {
-            throw new NotImplementedException();
+            character.StartTurn();
         }
         public bool HasCompletedAction(IDamageable character)
         {

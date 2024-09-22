@@ -72,9 +72,9 @@ namespace Characters.Player.Scripts
         }
 
         // Handle debug damage
-        public void TakeDamage(IDamageable dmgeable, float damage)
+        public void TakeDamage(IDamageable damageable, float damage)
         {
-            if ((PlayerCharacter)dmgeable == this)
+            if ((PlayerCharacter)damageable == this)
             {
                 var dealDamageCommand = new DealDamageCommand();
                 dealDamageCommand.Execute(this, damage, playerEventManager);
@@ -87,6 +87,10 @@ namespace Characters.Player.Scripts
         public void Heal(float value)
         {
             HealthSystem.Heal(value);
+        }
+        public void StartTurn()
+        {
+            Debug.Log("Player Turn Started");
         }
 
         [Button("Reset Player")]
@@ -142,9 +146,6 @@ namespace Characters.Player.Scripts
 
             playerStateController.ChangeState(
                 new PlayerAttackingState(null, mainPlayerAnimator));
-        }
-        public void StartTurn()
-        {
         }
         public bool HasCompletedAction()
         {

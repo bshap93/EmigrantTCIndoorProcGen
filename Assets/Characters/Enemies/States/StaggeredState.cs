@@ -34,7 +34,16 @@ namespace Characters.Enemies.States
         IEnumerator<WaitForSeconds> ReturnFromStaggerAfterDelay(Enemy enemy)
         {
             yield return new WaitForSeconds(_staggerDuration);
-            enemy.ChangeState(_formerState);
+            // If the enemy was patrolling before being staggered, start chase state
+            if (_formerState is PatrollingState) enemy.ChangeState(new ChaseState(this, enemy.player));
+            // If the enemy was chasing before being staggered, return to chase state
+            else if (_formerState is ChaseState) enemy.ChangeState(_formerState);
+            // If the enemy was attacking before being staggered, return to attack state
+            else if (_formerState is AttackState) enemy.ChangeState(_formerState);
+            // Else, return to former state
+            else
+                enemy.ChangeState(_formerState);
+
             Debug.Log("Returning from stagger");
         }
     }

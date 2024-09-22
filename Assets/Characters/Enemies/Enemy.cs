@@ -6,7 +6,6 @@ using Characters.Health.Scripts;
 using Characters.Health.Scripts.Commands;
 using Characters.Player.Scripts;
 using Characters.Scripts;
-using DG.Tweening;
 using UI.Health.Scripts;
 using UnityEngine;
 using UnityEngine.AI;
@@ -47,7 +46,6 @@ namespace Characters.Enemies
         public double chaseDuration;
         [SerializeField] EnemyEventManager enemyEventManager;
         public bool isDead;
-        readonly List<DOTweenAnimation> _animations = new();
         readonly List<IAttackCommand> _attacks = new();
 
         EnemyAttack _enemyAttack;
@@ -96,21 +94,25 @@ namespace Characters.Enemies
         {
             _stateController.Update();
         }
-        public void TakeDamage(IDamageable dmgeable, float damage)
+        public void TakeDamage(IDamageable damageable, float damage)
         {
-            if (dmgeable is Enemy)
-            {
-                var dealDamageCommand = new DealDamageCommand();
-                dealDamageCommand.Execute(dmgeable, damage, enemyEventManager);
-                var healthSystem = dmgeable.GetHealthSystem();
-                if (healthSystem.CurrentHealth <= 0)
-                    ChangeState(new DeadState(enemyAnimator, _stateController.GetCurrentState()));
-                else
-                    ChangeState(
-                        new StaggeredState(
-                            enemyAnimator,
-                            _stateController.GetCurrentState(), staggerTime, null));
-            }
+            // If for some reason the damageable object is not an enemy, return, else
+            // deal damage to the enemy
+            if (damageable is not Enemy) return;
+
+            // Use the DealDamageCommand to deal damage to the enemy
+            var dealDamageCommand = new DealDamageCommand();
+            dealDamageCommand.Execute(damageable, damage, enemyEventManager);
+            var healthSystem = damageable.GetHealthSystem();
+            // If the enemy's health is less than or equal to 0, change the state to dead
+            if (healthSystem.CurrentHealth <= 0)
+                ChangeState(new DeadState(enemyAnimator, _stateController.GetCurrentState()));
+            else
+                // If the enemy is not dead, change the state to staggered
+                ChangeState(
+                    new StaggeredState(
+                        enemyAnimator,
+                        _stateController.GetCurrentState(), staggerTime, null));
         }
         public HealthSystem GetHealthSystem()
         {
@@ -122,6 +124,10 @@ namespace Characters.Enemies
         public void Heal(float value)
         {
             _healthSystem.Heal(value);
+        }
+        public void StartTurn()
+        {
+            Debug.Log("Enemy Turn Started");
         }
         public void FindWaypoints()
         {
