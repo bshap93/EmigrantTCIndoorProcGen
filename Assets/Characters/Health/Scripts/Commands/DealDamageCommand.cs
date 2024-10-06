@@ -19,7 +19,7 @@ namespace Characters.Health.Scripts.Commands
             healthSystem.currentSuitIntegrity -= value;
 
 
-            eventManager.TriggerCharacterChangeHealth(healthSystem.currentSuitIntegrity);
+            eventManager.TriggerCharacterChangeHealth(healthSystem.currentSuitIntegrity, true);
             if (healthSystem.currentSuitIntegrity <= 0)
                 eventManager.TriggerCharacterDied(healthSystem.characterName);
         }

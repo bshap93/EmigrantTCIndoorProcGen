@@ -10,7 +10,7 @@ namespace Core.Events.EventManagers
         ///     Invokers
         /// </summary>
         /// <param name="health"></param>
-        public void TriggerCharacterChangeHealth(float health);
+        public void TriggerCharacterChangeHealth(float health, bool damage);
 
         public void TriggerCharacterChangeOxygen(float oxygen);
 
@@ -31,9 +31,8 @@ namespace Core.Events.EventManagers
 
         public void RemoveListenerFromCharacterEvent(UnityAction listener);
 
-        public void AddListenerToHealthChangedEvent(UnityAction<float> listener);
+        public void AddListenerToHealthChangedEvent(UnityAction<float, bool> listener);
 
-        public void RemoveListenerFromCharacterEvent(UnityAction<float> listener);
 
         public void AddListenerToCharacterEvent(UnityAction<string> listener);
 

@@ -17,10 +17,6 @@ namespace Characters.Enemies
         public UnityEvent<string> enemyDiedEvent = new();
 
         public UnityEvent<IDamageable, float> enemyTakesDamageEvent = new();
-        public void TriggerCharacterChangeHealth(float health)
-        {
-            enemyChangeHealthEvent.Invoke(health);
-        }
         public void TriggerCharacterChangeOxygen(float oxygen)
         {
             throw new NotImplementedException();
@@ -49,14 +45,6 @@ namespace Characters.Enemies
         {
             enemyStateInitializedEvent.RemoveListener(listener);
         }
-        public void AddListenerToHealthChangedEvent(UnityAction<float> listener)
-        {
-            enemyChangeHealthEvent.AddListener(listener);
-        }
-        public void RemoveListenerFromCharacterEvent(UnityAction<float> listener)
-        {
-            enemyChangeHealthEvent.RemoveListener(listener);
-        }
         public void AddListenerToCharacterEvent(UnityAction<string> listener)
         {
             enemyDiedEvent.AddListener(listener);
@@ -74,6 +62,26 @@ namespace Characters.Enemies
             throw new NotImplementedException();
         }
         public void RemoveListenerFromOxygenChangedEvent(UnityAction<float> oxygenChange)
+        {
+            throw new NotImplementedException();
+        }
+        public void TriggerCharacterChangeHealth(float health)
+        {
+            enemyChangeHealthEvent.Invoke(health);
+        }
+        public void AddListenerToHealthChangedEvent(UnityAction<float> listener)
+        {
+            enemyChangeHealthEvent.AddListener(listener);
+        }
+        public void RemoveListenerFromCharacterEvent(UnityAction<float> listener)
+        {
+            enemyChangeHealthEvent.RemoveListener(listener);
+        }
+        public void TriggerCharacterChangeHealth(float health, bool damage)
+        {
+            throw new NotImplementedException();
+        }
+        public void AddListenerToHealthChangedEvent(UnityAction<float, bool> listener)
         {
             throw new NotImplementedException();
         }

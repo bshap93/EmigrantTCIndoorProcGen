@@ -1,4 +1,5 @@
-﻿using Core.Events;
+﻿using Characters.Health.Scripts.States;
+using Core.Events;
 using Core.Events.EventManagers;
 using Core.GameManager.Scripts;
 using Core.GameManager.Scripts.Commands;
@@ -14,6 +15,7 @@ namespace UI
 {
     public class UIManager : MonoBehaviour
     {
+        static readonly int Hit = Animator.StringToHash("Hit");
         [SerializeField] GameObject simpleTextOverlayGameObject;
         public GameInputHandler gameInputHandler;
         public string cursorName;
@@ -22,14 +24,21 @@ namespace UI
         public SuitIntegrityHealthBarUI suitIntegrityHealthBarUI;
         public OxygenBarUI oxygenBarUI;
 
+        [SerializeField] HealthSystem healthSystem;
+
         public PlayerEventManager playerEventManager;
 
         public SimpleTextOverlay simpleTextOverlay;
 
         public InGameConsoleManager inGameConsoleManager;
 
+        public GameObject statusEffectOverlay;
+
         public Canvas uiCanvas;
         CustomCursor _customCursor;
+        Animator _statusEffectOverlayAnimator;
+
+
         public static UIManager Instance { get; private set; }
 
         void Awake()
@@ -57,7 +66,7 @@ namespace UI
             EventManager.EResumeGame.AddListener(OnResumeGame);
             EventManager.EPauseGame.AddListener(OnPauseGame);
 
-            UnityAction<float> healthChange = OnHealthChanged;
+            UnityAction<float, bool> healthChange = OnHealthChanged;
             playerEventManager.AddListenerToHealthChangedEvent(healthChange);
 
             UnityAction<float> oxygenChange = OnOxygenChanged;
@@ -68,6 +77,8 @@ namespace UI
 
 
             simpleTextOverlayGameObject.SetActive(false);
+
+            _statusEffectOverlayAnimator = statusEffectOverlay.GetComponent<Animator>();
         }
 
         void OnDestroy()
@@ -75,19 +86,21 @@ namespace UI
             EventManager.EResumeGame.RemoveListener(OnResumeGame);
             EventManager.EPauseGame.RemoveListener(OnPauseGame);
 
-            UnityAction<float> healthChange = OnHealthChanged;
-            playerEventManager.RemoveListenerFromCharacterEvent(healthChange);
+            UnityAction<float, bool> healthChange = OnHealthChanged;
+            playerEventManager.RemoveListenerFromSuitIntegrityChange(healthChange);
 
             UnityAction<float> oxygenChange = OnOxygenChanged;
-            playerEventManager.RemoveListenerFromCharacterEvent(oxygenChange);
+            playerEventManager.RemoveListenerFromOxygenChange(oxygenChange);
 
             UnityAction<string> dead = OnDead;
             playerEventManager.RemoveListenerFromCharacterEvent(dead);
         }
 
 
-        void OnHealthChanged(float health)
+        void OnHealthChanged(float health, bool damage)
         {
+            // If it's decreasing, play the animation
+            if (damage) _statusEffectOverlayAnimator.SetTrigger(Hit);
             suitIntegrityHealthBarUI.UpdateSuitIntegrityBar(health);
         }
 

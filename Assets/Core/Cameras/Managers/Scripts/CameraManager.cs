@@ -64,7 +64,7 @@ namespace Core.Cameras.Managers.Scripts
             }
         }
 
-        void OnPlayerDamage(float damage)
+        void OnPlayerDamage(float damage, bool isDamage)
         {
             ShakeCamera(0.5f, 0.5f, 10, 90);
         }

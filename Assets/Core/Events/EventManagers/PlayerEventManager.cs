@@ -9,7 +9,7 @@ namespace Core.Events.EventManagers
     public class PlayerEventManager : MonoBehaviour, ICharacterEventManager
     {
         // Health has changed for a character by a certain amount
-        public UnityEvent<float> playerHealthChangedEvent = new();
+        public UnityEvent<float, bool> playerHealthChangedEvent = new();
         // Oxygen has changed for a character by a certain amount
         public UnityEvent<float> playerOxygenChangedEvent = new();
         public UnityEvent playerStateInitializedEvent = new();
@@ -40,15 +40,9 @@ namespace Core.Events.EventManagers
             playerStateInitializedEvent.RemoveListener(listener);
         }
 
-        public void AddListenerToHealthChangedEvent(UnityAction<float> listener)
+        public void AddListenerToHealthChangedEvent(UnityAction<float, bool> listener)
         {
             playerHealthChangedEvent.AddListener(listener);
-        }
-
-        // Optionally expose RemoveListener for cleanup
-        public void RemoveListenerFromCharacterEvent(UnityAction<float> listener)
-        {
-            playerHealthChangedEvent.RemoveListener(listener);
         }
         public void AddListenerToCharacterEvent(UnityAction<string> listener)
         {
@@ -71,9 +65,9 @@ namespace Core.Events.EventManagers
             playerOxygenChangedEvent.RemoveListener(oxygenChange);
         }
 
-        public void TriggerCharacterChangeHealth(float health)
+        public void TriggerCharacterChangeHealth(float health, bool damage)
         {
-            playerHealthChangedEvent.Invoke(health);
+            playerHealthChangedEvent.Invoke(health, damage);
         }
         public void TriggerCharacterChangeOxygen(float oxygen)
         {
@@ -88,6 +82,17 @@ namespace Core.Events.EventManagers
         public void TriggerCharacterSuitRepair(HealthSystem.SuitModificationType suitModType)
         {
             playerSuitRepairEvent.Invoke(suitModType);
+        }
+
+        public void RemoveListenerFromOxygenChange(UnityAction<float> listener)
+        {
+            playerOxygenChangedEvent.RemoveListener(listener);
+        }
+
+        // Optionally expose RemoveListener for cleanup
+        public void RemoveListenerFromSuitIntegrityChange(UnityAction<float, bool> listener)
+        {
+            playerHealthChangedEvent.RemoveListener(listener);
         }
 
         public void AddListenerToPlayerTakesDamageEvent(UnityAction<IDamageable, float> listener)
