@@ -10,6 +10,15 @@ namespace Characters.Player.Scripts.Movement
 
         public Camera mainCamera;
 
+        void Start()
+        {
+            if (player == null)
+                player = GameObject.FindWithTag("Player");
+
+            if (mainCamera == null)
+                mainCamera = Camera.main;
+        }
+
 
         public void ExecuteRotateLeftCommand()
         {

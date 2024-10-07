@@ -16,7 +16,7 @@ namespace Core.GameManager.Scripts
 
         public UnityEvent<string> onSystemActivated;
 
-        public PlayerEventManager playerEventManager;
+        public GameObject player;
 
         [CanBeNull] public SaveManager saveManager;
 
@@ -26,6 +26,8 @@ namespace Core.GameManager.Scripts
         DisableCursorCommand _disableCursorCommand;
 
         EnableFreeCursorCommand _enableFreeCursorCommand;
+
+        PlayerEventManager _playerEventManager;
         public static GameManager Instance { get; private set; }
 
 
@@ -44,7 +46,12 @@ namespace Core.GameManager.Scripts
 
         void Start()
         {
-            inGameConsoleManager = consoleManagerObject.GetComponent<InGameConsoleManager>();
+            _playerEventManager = player.GetComponent<PlayerEventManager>();
+
+
+            if (itemWorldFragmentManager == null)
+                // It's a child of the GameManager object
+                itemWorldFragmentManager = GetComponentInChildren<ItemWorldFragmentManager>();
 
 
             _disableCursorCommand = new DisableCursorCommand();

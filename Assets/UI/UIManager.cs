@@ -24,18 +24,20 @@ namespace UI
         public SuitIntegrityHealthBarUI suitIntegrityHealthBarUI;
         public OxygenBarUI oxygenBarUI;
 
-        [SerializeField] HealthSystem healthSystem;
-
-        public PlayerEventManager playerEventManager;
-
         public SimpleTextOverlay simpleTextOverlay;
 
         public InGameConsoleManager inGameConsoleManager;
 
         public GameObject statusEffectOverlay;
 
+        public GameObject player;
+
         public Canvas uiCanvas;
         CustomCursor _customCursor;
+
+        HealthSystem _healthSystem;
+
+        PlayerEventManager _playerEventManager;
         Animator _statusEffectOverlayAnimator;
 
 
@@ -62,18 +64,23 @@ namespace UI
             // Create and set the custom cursor
             _customCursor = new CustomCursor(cursorName, cursorHotspot);
 
+            if (player == null) player = GameObject.FindWithTag("Player");
+
+            _healthSystem = player.GetComponent<HealthSystem>();
+            _playerEventManager = player.GetComponent<PlayerEventManager>();
+
 
             EventManager.EResumeGame.AddListener(OnResumeGame);
             EventManager.EPauseGame.AddListener(OnPauseGame);
 
             UnityAction<float, bool> healthChange = OnHealthChanged;
-            playerEventManager.AddListenerToHealthChangedEvent(healthChange);
+            _playerEventManager.AddListenerToHealthChangedEvent(healthChange);
 
             UnityAction<float> oxygenChange = OnOxygenChanged;
-            playerEventManager.AddListenerToOxygenChangedEvent(oxygenChange);
+            _playerEventManager.AddListenerToOxygenChangedEvent(oxygenChange);
 
             UnityAction<string> dead = OnDead;
-            playerEventManager.AddListenerToCharacterEvent(dead);
+            _playerEventManager.AddListenerToCharacterEvent(dead);
 
 
             simpleTextOverlayGameObject.SetActive(false);
@@ -87,13 +94,13 @@ namespace UI
             EventManager.EPauseGame.RemoveListener(OnPauseGame);
 
             UnityAction<float, bool> healthChange = OnHealthChanged;
-            playerEventManager.RemoveListenerFromSuitIntegrityChange(healthChange);
+            _playerEventManager.RemoveListenerFromSuitIntegrityChange(healthChange);
 
             UnityAction<float> oxygenChange = OnOxygenChanged;
-            playerEventManager.RemoveListenerFromOxygenChange(oxygenChange);
+            _playerEventManager.RemoveListenerFromOxygenChange(oxygenChange);
 
             UnityAction<string> dead = OnDead;
-            playerEventManager.RemoveListenerFromCharacterEvent(dead);
+            _playerEventManager.RemoveListenerFromCharacterEvent(dead);
         }
 
 

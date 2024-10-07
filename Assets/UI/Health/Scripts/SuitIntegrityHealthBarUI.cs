@@ -16,7 +16,8 @@ namespace UI.Health.Scripts
         void Start()
         {
             healthSystem = PlayerCharacter.Instance.GetHealthSystem(); // Get the player's health system
-            if (playerEventManager == null) playerEventManager = GameManager.Instance.playerEventManager;
+            if (playerEventManager == null)
+                playerEventManager = GameManager.Instance.player.GetComponent<PlayerEventManager>();
 
             UpdateSuitIntegrityBar(healthSystem.currentSuitIntegrity);
         }

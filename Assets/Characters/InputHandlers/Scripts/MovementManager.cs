@@ -46,6 +46,15 @@ namespace Characters.InputHandlers.Scripts
 
         void Start()
         {
+            if (player == null)
+                player = GameObject.FindWithTag("Player");
+
+            if (mainCamera == null)
+                mainCamera = Camera.main;
+
+            if (controller == null)
+                controller = player.GetComponent<CharacterController>();
+
             // Initialize movement commands with the camera's transform
             _moveUpCommand = new MoveForwardCommand(mainCamera.transform, controller, walkSpeed);
             _moveDownCommand = new MoveBackwardCommand(mainCamera.transform, controller, walkSpeed);

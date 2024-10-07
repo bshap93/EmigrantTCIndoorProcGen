@@ -16,6 +16,9 @@ namespace Characters.Player.Managers.Scripts
                 EventManager.EOnRoomGeneration.AddListener(OnRoomGenerated);
             else
                 Debug.LogError("Listener not added!");
+
+            if (player == null)
+                player = GameObject.FindWithTag("Player");
         }
 
         // Match the correct signature

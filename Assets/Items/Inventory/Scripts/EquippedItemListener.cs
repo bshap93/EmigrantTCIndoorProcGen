@@ -15,6 +15,8 @@ namespace Items.Inventory.Scripts
         void Start()
         {
             if (equippedSlot != null) equippedSlot.OnContentsChanged.AddListener(OnEquippedItemChanged);
+            if (itemWorldFragmentManager == null)
+                itemWorldFragmentManager = FindObjectOfType<ItemWorldFragmentManager>();
         }
 
         void OnDestroy()

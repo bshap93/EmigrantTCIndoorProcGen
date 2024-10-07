@@ -8,7 +8,7 @@ MonoImporter:
   - QuantityLabel: {instanceID: 0}
   - Icon: {instanceID: 0}
   - Icons: {fileID: 11400000, guid: c8b4b58f6b990ef4786dff0f5e2bfd2f, type: 2}
-  executionOrder: 0
+  executionOrder: 700
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 
