@@ -70,6 +70,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ef08fd7833a6a8e4b9af848c17cce35b, type: 2}
   - {fileID: 11400000, guid: bb30ab371933fa94989b8979a7cd7361, type: 2}
   - {fileID: 11400000, guid: aab0df336104bea41973e8d41467626b, type: 2}
+  - {fileID: 11400000, guid: fd5ddcff1f6fb924a9e35a662f5b02b4, type: 2}
   data:
   - Icon: {fileID: 21300000, guid: d3a9608bb2efbed4a92b9c646f0873de, type: 3}
   - Icon: {fileID: 21300000, guid: 2798447b166f2934fb9d04b2470ebf45, type: 3}
@@ -126,3 +127,4 @@ MonoBehaviour:
   - Icon: {fileID: 21300000, guid: cc4ed1220f9bba24ba5c0482cb4c416e, type: 3}
   - Icon: {fileID: 21300000, guid: 2789d9dddb161944295c274ea4c6ba28, type: 3}
   - Icon: {fileID: 21300000, guid: 6e0a32ae806385f43963be378425820a, type: 3}
+  - Icon: {fileID: 21300000, guid: dfbc407dbcf8ce84988538b07d932ebf, type: 3}
