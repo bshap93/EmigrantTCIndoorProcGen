@@ -3,6 +3,7 @@ using Characters.Enemies;
 using DunGen;
 using Environment.Interactables.Openable.Scripts;
 using Environment.LevelGeneration.Doors.Scripts.Commands.OpenClose;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Environment.LevelGeneration.RoomTransition.Doors.Scripts
@@ -11,7 +12,7 @@ namespace Environment.LevelGeneration.RoomTransition.Doors.Scripts
 
     {
         public GameObject hatchRightHalf;
-        public GameObject hatchLeftHalf;
+        [CanBeNull] public GameObject hatchLeftHalf;
 
         public Vector3 hatchRightOpenOffset = new(-1f, 0f, 0);
         public Vector3 hatchLeftOpenOffset = new(1f, 0f, 0);
@@ -28,7 +29,8 @@ namespace Environment.LevelGeneration.RoomTransition.Doors.Scripts
         void Start()
         {
             _doorComponent = GetComponent<Door>();
-            _hatchLeftClosedPosition = hatchLeftHalf.transform.localPosition;
+            if (hatchLeftHalf != null) 
+                _hatchLeftClosedPosition = hatchLeftHalf.transform.localPosition;
             _hatchRightClosedPosition = hatchRightHalf.transform.localPosition;
 
 
@@ -95,8 +97,9 @@ namespace Environment.LevelGeneration.RoomTransition.Doors.Scripts
             _currentFramePosition += frameOffset;
             _currentFramePosition = Mathf.Clamp(_currentFramePosition, 0, 1);
 
-            hatchLeftHalf.transform.localPosition = Vector3.Lerp(
-                _hatchLeftClosedPosition, hatchLeftOpenPosition, _currentFramePosition);
+            if (hatchLeftHalf != null)
+                hatchLeftHalf.transform.localPosition = Vector3.Lerp(
+                    _hatchLeftClosedPosition, hatchLeftOpenPosition, _currentFramePosition);
 
             hatchRightHalf.transform.localPosition = Vector3.Lerp(
                 _hatchRightClosedPosition, hatchRightOpenPosition, _currentFramePosition);
