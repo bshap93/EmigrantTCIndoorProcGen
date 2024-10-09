@@ -51,7 +51,6 @@ namespace Items.Weapons
                     var secondsToCut = cuttable.GetSecondsToCut();
                     cuttable.Cut(secondsToCut);
 
-                    Debug.Log("Hit the Trigger");
 
                     StartCoroutine(DisableCutEffect(secondsToCut));
                 }

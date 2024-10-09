@@ -44,7 +44,14 @@ namespace UI.Scripts
         }
         void ShowTooltip(BaseItemObject item)
         {
-            _tooltipInstance = Instantiate(_tooltipPrefab, transform.position, Quaternion.identity);
+            var instancePosition = transform.position + new Vector3(
+                _inventoryController.tooltipOffsetX, _inventoryController.tooltipOffsetY, 0);
+
+            _tooltipInstance = Instantiate(_tooltipPrefab, instancePosition, Quaternion.identity);
+
+            _tooltipInstance.transform.SetParent(transform);
+            Debug.Log("Tooltip shown at offest position: " + _tooltipInstance.transform.position);
+            // _tooltipInstance.GetComponent<Tooltip>().SetItem(item);
             _tooltipActive = true;
         }
 
