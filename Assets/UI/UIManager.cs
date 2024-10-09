@@ -30,12 +30,12 @@ namespace UI
 
         public GameObject statusEffectOverlay;
 
-        public GameObject player;
-
         public Canvas uiCanvas;
         CustomCursor _customCursor;
 
         HealthSystem _healthSystem;
+
+        GameObject _player;
 
         PlayerEventManager _playerEventManager;
         Animator _statusEffectOverlayAnimator;
@@ -64,10 +64,10 @@ namespace UI
             // Create and set the custom cursor
             _customCursor = new CustomCursor(cursorName, cursorHotspot);
 
-            if (player == null) player = GameObject.FindWithTag("Player");
+            if (_player == null) _player = GameObject.FindWithTag("Player");
 
-            _healthSystem = player.GetComponent<HealthSystem>();
-            _playerEventManager = player.GetComponent<PlayerEventManager>();
+            _healthSystem = _player.GetComponent<HealthSystem>();
+            _playerEventManager = _player.GetComponent<PlayerEventManager>();
 
 
             EventManager.EResumeGame.AddListener(OnResumeGame);

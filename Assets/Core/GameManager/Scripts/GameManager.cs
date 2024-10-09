@@ -54,10 +54,10 @@ namespace Core.GameManager.Scripts
                 itemWorldFragmentManager = GetComponentInChildren<ItemWorldFragmentManager>();
 
 
-            _disableCursorCommand = new DisableCursorCommand();
+            // _disableCursorCommand = new DisableCursorCommand();
             _enableFreeCursorCommand = new EnableFreeCursorCommand();
 
-            _disableCursorCommand.Execute();
+            // _disableCursorCommand.Execute();
 
 
             if (saveManager != null) saveManager.InitializedDungeonLevel(null);
