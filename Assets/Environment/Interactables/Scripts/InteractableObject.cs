@@ -1,9 +1,11 @@
 ﻿using Characters.Player.InputHandlers.Scripts;
+using Core.Events.EventManagers;
 using Environment.Interactables.Openable.Scripts;
 using Environment.Interactables.SceneTransitions.Scripts;
 using JetBrains.Annotations;
 using UI;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 namespace Environment.Interactables.Scripts
@@ -35,22 +37,30 @@ namespace Environment.Interactables.Scripts
         public InteractableType interactableType;
         Collider _zoneCollider;
 
-        bool playerInRange;
+        bool _playerInRange;
 
-        GameObject tooltipInstance;
+        GameObject _tooltipInstance;
 
-        Canvas uiCanvas;
+        Canvas _uiCanvas;
+        
+        public UnityEvent<InteractableObject> onInteract;
+        
+        PlayerEventManager _playerEventManager;
 
         void Start()
         {
-            uiCanvas = UIManager.Instance.uiCanvas;
+            _uiCanvas = UIManager.Instance.uiCanvas;
 
-            if (uiCanvas == null)
+            if (_uiCanvas == null)
             {
                 Debug.LogError("UI Canvas not found in scene");
                 return;
             }
+            
+            _playerEventManager = GameObject.Find("Player").GetComponent<PlayerEventManager>();
 
+            onInteract = new UnityEvent<InteractableObject>();
+            
 
             // Get the Collider from the child zone (assuming there's a single child collider)
             _zoneCollider = GetComponent<BoxCollider>();
@@ -64,7 +74,7 @@ namespace Environment.Interactables.Scripts
 
         void Update()
         {
-            if (playerInRange)
+            if (_playerInRange)
             {
                 if (Input.GetKeyDown(KeyCode.F))
                 {
@@ -97,7 +107,7 @@ namespace Environment.Interactables.Scripts
                 // Notify the player they can interact with this object
                 SimpleInteractInputHandler.Instance.SetInteractable(this);
 
-                playerInRange = true;
+                _playerInRange = true;
                 ShowTooltip();
             }
         }
@@ -110,7 +120,7 @@ namespace Environment.Interactables.Scripts
                 // Clear the reference when the player leaves the range
                 SimpleInteractInputHandler.Instance.ClearInteractable();
                 EndInteractionSimple();
-                playerInRange = false;
+                _playerInRange = false;
                 HideTooltip();
 
                 if (openableObject != null) openableObject.Close();
@@ -121,6 +131,8 @@ namespace Environment.Interactables.Scripts
         {
             UIManager.Instance.inGameConsoleManager
                 .LogMessage("Interacting with object: " + objectName);
+            
+            onInteract.Invoke(this);
 
             if (interactableType == InteractableType.Container)
                 if (interactionUI != null)
@@ -131,10 +143,10 @@ namespace Environment.Interactables.Scripts
 
         void ShowTooltip()
         {
-            if (tooltipInstance == null && tooltipPrefab != null && uiCanvas != null)
+            if (_tooltipInstance == null && tooltipPrefab != null && _uiCanvas != null)
             {
                 // Instantiate the tooltip as a child of the Canvas
-                tooltipInstance = Instantiate(tooltipPrefab, uiCanvas.transform);
+                _tooltipInstance = Instantiate(tooltipPrefab, _uiCanvas.transform);
 
                 // Set the initial position of the tooltip
                 UpdateTooltipPosition();
@@ -143,22 +155,22 @@ namespace Environment.Interactables.Scripts
 
         void HideTooltip()
         {
-            if (tooltipInstance != null)
+            if (_tooltipInstance != null)
             {
-                Destroy(tooltipInstance);
-                tooltipInstance = null;
+                Destroy(_tooltipInstance);
+                _tooltipInstance = null;
             }
         }
 
         void UpdateTooltipPosition()
         {
-            if (tooltipInstance != null)
+            if (_tooltipInstance != null)
             {
                 // Convert the object's position to screen space
                 var screenPosition = Camera.main.WorldToScreenPoint(transform.position);
 
                 // Set the tooltip's position
-                tooltipInstance.GetComponent<RectTransform>().position = screenPosition;
+                _tooltipInstance.GetComponent<RectTransform>().position = screenPosition;
             }
         }
 

@@ -3,7 +3,6 @@ using Core.Cameras.Commands.MoveCamera;
 using Core.Cameras.Commands.RotateCamera;
 using Core.Cameras.Commands.ZoomCamera;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Core.Cameras.InputHandlers
 {
@@ -18,8 +17,8 @@ namespace Core.Cameras.InputHandlers
         public float rotateYAmount = 15f;
         public float mouseSensitivity = 100f;
         public float timeBetweenAdjustments = 0.033f;
-        [FormerlySerializedAs("_isCameraLocked")] [SerializeField]
-        bool isCameraLocked;
+        [SerializeField] bool isCameraLockedPan;
+        [SerializeField] bool isCameraLockedZoom;
 
         Vector2 _initialMousePosition;
 
@@ -70,7 +69,7 @@ namespace Core.Cameras.InputHandlers
 
         void HandleCameraMovement()
         {
-            if (isCameraLocked) return;
+            if (isCameraLockedPan) return;
             Vector2 currentMousePosition = Input.mousePosition;
             var mouseMovement = currentMousePosition - _initialMousePosition;
 
@@ -82,7 +81,7 @@ namespace Core.Cameras.InputHandlers
 
         void HandleCameraZoom()
         {
-            if (isCameraLocked) return;
+            if (isCameraLockedZoom) return;
             switch (Input.mouseScrollDelta.y)
             {
                 case > 0:
