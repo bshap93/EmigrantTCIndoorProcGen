@@ -48,7 +48,7 @@ namespace Characters.Health.Scripts.States
             _characterEventManager = gameObject.GetComponent<ICharacterEventManager>();
 
 
-            UnityAction<float> oxygenChange = OnOxygenChangedHandler;
+            UnityAction<float, bool> oxygenChange = OnOxygenChangedHandler;
             _characterEventManager.AddListenerToOxygenChangedEvent(oxygenChange);
 
             UnityAction<SuitModificationType> suitRepair = RepairSuitHandler;
@@ -92,7 +92,7 @@ namespace Characters.Health.Scripts.States
         }
 
 
-        void OnOxygenChangedHandler(float oxygen)
+        void OnOxygenChangedHandler(float oxygen, bool isRestored)
         {
             if (currentOxygen <= 0) _characterEventManager.TriggerCharacterDied(characterName);
         }
@@ -106,7 +106,7 @@ namespace Characters.Health.Scripts.States
         {
             currentOxygen += value;
             if (currentOxygen > MaxOxygen) currentOxygen = MaxOxygen;
-            _characterEventManager.TriggerCharacterChangeOxygen(currentOxygen);
+            _characterEventManager.TriggerCharacterChangeOxygen(currentOxygen, true);
             Debug.Log("HealOxygen: " + currentOxygen);
         }
     }

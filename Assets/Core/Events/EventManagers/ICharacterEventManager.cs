@@ -12,7 +12,7 @@ namespace Core.Events.EventManagers
         /// <param name="health"></param>
         public void TriggerCharacterChangeHealth(float health, bool damage);
 
-        public void TriggerCharacterChangeOxygen(float oxygen);
+        public void TriggerCharacterChangeOxygen(float oxygen, bool isRestored);
 
         public void TriggerCharacterDied(string characterName);
 
@@ -37,9 +37,11 @@ namespace Core.Events.EventManagers
         public void AddListenerToCharacterEvent(UnityAction<string> listener);
 
         public void RemoveListenerFromCharacterEvent(UnityAction<string> listener);
-        public void AddListenerToOxygenChangedEvent(UnityAction<float> oxygenChange);
+        public void AddListenerToOxygenChangedEvent(UnityAction<float, bool> oxygenChange);
+        public void RemoveListenerFromOxygenChangedEvent(UnityAction<float, bool> oxygenChange);
+        
+        
         public void AddListenerToSuitRepairEvent(UnityAction<HealthSystem.SuitModificationType> suitRepair);
 
-        public void RemoveListenerFromOxygenChangedEvent(UnityAction<float> oxygenChange);
     }
 }

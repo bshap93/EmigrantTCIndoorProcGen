@@ -16,7 +16,7 @@ namespace Characters.Health.Scripts.States.OxygenState
         public void Update()
         {
             _healthSystem.currentOxygen -= Time.deltaTime * _healthSystem.oxygenDepletionRate;
-            _playerCharacter.playerEventManager.TriggerCharacterChangeOxygen(_healthSystem.currentOxygen);
+            _playerCharacter.playerEventManager.TriggerCharacterChangeOxygen(_healthSystem.currentOxygen, false);
         }
         public void Enter()
         {

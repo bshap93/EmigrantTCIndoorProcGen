@@ -2,6 +2,8 @@
 using Core.Cameras.Commands.MoveCamera;
 using Core.Cameras.Commands.RotateCamera;
 using Core.Cameras.Commands.ZoomCamera;
+using Core.Events.EventManagers;
+using Environment.Interactables.Scripts;
 using UnityEngine;
 
 namespace Core.Cameras.InputHandlers
@@ -22,6 +24,8 @@ namespace Core.Cameras.InputHandlers
 
         Vector2 _initialMousePosition;
 
+        PlayerEventManager _playerEventManager;
+
         public float CurrentYRotation { get; private set; }
         public float InitialXRotation { get; private set; }
         public float InitialZRotation { get; private set; }
@@ -32,9 +36,13 @@ namespace Core.Cameras.InputHandlers
             InitialZRotation = virtualCamera.transform.rotation.eulerAngles.z;
             CurrentYRotation = virtualCamera.transform.rotation.eulerAngles.y;
 
+            _playerEventManager = GameObject.Find("Player").GetComponent<PlayerEventManager>();
+
 
             var screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
             _initialMousePosition = screenCenter;
+            _playerEventManager.AddListenerToPlayerInteractedEvent(OnPlayerInteracted);
+            _playerEventManager.AddListenerToPlayerEndedInteractionEvent(OnPlayerEndedInteraction);
         }
 
         void Update()
@@ -42,6 +50,25 @@ namespace Core.Cameras.InputHandlers
             HandleCameraRotation();
             HandleCameraMovement();
             HandleCameraZoom();
+        }
+
+        void OnDestroy()
+        {
+            if (_playerEventManager != null)
+            {
+                _playerEventManager.RemoveListenerFromPlayerInteractedEvent(OnPlayerInteracted);
+                _playerEventManager.RemoveListenerFromPlayerEndedInteractionEvent(OnPlayerEndedInteraction);
+            }
+        }
+
+        void OnPlayerInteracted(InteractableObject interactableObject)
+        {
+            isCameraLockedPan = true;
+        }
+
+        void OnPlayerEndedInteraction(InteractableObject interactableObject)
+        {
+            isCameraLockedPan = false;
         }
 
         void HandleCameraRotation()

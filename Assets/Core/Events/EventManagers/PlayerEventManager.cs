@@ -1,6 +1,7 @@
 ﻿using Characters.Health.Scripts.States;
 using Characters.Player.Scripts;
 using Characters.Scripts;
+using Environment.Interactables.Scripts;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,16 +12,16 @@ namespace Core.Events.EventManagers
         // Health has changed for a character by a certain amount
         public UnityEvent<float, bool> playerHealthChangedEvent = new();
         // Oxygen has changed for a character by a certain amount
-        public UnityEvent<float> playerOxygenChangedEvent = new();
+        public UnityEvent<float, bool> playerOxygenChangedEvent = new();
         public UnityEvent playerStateInitializedEvent = new();
 
         public UnityEvent<string> playerDiedEvent = new();
         public UnityEvent<IDamageable, float> playerTakesDamageEvent = new();
         public UnityEvent<HealthSystem.SuitModificationType> playerSuitRepairEvent = new();
+        public UnityEvent<InteractableObject> playerInteractedEvent = new();
+        public UnityEvent<InteractableObject> playerEndedInteractionEvent = new();
 
         public PlayerCharacter player;
-
-        // Encapsulate AddListener logic
         public void TriggerCharacterTakesDamage(IDamageable damageable, float damage)
         {
             playerTakesDamageEvent.Invoke(damageable, damage);
@@ -52,7 +53,7 @@ namespace Core.Events.EventManagers
         {
             playerDiedEvent.RemoveListener(listener);
         }
-        public void AddListenerToOxygenChangedEvent(UnityAction<float> oxygenChange)
+        public void AddListenerToOxygenChangedEvent(UnityAction<float, bool> oxygenChange)
         {
             playerOxygenChangedEvent.AddListener(oxygenChange);
         }
@@ -60,7 +61,7 @@ namespace Core.Events.EventManagers
         {
             playerSuitRepairEvent.AddListener(suitModType);
         }
-        public void RemoveListenerFromOxygenChangedEvent(UnityAction<float> oxygenChange)
+        public void RemoveListenerFromOxygenChangedEvent(UnityAction<float, bool> oxygenChange)
         {
             playerOxygenChangedEvent.RemoveListener(oxygenChange);
         }
@@ -69,9 +70,9 @@ namespace Core.Events.EventManagers
         {
             playerHealthChangedEvent.Invoke(health, damage);
         }
-        public void TriggerCharacterChangeOxygen(float oxygen)
+        public void TriggerCharacterChangeOxygen(float oxygen, bool isRestored)
         {
-            playerOxygenChangedEvent.Invoke(oxygen);
+            playerOxygenChangedEvent.Invoke(oxygen, isRestored);
         }
 
         public void TriggerCharacterDied(string characterName)
@@ -84,7 +85,39 @@ namespace Core.Events.EventManagers
             playerSuitRepairEvent.Invoke(suitModType);
         }
 
-        public void RemoveListenerFromOxygenChange(UnityAction<float> listener)
+        // Encapsulate AddListener logic
+
+        public void TriggerPlayerInteracted(InteractableObject interactableObject)
+        {
+            playerInteractedEvent.Invoke(interactableObject);
+        }
+
+        public void TriggerPlayerEndedInteraction(InteractableObject interactableObject)
+        {
+            playerEndedInteractionEvent.Invoke(interactableObject);
+        }
+
+        public void AddListenerToPlayerInteractedEvent(UnityAction<InteractableObject> listener)
+        {
+            playerInteractedEvent.AddListener(listener);
+        }
+
+        public void AddListenerToPlayerEndedInteractionEvent(UnityAction<InteractableObject> listener)
+        {
+            playerEndedInteractionEvent.AddListener(listener);
+        }
+
+        public void RemoveListenerFromPlayerEndedInteractionEvent(UnityAction<InteractableObject> listener)
+        {
+            playerEndedInteractionEvent.RemoveListener(listener);
+        }
+
+        public void RemoveListenerFromPlayerInteractedEvent(UnityAction<InteractableObject> listener)
+        {
+            playerInteractedEvent.RemoveListener(listener);
+        }
+
+        public void RemoveListenerFromOxygenChange(UnityAction<float, bool> listener)
         {
             playerOxygenChangedEvent.RemoveListener(listener);
         }

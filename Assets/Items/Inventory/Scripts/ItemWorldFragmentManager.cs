@@ -15,7 +15,6 @@ namespace Items.Inventory.Scripts
                 if (item.ID.Equals(id))
                     return item; // Return the item that matches the ID
 
-            Debug.LogWarning("Item with ID " + id + " not found.");
             return null;
         }
     }

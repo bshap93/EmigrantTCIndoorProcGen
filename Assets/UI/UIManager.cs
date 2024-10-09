@@ -9,6 +9,7 @@ using UI.InGameConsole.Scripts;
 using UI.Menus.SimpleTextOverlay.Scripts;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 namespace UI
@@ -16,6 +17,7 @@ namespace UI
     public class UIManager : MonoBehaviour
     {
         static readonly int Hit = Animator.StringToHash("Hit");
+        static readonly int OxygenRestored = Animator.StringToHash("OxygenRestored");
         [SerializeField] GameObject simpleTextOverlayGameObject;
         public GameInputHandler gameInputHandler;
         public string cursorName;
@@ -76,7 +78,7 @@ namespace UI
             UnityAction<float, bool> healthChange = OnHealthChanged;
             _playerEventManager.AddListenerToHealthChangedEvent(healthChange);
 
-            UnityAction<float> oxygenChange = OnOxygenChanged;
+            UnityAction<float, bool> oxygenChange = OnOxygenChanged;
             _playerEventManager.AddListenerToOxygenChangedEvent(oxygenChange);
 
             UnityAction<string> dead = OnDead;
@@ -86,6 +88,8 @@ namespace UI
             simpleTextOverlayGameObject.SetActive(false);
 
             _statusEffectOverlayAnimator = statusEffectOverlay.GetComponent<Animator>();
+
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         void OnDestroy()
@@ -96,11 +100,25 @@ namespace UI
             UnityAction<float, bool> healthChange = OnHealthChanged;
             _playerEventManager.RemoveListenerFromSuitIntegrityChange(healthChange);
 
-            UnityAction<float> oxygenChange = OnOxygenChanged;
+            UnityAction<float, bool> oxygenChange = OnOxygenChanged;
             _playerEventManager.RemoveListenerFromOxygenChange(oxygenChange);
 
             UnityAction<string> dead = OnDead;
             _playerEventManager.RemoveListenerFromCharacterEvent(dead);
+
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            OnLoadNewScene();
+        }
+
+        void OnLoadNewScene()
+        {
+            if (_playerEventManager == null) _playerEventManager = _player.GetComponent<PlayerEventManager>();
+
+            if (_healthSystem == null) _healthSystem = _player.GetComponent<HealthSystem>();
         }
 
 
@@ -111,8 +129,9 @@ namespace UI
             suitIntegrityHealthBarUI.UpdateSuitIntegrityBar(health);
         }
 
-        void OnOxygenChanged(float oxygen)
+        void OnOxygenChanged(float oxygen, bool isRestored)
         {
+            if (isRestored) _statusEffectOverlayAnimator.SetTrigger(OxygenRestored);
             oxygenBarUI.UpdateOxygenBar(oxygen);
         }
 

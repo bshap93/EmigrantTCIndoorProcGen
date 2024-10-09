@@ -17,7 +17,7 @@ namespace Characters.Enemies
         public UnityEvent<string> enemyDiedEvent = new();
 
         public UnityEvent<IDamageable, float> enemyTakesDamageEvent = new();
-        public void TriggerCharacterChangeOxygen(float oxygen)
+        public void TriggerCharacterChangeOxygen(float oxygen, bool isRestored)
         {
             throw new NotImplementedException();
         }
@@ -53,11 +53,31 @@ namespace Characters.Enemies
         {
             enemyDiedEvent.RemoveListener(listener);
         }
-        public void AddListenerToOxygenChangedEvent(UnityAction<float> oxygenChange)
+        public void AddListenerToOxygenChangedEvent(UnityAction<float, bool> oxygenChange)
+        {
+            throw new NotImplementedException();
+        }
+        public void RemoveListenerFromOxygenChangedEvent(UnityAction<float, bool> oxygenChange)
         {
             throw new NotImplementedException();
         }
         public void AddListenerToSuitRepairEvent(UnityAction<HealthSystem.SuitModificationType> suitRepair)
+        {
+            throw new NotImplementedException();
+        }
+        public void TriggerCharacterChangeHealth(float health, bool damage)
+        {
+            throw new NotImplementedException();
+        }
+        public void AddListenerToHealthChangedEvent(UnityAction<float, bool> listener)
+        {
+            throw new NotImplementedException();
+        }
+        public void TriggerCharacterChangeOxygen(float oxygen)
+        {
+            throw new NotImplementedException();
+        }
+        public void AddListenerToOxygenChangedEvent(UnityAction<float> oxygenChange)
         {
             throw new NotImplementedException();
         }
@@ -76,14 +96,6 @@ namespace Characters.Enemies
         public void RemoveListenerFromCharacterEvent(UnityAction<float> listener)
         {
             enemyChangeHealthEvent.RemoveListener(listener);
-        }
-        public void TriggerCharacterChangeHealth(float health, bool damage)
-        {
-            throw new NotImplementedException();
-        }
-        public void AddListenerToHealthChangedEvent(UnityAction<float, bool> listener)
-        {
-            throw new NotImplementedException();
         }
     }
 }

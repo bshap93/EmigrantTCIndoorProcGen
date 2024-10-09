@@ -35,17 +35,18 @@ namespace Environment.Interactables.Scripts
         public GameObject tooltipPrefab;
 
         public InteractableType interactableType;
-        Collider _zoneCollider;
+
+        public UnityEvent<InteractableObject> onInteract;
+        public UnityEvent<InteractableObject> onEndInteract;
+
+        PlayerEventManager _playerEventManager;
 
         bool _playerInRange;
 
         GameObject _tooltipInstance;
 
         Canvas _uiCanvas;
-        
-        public UnityEvent<InteractableObject> onInteract;
-        
-        PlayerEventManager _playerEventManager;
+        Collider _zoneCollider;
 
         void Start()
         {
@@ -56,11 +57,17 @@ namespace Environment.Interactables.Scripts
                 Debug.LogError("UI Canvas not found in scene");
                 return;
             }
-            
+
             _playerEventManager = GameObject.Find("Player").GetComponent<PlayerEventManager>();
 
             onInteract = new UnityEvent<InteractableObject>();
-            
+            onEndInteract = new UnityEvent<InteractableObject>();
+
+
+            onInteract.AddListener(OnInteractHandler);
+
+            onEndInteract.AddListener(OnEndInteractHandler);
+
 
             // Get the Collider from the child zone (assuming there's a single child collider)
             _zoneCollider = GetComponent<BoxCollider>();
@@ -131,7 +138,7 @@ namespace Environment.Interactables.Scripts
         {
             UIManager.Instance.inGameConsoleManager
                 .LogMessage("Interacting with object: " + objectName);
-            
+
             onInteract.Invoke(this);
 
             if (interactableType == InteractableType.Container)
@@ -165,28 +172,40 @@ namespace Environment.Interactables.Scripts
         void UpdateTooltipPosition()
         {
             if (_tooltipInstance != null)
-            {
                 // Convert the object's position to screen space
-                var screenPosition = Camera.main.WorldToScreenPoint(transform.position);
+                if (Camera.main != null)
+                {
+                    var screenPosition = Camera.main.WorldToScreenPoint(transform.position);
 
-                // Set the tooltip's position
-                _tooltipInstance.GetComponent<RectTransform>().position = screenPosition;
-            }
+                    // Set the tooltip's position
+                    _tooltipInstance.GetComponent<RectTransform>().position = screenPosition;
+                }
         }
 
         public void EndInteractionSimple()
         {
+            onEndInteract.Invoke(this);
             if (interactableType == InteractableType.Container)
             {
-                interactionUI.SetActive(false);
+                if (interactionUI != null) interactionUI.SetActive(false);
                 Debug.Log("End interaction with container");
             }
 
             if (interactableType == InteractableType.CraftingStation)
             {
-                interactionUI.SetActive(false);
+                if (interactionUI != null) interactionUI.SetActive(false);
                 Debug.Log("End interaction with crafting station");
             }
+        }
+
+        void OnInteractHandler(InteractableObject interactableObject)
+        {
+            _playerEventManager.TriggerPlayerInteracted(interactableObject);
+        }
+
+        void OnEndInteractHandler(InteractableObject interactableObject)
+        {
+            _playerEventManager.TriggerPlayerEndedInteraction(interactableObject);
         }
     }
 }
