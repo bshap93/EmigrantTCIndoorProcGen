@@ -20,8 +20,25 @@ namespace Core.Events.EventManagers
         public UnityEvent<HealthSystem.SuitModificationType> playerSuitRepairEvent = new();
         public UnityEvent<InteractableObject> playerInteractedEvent = new();
         public UnityEvent<InteractableObject> playerEndedInteractionEvent = new();
+        public UnityEvent<HealthSystem.SuitModificationType> playerUsedSuitModificationToolEvent = new();
 
         public PlayerCharacter player;
+        
+        public void TriggerCharacterUsedSuitModificationTool(HealthSystem.SuitModificationType suitModificationType)
+        {
+            playerUsedSuitModificationToolEvent.Invoke(suitModificationType);
+        }
+        
+        public void AddListenerToSuitModificationToolEvent(UnityAction<HealthSystem.SuitModificationType> listener)
+        {
+            playerUsedSuitModificationToolEvent.AddListener(listener);
+        }
+        
+        public void RemoveListenerFromSuitModificationToolEvent(UnityAction<HealthSystem.SuitModificationType> listener)
+        {
+            playerUsedSuitModificationToolEvent.RemoveListener(listener);
+        }
+        
         public void TriggerCharacterTakesDamage(IDamageable damageable, float damage)
         {
             playerTakesDamageEvent.Invoke(damageable, damage);
