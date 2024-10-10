@@ -6,14 +6,20 @@ public class ObjectiveManager : MonoBehaviour
 {
     public List<Objective> objectives;
     public ObjectiveUI objectiveUI;
+    Objective currentObjective;
     void Start()
     {
         objectiveUI.OnObjectiveAssigned(objectives[0]);
+        currentObjective = objectives[0];
     }
 
     public void CompleteCurrentObjective()
     {
-        objectives[0].isCompleted = true;
-        objectiveUI.OnObjectiveCompleted(objectives[0]);
+        currentObjective.isCompleted = true;
+        objectiveUI.OnObjectiveCompleted(currentObjective);
+    }
+    public object GetCurrentObjective()
+    {
+        return currentObjective;
     }
 }
