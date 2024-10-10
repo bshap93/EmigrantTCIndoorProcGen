@@ -323,6 +323,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9214077366562308380}
   - component: {fileID: 1573232776635080261}
+  - component: {fileID: 57340383324940873}
   m_Layer: 5
   m_Name: ObjectiveUI
   m_TagString: Untagged
@@ -371,6 +372,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &57340383324940873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3435626369490956598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff801e66c65ca064c8c0d935e70cfa71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectiveText: {fileID: 2917927974744115612}
 --- !u!1 &4270548381141348158
 GameObject:
   m_ObjectHideFlags: 0
@@ -774,7 +788,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Collect Laser Cutter from Chest
+  m_text: Something Objective Like
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b8aa923455f5a64468504293db7cef18, type: 2}
   m_sharedMaterial: {fileID: -6429523705279460953, guid: b8aa923455f5a64468504293db7cef18, type: 2}

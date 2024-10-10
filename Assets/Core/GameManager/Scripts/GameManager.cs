@@ -28,6 +28,8 @@ namespace Core.GameManager.Scripts
         EnableFreeCursorCommand _enableFreeCursorCommand;
 
         PlayerEventManager _playerEventManager;
+
+        ObjectiveManager objectiveManager;
         public static GameManager Instance { get; private set; }
 
 
@@ -48,6 +50,8 @@ namespace Core.GameManager.Scripts
         {
             _playerEventManager = player.GetComponent<PlayerEventManager>();
 
+
+            objectiveManager = GetComponentInChildren<ObjectiveManager>();
 
             if (itemWorldFragmentManager == null)
                 // It's a child of the GameManager object
