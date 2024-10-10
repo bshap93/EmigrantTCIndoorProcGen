@@ -120,12 +120,14 @@ namespace UI
         {
             // If it's decreasing, play the animation
             if (damage) _vignetteController.ShowDamageVignette();
+            else _vignetteController.ShowHealVignette();
+
             suitIntegrityHealthBarUI.UpdateSuitIntegrityBar(health);
         }
 
         void OnOxygenChanged(float oxygen, bool isRestored)
         {
-            if (isRestored) _vignetteController.ShowHealOxygenVignette();
+            if (isRestored) _vignetteController.ShowHealVignette();
             oxygenBarUI.UpdateOxygenBar(oxygen);
         }
 

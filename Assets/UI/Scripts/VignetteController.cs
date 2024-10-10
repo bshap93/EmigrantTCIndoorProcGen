@@ -21,7 +21,7 @@ namespace UI.Scripts
             damageVignetteAnimator.SetTrigger(Hit);
         }
 
-        public void ShowHealOxygenVignette()
+        public void ShowHealVignette()
         {
             healOxygenVignetteAnimator.gameObject.SetActive(true);
             healOxygenVignetteAnimator.SetTrigger(Heal);
