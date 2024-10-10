@@ -20,7 +20,7 @@ namespace Core.Events.EventManagers
 
         public void TriggerCharacterStateInitialized();
 
-        public void TriggerCharacterSuitRepair(HealthSystem.SuitModificationType suitModificationType);
+        public void TriggerCharacterSuitModification(HealthSystem.SuitModificationType suitModificationType);
 
 
         /// <summary>
@@ -39,9 +39,8 @@ namespace Core.Events.EventManagers
         public void RemoveListenerFromCharacterEvent(UnityAction<string> listener);
         public void AddListenerToOxygenChangedEvent(UnityAction<float, bool> oxygenChange);
         public void RemoveListenerFromOxygenChangedEvent(UnityAction<float, bool> oxygenChange);
-        
-        
-        public void AddListenerToSuitRepairEvent(UnityAction<HealthSystem.SuitModificationType> suitRepair);
 
+
+        public void AddListenerToSuitModificationEvent(UnityAction<HealthSystem.SuitModificationType> suitRepair);
     }
 }

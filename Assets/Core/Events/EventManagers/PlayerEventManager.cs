@@ -17,28 +17,13 @@ namespace Core.Events.EventManagers
 
         public UnityEvent<string> playerDiedEvent = new();
         public UnityEvent<IDamageable, float> playerTakesDamageEvent = new();
-        public UnityEvent<HealthSystem.SuitModificationType> playerSuitRepairEvent = new();
+        public UnityEvent<HealthSystem.SuitModificationType> playerSuitModEvent = new();
         public UnityEvent<InteractableObject> playerInteractedEvent = new();
         public UnityEvent<InteractableObject> playerEndedInteractionEvent = new();
         public UnityEvent<HealthSystem.SuitModificationType> playerUsedSuitModificationToolEvent = new();
 
         public PlayerCharacter player;
-        
-        public void TriggerCharacterUsedSuitModificationTool(HealthSystem.SuitModificationType suitModificationType)
-        {
-            playerUsedSuitModificationToolEvent.Invoke(suitModificationType);
-        }
-        
-        public void AddListenerToSuitModificationToolEvent(UnityAction<HealthSystem.SuitModificationType> listener)
-        {
-            playerUsedSuitModificationToolEvent.AddListener(listener);
-        }
-        
-        public void RemoveListenerFromSuitModificationToolEvent(UnityAction<HealthSystem.SuitModificationType> listener)
-        {
-            playerUsedSuitModificationToolEvent.RemoveListener(listener);
-        }
-        
+
         public void TriggerCharacterTakesDamage(IDamageable damageable, float damage)
         {
             playerTakesDamageEvent.Invoke(damageable, damage);
@@ -74,9 +59,9 @@ namespace Core.Events.EventManagers
         {
             playerOxygenChangedEvent.AddListener(oxygenChange);
         }
-        public void AddListenerToSuitRepairEvent(UnityAction<HealthSystem.SuitModificationType> suitModType)
+        public void AddListenerToSuitModificationEvent(UnityAction<HealthSystem.SuitModificationType> suitModType)
         {
-            playerSuitRepairEvent.AddListener(suitModType);
+            playerSuitModEvent.AddListener(suitModType);
         }
         public void RemoveListenerFromOxygenChangedEvent(UnityAction<float, bool> oxygenChange)
         {
@@ -97,9 +82,25 @@ namespace Core.Events.EventManagers
             playerDiedEvent.Invoke(characterName);
         }
 
-        public void TriggerCharacterSuitRepair(HealthSystem.SuitModificationType suitModType)
+        public void TriggerCharacterSuitModification(HealthSystem.SuitModificationType suitModType)
         {
-            playerSuitRepairEvent.Invoke(suitModType);
+            playerSuitModEvent.Invoke(suitModType);
+            Debug.Log("Suit Modification Event Invoked");
+        }
+
+        public void TriggerCharacterUsedSuitModificationTool(HealthSystem.SuitModificationType suitModificationType)
+        {
+            playerUsedSuitModificationToolEvent.Invoke(suitModificationType);
+        }
+
+        public void AddListenerToSuitModificationToolEvent(UnityAction<HealthSystem.SuitModificationType> listener)
+        {
+            playerUsedSuitModificationToolEvent.AddListener(listener);
+        }
+
+        public void RemoveListenerFromSuitModificationToolEvent(UnityAction<HealthSystem.SuitModificationType> listener)
+        {
+            playerUsedSuitModificationToolEvent.RemoveListener(listener);
         }
 
         // Encapsulate AddListener logic

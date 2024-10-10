@@ -3,6 +3,7 @@ using Characters.Scripts;
 using Core.GameManager.Scripts;
 using Polyperfect.Crafting.Demo;
 using Polyperfect.Crafting.Integration;
+using UnityEngine;
 
 namespace Items.Equipment.Consumables
 {
@@ -30,6 +31,7 @@ namespace Items.Equipment.Consumables
 
         public override void Equip(BaseItemObject item, IDamageable equipper)
         {
+            Debug.Log("Equipping " + item.name);
             currentItemObejct = item;
             PlayerCharacter.Instance.equippedItem = item;
             PlayerCharacter.Instance.equippableHandler = this;

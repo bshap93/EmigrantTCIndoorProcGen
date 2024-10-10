@@ -47,6 +47,7 @@ namespace Items.Weapons
 
         public override void Equip(BaseItemObject item, IDamageable equipper)
         {
+            Debug.Log("Equipping " + item.name);
             weaponObject.SetActive(true);
             PlayerCharacter.Instance.equippedItem = item;
             PlayerCharacter.Instance.equippableHandler = this;

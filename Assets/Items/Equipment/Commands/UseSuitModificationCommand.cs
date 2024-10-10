@@ -18,7 +18,7 @@ namespace Items.Equipment.Commands
         public void Execute()
         {
             if (_suitModificationType == HealthSystem.SuitModificationType.FullRepair)
-                _characterEventManager.TriggerCharacterSuitRepair(HealthSystem.SuitModificationType.FullRepair);
+                _characterEventManager.TriggerCharacterSuitModification(HealthSystem.SuitModificationType.FullRepair);
             // Repair the suit
         }
     }

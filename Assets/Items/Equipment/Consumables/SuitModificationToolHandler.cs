@@ -1,7 +1,9 @@
 ﻿using Characters.Health.Scripts.States;
 using Characters.Scripts;
 using Core.Events.EventManagers;
+using Items.Equipment.Commands;
 using Polyperfect.Crafting.Integration;
+using UnityEngine;
 
 namespace Items.Equipment.Consumables
 {
@@ -10,16 +12,14 @@ namespace Items.Equipment.Consumables
         public HealthSystem.SuitModificationType suitModificationType;
         public HealthSystem healthSystem;
         public ChildSlotsInventory hotbarInventory;
-        PlayerEventManager playerEventManager;
+        [SerializeField] PlayerEventManager _playerEventManager;
 
-        void Start()
-        {
-            playerEventManager = FindObjectOfType<PlayerEventManager>();
-        }
+
         public override void Use(IDamageable target)
         {
             healthSystem.RepairSuitHandler(suitModificationType);
-            playerEventManager.TriggerCharacterUsedSuitModificationTool(suitModificationType);
+            var suitModificationCommand = new UseSuitModificationCommand(suitModificationType, _playerEventManager);
+            suitModificationCommand.Execute();
             hotbarInventory.RemoveItem(currentItemObejct.ID);
         }
 

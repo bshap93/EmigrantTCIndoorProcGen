@@ -33,7 +33,7 @@ namespace Characters.Enemies
         {
             enemyStateInitializedEvent.Invoke();
         }
-        public void TriggerCharacterSuitRepair(HealthSystem.SuitModificationType suitModificationType)
+        public void TriggerCharacterSuitModification(HealthSystem.SuitModificationType suitModificationType)
         {
             throw new NotImplementedException();
         }
@@ -61,7 +61,7 @@ namespace Characters.Enemies
         {
             throw new NotImplementedException();
         }
-        public void AddListenerToSuitRepairEvent(UnityAction<HealthSystem.SuitModificationType> suitRepair)
+        public void AddListenerToSuitModificationEvent(UnityAction<HealthSystem.SuitModificationType> suitRepair)
         {
             throw new NotImplementedException();
         }

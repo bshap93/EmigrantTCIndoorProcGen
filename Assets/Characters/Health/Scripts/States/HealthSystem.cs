@@ -52,7 +52,7 @@ namespace Characters.Health.Scripts.States
             _characterEventManager.AddListenerToOxygenChangedEvent(oxygenChange);
 
             UnityAction<SuitModificationType> suitRepair = RepairSuitHandler;
-            _characterEventManager.AddListenerToSuitRepairEvent(suitRepair);
+            _characterEventManager.AddListenerToSuitModificationEvent(suitRepair);
 
             switch (oxygenStateInitial)
             {
