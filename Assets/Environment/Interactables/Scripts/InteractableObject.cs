@@ -2,6 +2,7 @@
 using Core.Events.EventManagers;
 using Environment.Interactables.Openable.Scripts;
 using Environment.Interactables.SceneTransitions.Scripts;
+using Environment.Interactables.Triggerables.Commands;
 using JetBrains.Annotations;
 using UI;
 using UnityEngine;
@@ -20,13 +21,16 @@ namespace Environment.Interactables.Scripts
             Panel,
             CraftingStation,
             Console,
-            LevelHatch
+            LevelHatch,
+            Triggerable
         }
 
         [SerializeField] [CanBeNull] OpenableObject openableObject;
 
         [FormerlySerializedAs("InteractionUI")] [CanBeNull]
         public GameObject interactionUI;
+        
+        [CanBeNull] ITriggerableCommand _triggerableCommand;
 
         public bool broken;
 
