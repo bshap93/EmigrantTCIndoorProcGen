@@ -1,12 +1,12 @@
 ﻿using Characters.Health.Scripts.States;
 using Core.Events;
 using Core.Events.EventManagers;
-using Core.GameManager.Scripts;
 using Core.GameManager.Scripts.Commands;
 using UI.ETCCustomCursor.Scripts;
 using UI.Health.Scripts;
 using UI.InGameConsole.Scripts;
 using UI.Menus.SimpleTextOverlay.Scripts;
+using UI.Scripts;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -19,28 +19,24 @@ namespace UI
         static readonly int Hit = Animator.StringToHash("Hit");
         static readonly int OxygenRestored = Animator.StringToHash("OxygenRestored");
         [SerializeField] GameObject simpleTextOverlayGameObject;
-        public GameInputHandler gameInputHandler;
         public string cursorName;
         public Vector2 cursorHotspot;
         [FormerlySerializedAs("healthBarUI")] [FormerlySerializedAs("statsBarUI")]
         public SuitIntegrityHealthBarUI suitIntegrityHealthBarUI;
         public OxygenBarUI oxygenBarUI;
 
-        public SimpleTextOverlay simpleTextOverlay;
-
         public InGameConsoleManager inGameConsoleManager;
 
         public GameObject statusEffectOverlay;
 
         public Canvas uiCanvas;
-        CustomCursor _customCursor;
 
         HealthSystem _healthSystem;
 
         GameObject _player;
 
         PlayerEventManager _playerEventManager;
-        Animator _statusEffectOverlayAnimator;
+        VignetteController _vignetteController;
 
 
         public static UIManager Instance { get; private set; }
@@ -61,10 +57,10 @@ namespace UI
         void Start()
         {
             if (simpleTextOverlayGameObject == null)
-                simpleTextOverlay = simpleTextOverlayGameObject.GetComponent<SimpleTextOverlay>();
+                simpleTextOverlayGameObject.GetComponent<SimpleTextOverlay>();
 
             // Create and set the custom cursor
-            _customCursor = new CustomCursor(cursorName, cursorHotspot);
+            new CustomCursor(cursorName, cursorHotspot);
 
             if (_player == null) _player = GameObject.FindWithTag("Player");
 
@@ -84,10 +80,8 @@ namespace UI
             UnityAction<string> dead = OnDead;
             _playerEventManager.AddListenerToCharacterEvent(dead);
 
+            _vignetteController = GetComponentInChildren<VignetteController>();
 
-            simpleTextOverlayGameObject.SetActive(false);
-
-            _statusEffectOverlayAnimator = statusEffectOverlay.GetComponent<Animator>();
 
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
@@ -125,13 +119,13 @@ namespace UI
         void OnHealthChanged(float health, bool damage)
         {
             // If it's decreasing, play the animation
-            if (damage) _statusEffectOverlayAnimator.SetTrigger(Hit);
+            if (damage) _vignetteController.ShowDamageVignette();
             suitIntegrityHealthBarUI.UpdateSuitIntegrityBar(health);
         }
 
         void OnOxygenChanged(float oxygen, bool isRestored)
         {
-            if (isRestored) _statusEffectOverlayAnimator.SetTrigger(OxygenRestored);
+            if (isRestored) _vignetteController.ShowHealOxygenVignette();
             oxygenBarUI.UpdateOxygenBar(oxygen);
         }
 
