@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TMPro;
+using UI.Objectives.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,6 +40,14 @@ namespace UI.InGameConsole.Scripts
         {
             _messageQueue.Clear();
             consoleText.text = string.Empty;
+        }
+        public void OnObjectiveCompleted(Objective objective)
+        {
+            throw new NotImplementedException();
+        }
+        public void OnObjectiveAssigned(Objective objective)
+        {
+            throw new NotImplementedException();
         }
     }
 }

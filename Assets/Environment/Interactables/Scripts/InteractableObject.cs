@@ -2,7 +2,7 @@
 using Core.Events.EventManagers;
 using Environment.Interactables.Openable.Scripts;
 using Environment.Interactables.SceneTransitions.Scripts;
-using Environment.Interactables.Triggerables.Commands;
+using Environment.Interactables.Triggerables.Scripts;
 using JetBrains.Annotations;
 using UI;
 using UnityEngine;
@@ -29,8 +29,8 @@ namespace Environment.Interactables.Scripts
 
         [FormerlySerializedAs("InteractionUI")] [CanBeNull]
         public GameObject interactionUI;
-        
-        [CanBeNull] ITriggerableCommand _triggerableCommand;
+
+        [CanBeNull] [SerializeField] TriggerableObject triggerableObject;
 
         public bool broken;
 
@@ -72,6 +72,8 @@ namespace Environment.Interactables.Scripts
 
             onEndInteract.AddListener(OnEndInteractHandler);
 
+            triggerableObject = GetComponent<TriggerableObject>();
+
 
             // Get the Collider from the child zone (assuming there's a single child collider)
             _zoneCollider = GetComponent<BoxCollider>();
@@ -104,6 +106,8 @@ namespace Environment.Interactables.Scripts
 
                         EndInteractionSimple();
                     }
+
+                    if (triggerableObject != null) triggerableObject.Trigger();
                 }
 
                 UpdateTooltipPosition();

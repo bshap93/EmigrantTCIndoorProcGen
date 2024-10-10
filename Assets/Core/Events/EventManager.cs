@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UI.Objectives.Scripts;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace Core.Events
@@ -21,5 +22,9 @@ namespace Core.Events
         public static readonly UnityEvent EPlayerEnteredRoom = new();
 
         // Objective Events
+
+        public static readonly UnityEvent<Objective> EOnObjectiveCompleted = new();
+
+        public static readonly UnityEvent<Objective> EOnObjectiveAssigned = new();
     }
 }

@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9137255, g: 0.021965755, b: 0, a: 1}
+  m_Color: {r: 0, g: 0.48376858, b: 0.9150943, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
@@ -301,7 +301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.48235294, g: 0.008109382, b: 0, a: 0.9411765}
+  m_Color: {r: 0, g: 0.25133762, b: 0.4811321, a: 0.9411765}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
@@ -419,7 +419,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7efbaa65f5ec0824f9b4a44a65cb240b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1a2b72c1ccc8b8a4f948eafb4b9ed914, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1017,7 +1017,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1990594193549166204, guid: 885468d8abd1b34438bfcbab11fcf7c5, type: 3}
       propertyPath: m_text
-      value: 'to turn off the gas
+      value: 'to use open chest
 
 '
       objectReference: {fileID: 0}

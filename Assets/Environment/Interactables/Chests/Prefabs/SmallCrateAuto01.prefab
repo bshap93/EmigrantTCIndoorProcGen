@@ -95,9 +95,9 @@ GameObject:
   - component: {fileID: 3874806567641135181}
   - component: {fileID: 7170592218995510016}
   - component: {fileID: 4578883235218520678}
-  - component: {fileID: 2609018114326489067}
   - component: {fileID: 4080931246695866336}
   - component: {fileID: 7809699070629670837}
+  - component: {fileID: 2943056315786855614}
   m_Layer: 0
   m_Name: SmallCrateAuto01
   m_TagString: Untagged
@@ -194,23 +194,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 43016953953967716, guid: e91820d93c8f5664f84a2a6745ef6f7d, type: 2}
---- !u!114 &2609018114326489067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8529938686755431811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 810bb2fdde584a0ebd807618785ce85e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentsAllowedToOpen: 
-  speed: 3
-  chestLid: {fileID: 8113073370450086547}
-  chestLidOpenPositionOffset: {x: 0, y: 0.3, z: 0.25}
-  chestLidOpenRotationOffset: {x: 34.6, y: 0.15, z: 0.15}
 --- !u!114 &4080931246695866336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,12 +206,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b7f0fdb0a64814a6e97eccc589b374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  openableObject: {fileID: 2609018114326489067}
+  openableObject: {fileID: 0}
   interactionUI: {fileID: 7308241425654943675}
   broken: 0
   objectName: Small Chest 01
   tooltipPrefab: {fileID: 8771958076689288674, guid: dd70f33076e91d94a87e015d1824fee5, type: 3}
   interactableType: 0
+  onInteract:
+    m_PersistentCalls:
+      m_Calls: []
+  onEndInteract:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &7809699070629670837
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -250,6 +239,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.2122805, y: 0.49477383, z: 1.7046202}
   m_Center: {x: -0.10770913, y: 0.24739622, z: -0.26796842}
+--- !u!114 &2943056315786855614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8529938686755431811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bac5265c007303f49b124f9074a26588, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentsAllowedToOpen: 
+  speed: 3
+  chestLid: {fileID: 8113073370450086547}
+  chestLidOpenPositionOffset: {x: 0, y: 0.5, z: 0}
+  chestLidOpenRotationOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &5110692278777914405
 PrefabInstance:
   m_ObjectHideFlags: 0

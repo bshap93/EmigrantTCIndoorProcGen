@@ -1,5 +1,4 @@
 ﻿using Characters.Health.Scripts.States;
-using Characters.Player.Scripts;
 using Characters.Scripts;
 using Environment.Interactables.Scripts;
 using UnityEngine;
@@ -21,8 +20,6 @@ namespace Core.Events.EventManagers
         public UnityEvent<InteractableObject> playerInteractedEvent = new();
         public UnityEvent<InteractableObject> playerEndedInteractionEvent = new();
         public UnityEvent<HealthSystem.SuitModificationType> playerUsedSuitModificationToolEvent = new();
-
-        public PlayerCharacter player;
 
         public void TriggerCharacterTakesDamage(IDamageable damageable, float damage)
         {
@@ -87,6 +84,7 @@ namespace Core.Events.EventManagers
             playerSuitModEvent.Invoke(suitModType);
             Debug.Log("Suit Modification Event Invoked");
         }
+
 
         public void TriggerCharacterUsedSuitModificationTool(HealthSystem.SuitModificationType suitModificationType)
         {

@@ -248,8 +248,14 @@ MonoBehaviour:
   interactionUI: {fileID: 3259665512468936724}
   broken: 0
   objectName: Large Chest
-  tooltipPrefab: {fileID: 8771958076689288674, guid: 6124f846a1d540247ad8765eec26bb2f, type: 3}
+  tooltipPrefab: {fileID: 8771958076689288674, guid: 9a08f50c04201c047963b1c05a186b6b, type: 3}
   interactableType: 0
+  onInteract:
+    m_PersistentCalls:
+      m_Calls: []
+  onEndInteract:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &1061844371757585290
 PrefabInstance:
   m_ObjectHideFlags: 0

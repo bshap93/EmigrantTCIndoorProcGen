@@ -6,6 +6,7 @@ using UI.ETCCustomCursor.Scripts;
 using UI.Health.Scripts;
 using UI.InGameConsole.Scripts;
 using UI.Menus.SimpleTextOverlay.Scripts;
+using UI.Objectives.Scripts;
 using UI.Scripts;
 using UnityEngine;
 using UnityEngine.Events;
@@ -30,6 +31,8 @@ namespace UI
         public GameObject statusEffectOverlay;
 
         public Canvas uiCanvas;
+
+        [SerializeField] ObjectiveUI objectiveUI;
 
         HealthSystem _healthSystem;
 
@@ -70,6 +73,7 @@ namespace UI
 
             EventManager.EResumeGame.AddListener(OnResumeGame);
             EventManager.EPauseGame.AddListener(OnPauseGame);
+
 
             UnityAction<float, bool> healthChange = OnHealthChanged;
             _playerEventManager.AddListenerToHealthChangedEvent(healthChange);
