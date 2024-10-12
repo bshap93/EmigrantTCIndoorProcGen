@@ -29,6 +29,7 @@ namespace Characters.Player.Scripts
         [SerializeField] PlayerStateController playerStateController;
         [FormerlySerializedAs("weaponHandler")] [CanBeNull]
         public EquippableHandler equippableHandler;
+        public GameObject hotbar;
 
 
         [SerializeField] Animator mainPlayerAnimator;
@@ -75,7 +76,7 @@ namespace Characters.Player.Scripts
 
         void OnDestroy()
         {
-           // _dungenCharacter.OnTileChanged -= OnCharacterTileChanged;
+            // _dungenCharacter.OnTileChanged -= OnCharacterTileChanged;
             // playerEventManager.RemoveListenerFromPlayerTakesDamageEvent(TakeDamage);
         }
 

@@ -8,9 +8,9 @@ namespace Items.Equipment
 {
     public abstract class EquippableHandler : MonoBehaviour
     {
-        public ItemWorldFragmentManager itemWorldFragmentManager;
-        public EquippedSlot equippedSlot;
         public BaseItemObject currentItemObejct;
+        protected EquippedSlot EquippedSlot;
+        protected ItemWorldFragmentManager ItemWorldFragmentManager;
         public abstract void Equip(BaseItemObject item, IDamageable equipper);
         public abstract void Unequip(BaseItemObject item, IDamageable equipper);
 

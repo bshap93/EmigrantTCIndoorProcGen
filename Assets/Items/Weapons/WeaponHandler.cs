@@ -5,28 +5,24 @@ using Items.Equipment;
 using Polyperfect.Crafting.Demo;
 using Polyperfect.Crafting.Integration;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Items.Weapons
 {
     public abstract class WeaponHandler : EquippableHandler
     {
         public Transform firePoint;
-        [FormerlySerializedAs("objectCategory")]
         public CategoryObject weaponCategory;
-        public CategoryWithFloat damageCategory;
-        [FormerlySerializedAs("currentEquippableItemObject")]
-        [FormerlySerializedAs("currentWeapon")]
-        [FormerlySerializedAs("_weaponObject")]
+
         public GameObject weaponObject;
 
         float _dmaage;
 
         void Start()
         {
-            if (equippedSlot != null) equippedSlot.OnContentsChanged.AddListener(OnEquippedItemChanged);
-            equippedSlot = PlayerCharacter.Instance.gameObject.GetComponentInChildren<EquippedSlot>();
-            itemWorldFragmentManager = GameManager.Instance.itemWorldFragmentManager;
+            if (EquippedSlot != null) EquippedSlot.OnContentsChanged.AddListener(OnEquippedItemChanged);
+            var playerCharacter = FindObjectOfType<PlayerCharacter>();
+            EquippedSlot = playerCharacter.gameObject.GetComponentInChildren<EquippedSlot>();
+            ItemWorldFragmentManager = GameManager.Instance.itemWorldFragmentManager;
         }
         void OnEquippedItemChanged(ItemStack arg0)
         {
@@ -34,7 +30,7 @@ namespace Items.Weapons
             {
                 if (weaponCategory.Contains(arg0.ID))
                 {
-                    var item = itemWorldFragmentManager.GetItemByID(arg0.ID);
+                    var item = ItemWorldFragmentManager.GetItemByID(arg0.ID);
 
                     Equip(item, PlayerCharacter.Instance);
                 }

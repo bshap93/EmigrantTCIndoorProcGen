@@ -1,26 +1,34 @@
 ﻿using Characters.Health.Scripts.States;
+using Characters.Player.Scripts;
 using Characters.Scripts;
 using Core.Events.EventManagers;
 using Items.Equipment.Commands;
 using Polyperfect.Crafting.Integration;
-using UnityEngine;
 
 namespace Items.Equipment.Consumables
 {
     public class SuitModificationToolHandler : ConsumableHandler
     {
         public HealthSystem.SuitModificationType suitModificationType;
-        public HealthSystem healthSystem;
-        public ChildSlotsInventory hotbarInventory;
-        [SerializeField] PlayerEventManager _playerEventManager;
+        HealthSystem _healthSystem;
+        ChildSlotsInventory _hotbarInventory;
+        PlayerEventManager _playerEventManager;
 
+
+        void Start()
+        {
+            var player = FindObjectOfType<PlayerCharacter>();
+            _hotbarInventory = player.gameObject.GetComponentInChildren<ChildSlotsInventory>();
+            _healthSystem = player.GetHealthSystem();
+            _playerEventManager = player.gameObject.GetComponent<PlayerEventManager>();
+        }
 
         public override void Use(IDamageable target)
         {
-            healthSystem.RepairSuitHandler(suitModificationType);
+            _healthSystem.RepairSuitHandler(suitModificationType);
             var suitModificationCommand = new UseSuitModificationCommand(suitModificationType, _playerEventManager);
             suitModificationCommand.Execute();
-            hotbarInventory.RemoveItem(currentItemObejct.ID);
+            _hotbarInventory.RemoveItem(currentItemObejct.ID);
         }
 
         public override void CeaseUsing()

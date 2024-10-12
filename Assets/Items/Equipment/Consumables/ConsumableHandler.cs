@@ -12,9 +12,9 @@ namespace Items.Equipment.Consumables
         public CategoryObject consumableCategory;
         void Start()
         {
-            if (equippedSlot != null) equippedSlot.OnContentsChanged.AddListener(OnEquippedItemChanged);
-            equippedSlot = PlayerCharacter.Instance.gameObject.GetComponentInChildren<EquippedSlot>();
-            itemWorldFragmentManager = GameManager.Instance.itemWorldFragmentManager;
+            if (EquippedSlot != null) EquippedSlot.OnContentsChanged.AddListener(OnEquippedItemChanged);
+            EquippedSlot = PlayerCharacter.Instance.gameObject.GetComponentInChildren<EquippedSlot>();
+            ItemWorldFragmentManager = GameManager.Instance.itemWorldFragmentManager;
         }
 
         void OnEquippedItemChanged(ItemStack arg0)
@@ -22,7 +22,7 @@ namespace Items.Equipment.Consumables
             if (arg0.ID != default && arg0.ID == currentItemObejct.ID)
                 if (consumableCategory.Contains(arg0.ID))
                 {
-                    var item = itemWorldFragmentManager.GetItemByID(arg0.ID);
+                    var item = ItemWorldFragmentManager.GetItemByID(arg0.ID);
 
                     Equip(item, PlayerCharacter.Instance);
                 }
