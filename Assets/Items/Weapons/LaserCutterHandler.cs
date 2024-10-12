@@ -18,6 +18,7 @@ namespace Items.Weapons
             StartCoroutine(DisableLineRenderer());
         }
 
+
         void FireLaserCutter()
         {
             // Bit shift the index of the layer (8) to get a bit mask

@@ -1,111 +1,56 @@
+using System;
+using System.Collections.Generic;
 using Characters.Player.Scripts;
+using Polyperfect.Crafting.Integration;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class PlayerSpawnManager : MonoBehaviour
+namespace Items.Equipment
 {
-    public enum Hand
+    public class PlayerItemSpawnManager : MonoBehaviour
     {
-        Left,
-        Right,
-        Both
-    }
+        public Transform handTransform;
+        public List<ItemData> itemDataList;
 
-    public GameObject pistolPrefab;
-    public GameObject axePrefab;
-    public GameObject extinguisherPrefab;
+        GameObject _currentItem;
 
-    [FormerlySerializedAs("_playerCharacter")]
-    public PlayerCharacter playerCharacter;
-
-    GameObject _currentLeftHandItem;
-    GameObject _currentRightHandItem;
-
-    Transform _leftHandItemHolder;
-    Transform _rightHandItemHolder;
-
-    void Start()
-    {
-        _leftHandItemHolder = transform.Find("LeftHand/ItemHolder");
-        _rightHandItemHolder = transform.Find("RightHand/ItemHolder");
-    }
-
-    public void SpawnItem(GameObject itemPrefab, Hand hand = Hand.Right)
-    {
-        if (hand == Hand.Both)
-            SpawnTwoHandedItem(itemPrefab);
-        else
-            SpawnSingleHandItem(itemPrefab, hand);
-    }
-
-    void SpawnSingleHandItem(GameObject itemPrefab, Hand hand)
-    {
-        var itemHolder = hand == Hand.Left ? _leftHandItemHolder : _rightHandItemHolder;
-        ref var currentItem = ref hand == Hand.Left ? ref _currentLeftHandItem : ref _currentRightHandItem;
-
-        // Unequip previous item
-        if (currentItem != null)
+        void Start()
         {
-            var previousItem = currentItem.GetComponent<IUsableItem>();
-            previousItem?.Unequip();
-            Destroy(currentItem);
+            foreach (var itemData in itemDataList) itemData.itemName = itemData.baseItemObject.name;
         }
 
-        // Instantiate and set up new item
-        currentItem = Instantiate(itemPrefab, itemHolder);
-        AlignItemToHand(currentItem, itemHolder);
 
-        // Equip the item
-        var usableItem = currentItem.GetComponent<IUsableItem>();
-        usableItem?.Equip();
-        playerCharacter.SetCurrentItem(usableItem, hand);
-    }
-
-    void SpawnTwoHandedItem(GameObject itemPrefab)
-    {
-        // Unequip previous items
-        if (_currentLeftHandItem != null)
+        public void SpawnItem(string itemName)
         {
-            var previousItem = _currentLeftHandItem.GetComponent<IUsableItem>();
-            previousItem?.Unequip();
-            Destroy(_currentLeftHandItem);
+            if (_currentItem != null) Destroy(_currentItem);
+
+            var itemData = itemDataList.Find(item => item.itemName == itemName);
+            if (itemData != null)
+            {
+                _currentItem = Instantiate(itemData.itemPrefab, handTransform);
+                _currentItem.transform.localPosition = itemData.positionOffset;
+                _currentItem.transform.localRotation = Quaternion.Euler(itemData.rotationOffset);
+                
+                Debug.Log($"Item {itemName} spawned.");
+
+                // Activate the corresponding behavior script
+                var equippableHandler = _currentItem.GetComponent<EquippableHandler>();
+                if (equippableHandler != null)
+                    equippableHandler.Equip(equippableHandler.currentItemObejct, PlayerCharacter.Instance);
+            }
+            else
+            {
+                Debug.LogWarning($"Item {itemName} not found in the item list.");
+            }
         }
 
-        if (_currentRightHandItem != null)
+        [Serializable]
+        public class ItemData
         {
-            var previousItem = _currentRightHandItem.GetComponent<IUsableItem>();
-            previousItem?.Unequip();
-            Destroy(_currentRightHandItem);
-        }
-
-        // Instantiate and set up new item in the right hand
-        _currentRightHandItem = Instantiate(itemPrefab, _rightHandItemHolder);
-        AlignItemToHand(_currentRightHandItem, _rightHandItemHolder);
-
-        // Set up left hand IK target
-        var leftHandIKTarget = _currentRightHandItem.transform.Find("LeftHandIKTarget");
-        if (leftHandIKTarget != null) playerCharacter.SetLeftHandIKTarget(leftHandIKTarget);
-
-        // Equip the item
-        var usableItem = _currentRightHandItem.GetComponent<IUsableItem>();
-        usableItem?.Equip();
-        playerCharacter.SetCurrentItem(usableItem, Hand.Both);
-    }
-
-    void AlignItemToHand(GameObject item, Transform itemHolder)
-    {
-        var gripPosition = item.transform.Find("GripPosition");
-        if (gripPosition != null)
-        {
-            itemHolder.position = gripPosition.position;
-            itemHolder.rotation = gripPosition.rotation;
-
-            item.transform.localPosition = Vector3.zero;
-            item.transform.localRotation = Quaternion.identity;
-        }
-        else
-        {
-            Debug.LogWarning("GripPosition not found on item.");
+            public string itemName;
+            public GameObject itemPrefab;
+            public Vector3 positionOffset;
+            public Vector3 rotationOffset;
+            public BaseItemObject baseItemObject;
         }
     }
 }

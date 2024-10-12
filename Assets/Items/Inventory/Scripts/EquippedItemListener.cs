@@ -1,4 +1,5 @@
-﻿using Polyperfect.Crafting.Demo;
+﻿using Items.Equipment;
+using Polyperfect.Crafting.Demo;
 using Polyperfect.Crafting.Integration;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -10,6 +11,7 @@ namespace Items.Inventory.Scripts
         public EquippedSlot equippedSlot;
         [FormerlySerializedAs("ItemWorldFragmentManager")]
         public ItemWorldFragmentManager itemWorldFragmentManager;
+        public PlayerItemSpawnManager playerItemSpawnManager;
 
 
         void Start()
@@ -17,6 +19,8 @@ namespace Items.Inventory.Scripts
             if (equippedSlot != null) equippedSlot.OnContentsChanged.AddListener(OnEquippedItemChanged);
             if (itemWorldFragmentManager == null)
                 itemWorldFragmentManager = FindObjectOfType<ItemWorldFragmentManager>();
+            if (playerItemSpawnManager == null)
+                playerItemSpawnManager = FindObjectOfType<PlayerItemSpawnManager>();
         }
 
         void OnDestroy()
@@ -31,6 +35,7 @@ namespace Items.Inventory.Scripts
             {
                 // Fetch the item using the itemWorldFragmentManager
                 var item = itemWorldFragmentManager.GetItemByID(newItemStack.ID);
+                playerItemSpawnManager.SpawnItem(item.name);
             }
         }
     }
