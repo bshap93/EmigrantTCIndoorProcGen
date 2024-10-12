@@ -9829,6 +9829,37 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &5929843517974281015
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5764026831920309322}
+  m_Layer: 0
+  m_Name: GripPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5764026831920309322
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5929843517974281015}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3201492316905439917}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9169120238615513098
 GameObject:
   m_ObjectHideFlags: 0
@@ -9860,6 +9891,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 502770625643129529}
+  - {fileID: 5764026831920309322}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -56.844, y: 79.796, z: -64.51}
 --- !u!114 &5288004485525569710
@@ -9874,12 +9906,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f8e9aae3b74b90baaf11a95b5c5b19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemWorldFragmentManager: {fileID: 0}
-  equippedSlot: {fileID: 0}
   currentItemObejct: {fileID: 11400000, guid: b4522a7322faf084a962f5ab4ed32743, type: 2}
   firePoint: {fileID: 1061171662179171026}
   weaponCategory: {fileID: 11400000, guid: 53b542cac108cde44a376a7294ae794a, type: 2}
-  damageCategory: {fileID: 0}
   weaponObject: {fileID: 4728941459639053888}
   hitEffect: {fileID: 783781607689540208}
   cutEffect: {fileID: 5438802477627673315}
