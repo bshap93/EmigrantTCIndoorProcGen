@@ -10,6 +10,8 @@ namespace Environment.Hazard.Scripts
         public ParticleSystem sparksParticleSystem;
         public GameObject scrap;
 
+        [SerializeField] float secondsToCut = 0.5f;
+
 
         void OnTriggerEnter(Collider other)
         {
@@ -22,13 +24,13 @@ namespace Environment.Hazard.Scripts
                 playerCharacter.TakeDamage(playerCharacter, 50);
             }
         }
-        public void Cut(float secondsToCut)
+        public void Cut(float seconds)
         {
             StartCoroutine(DestroyWire(secondsToCut));
         }
         public float GetSecondsToCut()
         {
-            return 0.5f;
+            return secondsToCut;
         }
 
         IEnumerator<WaitForSeconds> DestroyWire(float secondsToCut)

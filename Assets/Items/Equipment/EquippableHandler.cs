@@ -9,6 +9,7 @@ namespace Items.Equipment
     public abstract class EquippableHandler : MonoBehaviour
     {
         public BaseItemObject currentItemObejct;
+        public bool hideUntilReadyToUse;
         protected EquippedSlot EquippedSlot;
         protected ItemWorldFragmentManager ItemWorldFragmentManager;
         public abstract void Equip(BaseItemObject item, IDamageable equipper);

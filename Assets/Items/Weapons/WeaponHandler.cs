@@ -15,7 +15,7 @@ namespace Items.Weapons
 
         public GameObject weaponObject;
 
-        float _dmaage;
+        float _damage;
 
         void Start()
         {

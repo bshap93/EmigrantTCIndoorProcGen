@@ -19,6 +19,7 @@ namespace Items.Inventory.Scripts
             if (equippedSlot != null) equippedSlot.OnContentsChanged.AddListener(OnEquippedItemChanged);
             if (itemWorldFragmentManager == null)
                 itemWorldFragmentManager = FindObjectOfType<ItemWorldFragmentManager>();
+
             if (playerItemSpawnManager == null)
                 playerItemSpawnManager = FindObjectOfType<PlayerItemSpawnManager>();
         }
@@ -36,6 +37,10 @@ namespace Items.Inventory.Scripts
                 // Fetch the item using the itemWorldFragmentManager
                 var item = itemWorldFragmentManager.GetItemByID(newItemStack.ID);
                 playerItemSpawnManager.SpawnItem(item.name);
+            }
+            else
+            {
+                playerItemSpawnManager.DestroyCurrentItem();
             }
         }
     }

@@ -29,7 +29,7 @@ namespace Items.Equipment
                 _currentItem = Instantiate(itemData.itemPrefab, handTransform);
                 _currentItem.transform.localPosition = itemData.positionOffset;
                 _currentItem.transform.localRotation = Quaternion.Euler(itemData.rotationOffset);
-                
+
                 Debug.Log($"Item {itemName} spawned.");
 
                 // Activate the corresponding behavior script
@@ -41,6 +41,11 @@ namespace Items.Equipment
             {
                 Debug.LogWarning($"Item {itemName} not found in the item list.");
             }
+        }
+
+        public void DestroyCurrentItem()
+        {
+            if (_currentItem != null) Destroy(_currentItem);
         }
 
         [Serializable]
