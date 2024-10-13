@@ -34,10 +34,7 @@ namespace Environment.LevelGeneration.RoomTransition.Doors.Scripts
         }
         public void UpdateSystemStatus(bool hasPower, bool hasAI)
         {
-            if (hasPower)
-            {
-                openable = true;
-            }
+            openable = hasPower;
         }
 
 

@@ -12,7 +12,7 @@ using UnityEngine.Serialization;
 
 namespace Environment.Interactables.Scripts
 {
-    public class InteractableObject : MonoBehaviour, IInteractable, ISystemDependent
+    public class InteractableObject : MonoBehaviour, IInteractable
     {
         public enum InteractableType
         {
@@ -23,7 +23,8 @@ namespace Environment.Interactables.Scripts
             CraftingStation,
             Console,
             LevelHatch,
-            Triggerable
+            Triggerable,
+            PowerNode,
         }
 
         [SerializeField] [CanBeNull] OpenableObject openableObject;
@@ -43,9 +44,7 @@ namespace Environment.Interactables.Scripts
 
         public UnityEvent<InteractableObject> onInteract;
         public UnityEvent<InteractableObject> onEndInteract;
-        bool _hasAI;
 
-        bool _hasPower;
 
         PlayerEventManager _playerEventManager;
 
@@ -159,12 +158,7 @@ namespace Environment.Interactables.Scripts
 
             if (interactableType == InteractableType.LevelHatch) GetComponent<SceneChangeTrigger>().ChangeScene();
         }
-        public string Floor { get; }
-        public void UpdateSystemStatus(bool hasPower, bool hasAI)
-        {
-            _hasPower = hasPower;
-            _hasAI = hasAI;
-        }
+
 
         void ShowTooltip()
         {
