@@ -1,5 +1,6 @@
 ﻿using Characters.Player.InputHandlers.Scripts;
 using Core.Events.EventManagers;
+using Core.ShipSystems.Scripts;
 using Environment.Interactables.Openable.Scripts;
 using Environment.Interactables.SceneTransitions.Scripts;
 using Environment.Interactables.Triggerables.Scripts;
@@ -11,7 +12,7 @@ using UnityEngine.Serialization;
 
 namespace Environment.Interactables.Scripts
 {
-    public class InteractableObject : MonoBehaviour, IInteractable
+    public class InteractableObject : MonoBehaviour, IInteractable, ISystemDependent
     {
         public enum InteractableType
         {
@@ -42,6 +43,9 @@ namespace Environment.Interactables.Scripts
 
         public UnityEvent<InteractableObject> onInteract;
         public UnityEvent<InteractableObject> onEndInteract;
+        bool _hasAI;
+
+        bool _hasPower;
 
         PlayerEventManager _playerEventManager;
 
@@ -154,6 +158,12 @@ namespace Environment.Interactables.Scripts
                     interactionUI.SetActive(true);
 
             if (interactableType == InteractableType.LevelHatch) GetComponent<SceneChangeTrigger>().ChangeScene();
+        }
+        public string Floor { get; }
+        public void UpdateSystemStatus(bool hasPower, bool hasAI)
+        {
+            _hasPower = hasPower;
+            _hasAI = hasAI;
         }
 
         void ShowTooltip()

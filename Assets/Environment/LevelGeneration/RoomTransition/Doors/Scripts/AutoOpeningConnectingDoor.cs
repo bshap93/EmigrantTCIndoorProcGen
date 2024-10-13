@@ -1,5 +1,6 @@
 using System;
 using Characters.Enemies;
+using Core.ShipSystems.Scripts;
 using DunGen;
 using Environment.Interactables.Openable.Scripts;
 using Environment.LevelGeneration.Doors.Scripts.Commands.OpenClose;
@@ -8,7 +9,7 @@ using UnityEngine;
 
 namespace Environment.LevelGeneration.RoomTransition.Doors.Scripts
 {
-    public class AutoOpeningConnectingDoor : OpenableObject
+    public class AutoOpeningConnectingDoor : OpenableObject, ISystemDependent
 
     {
         public GameObject hatchRightHalf;
@@ -23,6 +24,21 @@ namespace Environment.LevelGeneration.RoomTransition.Doors.Scripts
         Door _doorComponent;
         Vector3 _hatchLeftClosedPosition;
         Vector3 _hatchRightClosedPosition;
+        
+        public string Floor { get; private set; }
+
+        void Awake()
+        {
+            Floor = GetComponentInParent<FloorIdentifier>()?.floorName ?? "Unknown";
+            
+        }
+        public void UpdateSystemStatus(bool hasPower, bool hasAI)
+        {
+            if (hasPower)
+            {
+                openable = true;
+            }
+        }
 
 
         // Start is called before the first frame update
@@ -45,7 +61,7 @@ namespace Environment.LevelGeneration.RoomTransition.Doors.Scripts
         }
         public void OnTriggerEnter(Collider other)
         {
-            if (agentsAllowedToOpen.Contains(OpenerAgent.Player))
+            if (agentsAllowedToOpen.Contains(OpenerAgent.Player) && openable)
                 if (other.CompareTag("Player"))
                 {
                     var playerController = other.GetComponent<CharacterController>();
@@ -54,7 +70,7 @@ namespace Environment.LevelGeneration.RoomTransition.Doors.Scripts
                     OpenCommand.Execute();
                 }
 
-            if (agentsAllowedToOpen.Contains(OpenerAgent.Enemy))
+            if (agentsAllowedToOpen.Contains(OpenerAgent.Enemy) && openable)
                 if (other.CompareTag("Enemy"))
                 {
                     var enemyController = other.GetComponent<Enemy>();
@@ -130,5 +146,6 @@ namespace Environment.LevelGeneration.RoomTransition.Doors.Scripts
             _currentState = newState;
             if (newState == OpenableState.Opening) _doorComponent.IsOpen = true;
         }
+
     }
 }

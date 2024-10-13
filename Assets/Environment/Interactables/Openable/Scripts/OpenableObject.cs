@@ -31,6 +31,8 @@ namespace Environment.Interactables.Openable.Scripts
         public List<OpenerAgent> agentsAllowedToOpen;
 
         public float speed = 3.0f;
+        
+        public bool openable = true;
 
 
         Vector3[] _closedPositionsPerPart;

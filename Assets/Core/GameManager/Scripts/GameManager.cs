@@ -1,5 +1,6 @@
 using Core.Events.EventManagers;
 using Core.SaveSystem.Scripts;
+using Core.ShipSystems.Scripts;
 using Items.Inventory.Scripts;
 using JetBrains.Annotations;
 using UI.ETCCustomCursor.Scripts.Commands;
@@ -27,9 +28,11 @@ namespace Core.GameManager.Scripts
 
         EnableFreeCursorCommand _enableFreeCursorCommand;
 
+        ObjectiveManager _objectiveManager;
+
         PlayerEventManager _playerEventManager;
 
-        ObjectiveManager objectiveManager;
+        ShipSystemManager _shipSystemManager;
         public static GameManager Instance { get; private set; }
 
 
@@ -51,7 +54,9 @@ namespace Core.GameManager.Scripts
             _playerEventManager = player.GetComponent<PlayerEventManager>();
 
 
-            objectiveManager = GetComponentInChildren<ObjectiveManager>();
+            _objectiveManager = GetComponentInChildren<ObjectiveManager>();
+
+            _shipSystemManager = GetComponentInChildren<ShipSystemManager>();
 
             if (itemWorldFragmentManager == null)
                 // It's a child of the GameManager object
