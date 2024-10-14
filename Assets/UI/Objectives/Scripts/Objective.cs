@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 namespace UI.Objectives.Scripts
 {
     [CreateAssetMenu(fileName = "Data", menuName = "Objectives", order = 1)]
-    public class Objective : ScriptableObject
+    public abstract class Objective : ScriptableObject
     {
         [FormerlySerializedAs("IsCompleted")] public bool isCompleted;
         [FormerlySerializedAs("ObjectiveText")]

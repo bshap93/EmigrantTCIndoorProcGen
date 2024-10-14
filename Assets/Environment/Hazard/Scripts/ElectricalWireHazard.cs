@@ -2,6 +2,7 @@
 using Characters.Player.Scripts;
 using Characters.Scripts;
 using Core.Events;
+using UI.Objectives.Scripts.ObjectiveTypes;
 using UnityEngine;
 
 namespace Environment.Hazard.Scripts
@@ -12,6 +13,13 @@ namespace Environment.Hazard.Scripts
         public GameObject scrap;
 
         [SerializeField] float secondsToCut = 0.5f;
+
+        [SerializeField] DestroyObjective associatedObjective;
+
+        void OnDestroy()
+        {
+            EventManager.EOnObjectDestroyed.Invoke(gameObject);
+        }
 
 
         void OnTriggerEnter(Collider other)
@@ -41,7 +49,8 @@ namespace Environment.Hazard.Scripts
             scrap.SetActive(true);
             gameObject.SetActive(false);
 
-            EventManager.EOnObjectDestroyed.Invoke(gameObject);
+
+            Destroy(gameObject);
         }
     }
 }

@@ -1,30 +1,40 @@
-﻿using System.Collections.Generic;
-using Core.Events;
+﻿using Core.Events;
 using UnityEngine;
 
 namespace UI.Objectives.Scripts.ObjectiveTypes
 {
+    [CreateAssetMenu(fileName = "Data", menuName = "DestroyObjective", order = 1)]
     public class DestroyObjective : Objective
     {
         public int objectsToDestroyCount;
         public string objectTag;
-        public Dictionary<string, int> NeededNumberToDestroyByTag = new();
-        public Dictionary<string, int> NumDestroyedObjectsByTag = new();
+
+        DestroyManager destroyManager;
 
         public DestroyObjective(string objectiveText) : base(objectiveText)
         {
+        }
+
+        void OnEnable()
+        {
+            destroyManager = FindObjectOfType<DestroyManager>();
             EventManager.EOnObjectDestroyed.AddListener(OnObjectDestroyed);
+            // destroyManager.NeededNumberToDestroyByTag[objectTag] = objectsToDestroyCount;
+            destroyManager.AddTag(objectTag, objectsToDestroyCount);
+            Debug.Log("DestroyObjective OnEnable");
         }
         void OnObjectDestroyed(GameObject destroyedGameObject)
         {
-            if (destroyedGameObject.CompareTag(objectTag))
+            if (destroyedGameObject.CompareTag(objectTag)) destroyManager.IncrementDestroyedObject(objectTag);
+
+            CheckIfObjectiveIsCompleted();
+        }
+        public void CheckIfObjectiveIsCompleted()
+        {
+            if (destroyManager.CheckIfObjectiveIsComplete(objectTag))
             {
-                // objectsToDestroyCount--;
-                // if (objectsToDestroyCount <= 0)
-                // {
-                //     isCompleted = true;
-                //     EventManager.EOnObjectiveCompleted.Invoke(this);
-                // }
+                isCompleted = true;
+                EventManager.EOnObjectiveCompleted.Invoke(this);
             }
         }
     }

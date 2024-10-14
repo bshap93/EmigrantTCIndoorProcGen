@@ -11,6 +11,7 @@ TagManager:
   - PowerOffIcon
   - AiOnIcon
   - AiOffIcon
+  - HangingWire
   layers:
   - Default
   - TransparentFX
