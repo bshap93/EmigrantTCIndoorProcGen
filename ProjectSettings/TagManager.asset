@@ -7,6 +7,10 @@ TagManager:
   - Floor
   - VirtualCamera
   - Enemy
+  - PowerOnIcon
+  - PowerOffIcon
+  - AiOnIcon
+  - AiOffIcon
   layers:
   - Default
   - TransparentFX
