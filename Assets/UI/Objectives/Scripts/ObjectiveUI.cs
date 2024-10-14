@@ -12,6 +12,8 @@ namespace UI.Objectives.Scripts
         TMP_Text objectiveText;
         [FormerlySerializedAs("_animator")] [SerializeField]
         Animator animator;
+        [FormerlySerializedAs("_objectiveManager")] [SerializeField]
+        ObjectiveManager objectiveManager;
 
         Objective _currentObjective;
 
@@ -23,16 +25,17 @@ namespace UI.Objectives.Scripts
 
             EventManager.EOnObjectiveCompleted.AddListener(OnObjectiveCompleted);
             EventManager.EOnObjectiveAssigned.AddListener(OnObjectiveAssigned);
+
+            Debug.Log(_currentObjective);
         }
 
         // Update is called once per frame
         public void OnObjectiveCompleted(Objective objective)
         {
-            Debug.Log("Objective Completed: " + objective.objectiveText);
             animator.SetBool(Active, false);
-            _currentObjective.isActive = false;
             _currentObjective = null;
             objectiveText.text = string.Empty;
+            objectiveManager.CompleteCurrentObjective();
         }
         public void OnObjectiveAssigned(Objective objective)
         {

@@ -5,6 +5,7 @@ using Items.Inventory.Scripts;
 using JetBrains.Annotations;
 using UI.ETCCustomCursor.Scripts.Commands;
 using UI.InGameConsole.Scripts;
+using UI.Objectives.Scripts;
 using UnityEngine;
 using UnityEngine.Events;
 

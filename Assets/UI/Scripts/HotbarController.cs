@@ -1,4 +1,5 @@
 ﻿using Polyperfect.Crafting.Integration;
+using UI.Objectives.Scripts;
 using UI.Objectives.Scripts.ObjectiveTypes;
 
 namespace UI.Scripts

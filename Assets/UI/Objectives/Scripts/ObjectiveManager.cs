@@ -1,25 +1,45 @@
 using System.Collections.Generic;
-using UI.Objectives.Scripts;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class ObjectiveManager : MonoBehaviour
+namespace UI.Objectives.Scripts
 {
-    public List<Objective> objectives;
-    public ObjectiveUI objectiveUI;
-    Objective currentObjective;
-    void Start()
+    public class ObjectiveManager : MonoBehaviour
     {
-        objectiveUI.OnObjectiveAssigned(objectives[0]);
-        currentObjective = objectives[0];
-    }
+        public List<Objective> objectives;
+        public ObjectiveUI objectiveUI;
 
-    public void CompleteCurrentObjective()
-    {
-        currentObjective.isCompleted = true;
-        objectiveUI.OnObjectiveCompleted(currentObjective);
-    }
-    public object GetCurrentObjective()
-    {
-        return currentObjective;
+        [FormerlySerializedAs("_currentObjectiveIndex")] [SerializeField]
+        int currentObjectiveIndex;
+        Objective _currentObjective;
+        void Start()
+        {
+            objectiveUI.OnObjectiveAssigned(objectives[currentObjectiveIndex]);
+            _currentObjective = objectives[currentObjectiveIndex];
+        }
+
+        public void CompleteCurrentObjective()
+        {
+            _currentObjective.isCompleted = true;
+
+            TryGetNextObjective();
+        }
+        void TryGetNextObjective()
+        {
+            if (currentObjectiveIndex + 1 < objectives.Count)
+            {
+                currentObjectiveIndex++;
+                _currentObjective = objectives[currentObjectiveIndex];
+                objectiveUI.OnObjectiveAssigned(_currentObjective);
+            }
+            else
+            {
+                Debug.Log("All objectives completed!");
+            }
+        }
+        public object GetCurrentObjective()
+        {
+            return _currentObjective;
+        }
     }
 }
