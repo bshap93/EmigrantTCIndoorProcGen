@@ -1,28 +1,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestroyManager : MonoBehaviour
+namespace Core.Spawning.Scripts
 {
-    public readonly Dictionary<string, int> NeededNumberToDestroyByTag = new();
-    public Dictionary<string, int> NumDestroyedObjectsByTag = new();
-
-    public void AddTag(string destroyedObjectTag, int numNeededToDestroy)
+    public class DestroyManager : MonoBehaviour
     {
-        NeededNumberToDestroyByTag[destroyedObjectTag] = numNeededToDestroy;
-        NumDestroyedObjectsByTag[destroyedObjectTag] = 0;
-    }
+        public readonly Dictionary<string, int> NeededNumberToDestroyByTag = new();
+        public Dictionary<string, int> NumDestroyedObjectsByTag = new();
 
-    public void IncrementDestroyedObject(string destroyedObjectTag)
-    {
-        NumDestroyedObjectsByTag[destroyedObjectTag]++;
-        Debug.Log($"Incremented {destroyedObjectTag} to {NumDestroyedObjectsByTag[destroyedObjectTag]}");
-    }
+        public void AddTag(string destroyedObjectTag, int numNeededToDestroy)
+        {
+            NeededNumberToDestroyByTag[destroyedObjectTag] = numNeededToDestroy;
+            NumDestroyedObjectsByTag[destroyedObjectTag] = 0;
+        }
 
-    public bool CheckIfObjectiveIsComplete(string objectTag)
-    {
-        if (NumDestroyedObjectsByTag[objectTag] < NeededNumberToDestroyByTag[objectTag])
-            return false;
+        public void IncrementDestroyedObject(string destroyedObjectTag)
+        {
+            NumDestroyedObjectsByTag[destroyedObjectTag]++;
+            Debug.Log($"Incremented {destroyedObjectTag} to {NumDestroyedObjectsByTag[destroyedObjectTag]}");
+        }
 
-        return true;
+        public bool CheckIfObjectiveIsComplete(string objectTag)
+        {
+            if (NumDestroyedObjectsByTag[objectTag] < NeededNumberToDestroyByTag[objectTag])
+                return false;
+
+            return true;
+        }
     }
 }

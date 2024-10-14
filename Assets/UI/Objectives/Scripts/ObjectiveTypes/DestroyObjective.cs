@@ -1,4 +1,5 @@
 ﻿using Core.Events;
+using Core.Spawning.Scripts;
 using UnityEngine;
 
 namespace UI.Objectives.Scripts.ObjectiveTypes

@@ -1,13 +1,12 @@
 ﻿using Characters.Player.InputHandlers.Scripts;
+using Core.Events;
 using Core.Events.EventManagers;
-using Core.ShipSystems.Scripts;
 using Environment.Interactables.Openable.Scripts;
 using Environment.Interactables.SceneTransitions.Scripts;
 using Environment.Interactables.Triggerables.Scripts;
 using JetBrains.Annotations;
 using UI;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 namespace Environment.Interactables.Scripts
@@ -24,7 +23,7 @@ namespace Environment.Interactables.Scripts
             Console,
             LevelHatch,
             Triggerable,
-            PowerNode,
+            PowerNode
         }
 
         [SerializeField] [CanBeNull] OpenableObject openableObject;
@@ -42,8 +41,8 @@ namespace Environment.Interactables.Scripts
 
         public InteractableType interactableType;
 
-        public UnityEvent<InteractableObject> onInteract;
-        public UnityEvent<InteractableObject> onEndInteract;
+        // public UnityEvent<InteractableObject> onInteract;
+        // public UnityEvent<InteractableObject> onEndInteract;
 
 
         PlayerEventManager _playerEventManager;
@@ -67,13 +66,15 @@ namespace Environment.Interactables.Scripts
 
             _playerEventManager = GameObject.Find("Player").GetComponent<PlayerEventManager>();
 
-            onInteract = new UnityEvent<InteractableObject>();
-            onEndInteract = new UnityEvent<InteractableObject>();
+            // onInteract = new UnityEvent<InteractableObject>();
+            // onEndInteract = new UnityEvent<InteractableObject>();
 
 
-            onInteract.AddListener(OnInteractHandler);
+            EventManager.EOnObjectInteracted.AddListener(OnInteractHandler);
+            EventManager.EOnObjectEndInteracted.AddListener(OnEndInteractHandler);
 
-            onEndInteract.AddListener(OnEndInteractHandler);
+            // onEndInteract.AddListener(OnEndInteractHandler);
+
 
             triggerableObject = GetComponent<TriggerableObject>();
 
@@ -150,7 +151,7 @@ namespace Environment.Interactables.Scripts
             UIManager.Instance.inGameConsoleManager
                 .LogMessage("Interacting with object: " + objectName);
 
-            onInteract.Invoke(this);
+            EventManager.EOnObjectInteracted.Invoke(this);
 
             if (interactableType == InteractableType.Container)
                 if (interactionUI != null)
@@ -196,7 +197,7 @@ namespace Environment.Interactables.Scripts
 
         public void EndInteractionSimple()
         {
-            onEndInteract.Invoke(this);
+            EventManager.EOnObjectEndInteracted.Invoke(this);
             if (interactableType == InteractableType.Container)
             {
                 if (interactionUI != null) interactionUI.SetActive(false);

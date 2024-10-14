@@ -1,4 +1,5 @@
-﻿using UI.Objectives.Scripts;
+﻿using Environment.Interactables.Scripts;
+using UI.Objectives.Scripts;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -28,5 +29,11 @@ namespace Core.Events
         public static readonly UnityEvent<Objective> EOnObjectiveAssigned = new();
 
         public static readonly UnityEvent<GameObject> EOnObjectDestroyed = new();
+
+        // Interactable Object Events
+
+        public static readonly UnityEvent<InteractableObject> EOnObjectInteracted = new();
+
+        public static readonly UnityEvent<InteractableObject> EOnObjectEndInteracted = new();
     }
 }
