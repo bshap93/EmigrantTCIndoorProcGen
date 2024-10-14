@@ -33,6 +33,8 @@ namespace UI.Objectives.Scripts
         public void OnObjectiveCompleted(Objective objective)
         {
             animator.SetBool(Active, false);
+            _currentObjective.isActive = false;
+            _currentObjective.isCompleted = true;
             _currentObjective = null;
             objectiveText.text = string.Empty;
             objectiveManager.CompleteCurrentObjective();
@@ -42,6 +44,7 @@ namespace UI.Objectives.Scripts
             Debug.Log("Objective Assigned: " + objective.objectiveText);
             _currentObjective = objective;
             _currentObjective.isActive = true;
+            _currentObjective.isCompleted = false;
             animator.SetBool(Active, true);
             objectiveText.text = objective.objectiveText;
         }

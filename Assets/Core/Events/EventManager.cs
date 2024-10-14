@@ -26,5 +26,7 @@ namespace Core.Events
         public static readonly UnityEvent<Objective> EOnObjectiveCompleted = new();
 
         public static readonly UnityEvent<Objective> EOnObjectiveAssigned = new();
+
+        public static readonly UnityEvent<GameObject> EOnObjectDestroyed = new();
     }
 }

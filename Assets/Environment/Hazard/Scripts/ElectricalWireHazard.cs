@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Characters.Player.Scripts;
 using Characters.Scripts;
+using Core.Events;
 using UnityEngine;
 
 namespace Environment.Hazard.Scripts
@@ -39,6 +40,8 @@ namespace Environment.Hazard.Scripts
             sparksParticleSystem.Stop();
             scrap.SetActive(true);
             gameObject.SetActive(false);
+
+            EventManager.EOnObjectDestroyed.Invoke(gameObject);
         }
     }
 }
