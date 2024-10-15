@@ -17,6 +17,14 @@ namespace UI.Objectives.Scripts
             objectiveUI.OnObjectiveAssigned(objectives[currentObjectiveIndex]);
             _currentObjective = objectives[currentObjectiveIndex];
         }
+        void OnEnable()
+        {
+            foreach (var objective in objectives)
+            {
+                objective.isActive = false;
+                objective.isCompleted = false;
+            }
+        }
 
         public void CompleteCurrentObjective()
         {

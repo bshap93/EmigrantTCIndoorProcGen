@@ -12,10 +12,11 @@ namespace UI.Objectives.Scripts
         public string objectiveText;
 
 
-        public Objective(string objectiveText)
+        protected Objective(string objectiveText)
         {
             this.objectiveText = objectiveText;
             isCompleted = false;
+            isActive = false;
         }
     }
 }

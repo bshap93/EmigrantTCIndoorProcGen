@@ -3,7 +3,9 @@ using Core.Utilities.Commands;
 using Environment.Interactables.Collectables.Scripts.Commands;
 using Environment.Interactables.Scripts;
 using JetBrains.Annotations;
+using Polyperfect.Crafting.Integration;
 using UI;
+using UI.Scripts;
 using UnityEngine;
 
 namespace Environment.Interactables.Collectables.Scripts
@@ -19,7 +21,8 @@ namespace Environment.Interactables.Collectables.Scripts
         public enum CollectableType
         {
             OxygenBottle,
-            GameObject
+            GameObject,
+            FireExtinguisher
         }
 
         public CollectableType collectableType;
@@ -30,6 +33,16 @@ namespace Environment.Interactables.Collectables.Scripts
 
         [CanBeNull] public GameObject interactionUI;
 
+        public ItemStack itemStack;
+
+        HotbarController _hotbarController;
+
+        bool _playerInRange;
+
+        GameObject _tooltipInstance;
+
+        Canvas _uiCanvas;
+
         BoxCollider _zoneCollider;
 
 
@@ -38,19 +51,15 @@ namespace Environment.Interactables.Collectables.Scripts
         protected ISimpleCommand CollectOxygenBottleCommand;
         protected CollectableState CurrentState;
 
-        bool playerInRange;
-
-        GameObject tooltipInstance;
-
-        Canvas uiCanvas;
-
         public bool IsCollected => CurrentState == CollectableState.Collected;
 
         void Start()
         {
-            uiCanvas = UIManager.Instance.uiCanvas;
+            _uiCanvas = UIManager.Instance.uiCanvas;
 
-            if (uiCanvas == null)
+            _hotbarController = FindObjectOfType<HotbarController>();
+
+            if (_uiCanvas == null)
             {
                 Debug.LogError("UI Canvas not found in scene");
                 return;
@@ -62,13 +71,15 @@ namespace Environment.Interactables.Collectables.Scripts
                 _zoneCollider.isTrigger = true;
 
 
-            CollectGameObjectCommand = new CollectGameObjectCommand();
+            CollectGameObjectCommand = new CollectGameObjectCommand(
+                collectableGameObject, _hotbarController, itemStack);
+
             CollectOxygenBottleCommand = new CollectOxygenBottleCommand(collectableGameObject);
         }
 
         void Update()
         {
-            if (playerInRange)
+            if (_playerInRange)
             {
                 if (Input.GetKeyDown(KeyCode.F))
                 {
@@ -84,7 +95,7 @@ namespace Environment.Interactables.Collectables.Scripts
         {
             if (other.CompareTag("Player"))
             {
-                playerInRange = true;
+                _playerInRange = true;
                 ShowTooltip();
             }
         }
@@ -93,7 +104,7 @@ namespace Environment.Interactables.Collectables.Scripts
         {
             if (other.CompareTag("Player"))
             {
-                playerInRange = false;
+                _playerInRange = false;
                 HideTooltip();
             }
         }
@@ -124,10 +135,10 @@ namespace Environment.Interactables.Collectables.Scripts
 
         public void ShowTooltip()
         {
-            if (tooltipInstance == null && tooltipPrefab != null && uiCanvas != null)
+            if (_tooltipInstance == null && tooltipPrefab != null && _uiCanvas != null)
             {
                 // Instantiate the tooltip as a child of the Canvas
-                tooltipInstance = Instantiate(tooltipPrefab, uiCanvas.transform);
+                _tooltipInstance = Instantiate(tooltipPrefab, _uiCanvas.transform);
 
                 // Set the initial position of the tooltip
                 UpdateTooltipPosition();
@@ -136,22 +147,22 @@ namespace Environment.Interactables.Collectables.Scripts
 
         void UpdateTooltipPosition()
         {
-            if (tooltipInstance != null)
+            if (_tooltipInstance != null)
             {
                 // Convert the object's position to screen space
                 var screenPosition = Camera.main.WorldToScreenPoint(transform.position);
 
                 // Set the tooltip's position
-                tooltipInstance.GetComponent<RectTransform>().position = screenPosition;
+                _tooltipInstance.GetComponent<RectTransform>().position = screenPosition;
             }
         }
 
         void HideTooltip()
         {
-            if (tooltipInstance != null)
+            if (_tooltipInstance != null)
             {
-                Destroy(tooltipInstance);
-                tooltipInstance = null;
+                Destroy(_tooltipInstance);
+                _tooltipInstance = null;
             }
         }
     }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CraftASuitRepairTool
   m_EditorClassIdentifier: 
   isCompleted: 0
-  isActive: 0
+  isActive: 1
   objectiveText: Craft a Suit Repair Tool to Fix your leaking spacesuit
   itemStack:
     itemID:

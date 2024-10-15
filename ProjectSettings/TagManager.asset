@@ -12,6 +12,7 @@ TagManager:
   - AiOnIcon
   - AiOffIcon
   - HangingWire
+  - ItemSlot
   layers:
   - Default
   - TransparentFX
