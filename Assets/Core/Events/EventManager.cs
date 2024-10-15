@@ -35,5 +35,9 @@ namespace Core.Events
         public static readonly UnityEvent<InteractableObject> EOnObjectInteracted = new();
 
         public static readonly UnityEvent<InteractableObject> EOnObjectEndInteracted = new();
+
+        public static readonly UnityEvent<string> EOnItemUsed = new();
+
+        public static readonly UnityEvent<string> EOnCollectableCollected = new();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Core.Events;
 using Core.Spawning.Scripts;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace UI.Objectives.Scripts.ObjectiveTypes
 {
@@ -10,6 +11,7 @@ namespace UI.Objectives.Scripts.ObjectiveTypes
         public int objectsToDestroyCount;
         public string objectTag;
 
+        [FormerlySerializedAs("_destroyManager")] [SerializeField]
         DestroyManager destroyManager;
 
         public DestroyObjective(string objectiveText) : base(objectiveText)

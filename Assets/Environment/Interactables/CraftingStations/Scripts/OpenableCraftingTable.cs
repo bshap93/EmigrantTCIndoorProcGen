@@ -1,13 +1,14 @@
 ﻿using Environment.Interactables.CraftingStations.Scripts.Commands;
 using Environment.Interactables.Openable.Scripts;
+using Environment.Interactables.Scripts;
 using Polyperfect.Crafting.Integration.UGUI;
-using UnityEngine;
 
 namespace Environment.Interactables.CraftingStations.Scripts
 {
     public class OpenableCraftingTable : OpenableObject
     {
         public UGUICrafter crafter;
+        InteractableObject _interactableObject;
         void Start()
         {
             CurrentState = OpenableState.Closed;
@@ -35,12 +36,10 @@ namespace Environment.Interactables.CraftingStations.Scripts
         }
         public override void Open()
         {
-            Debug.Log("Player is using crafting station");
             OpenCommand.Execute();
         }
         public override void Close()
         {
-            Debug.Log("Player is done using crafting station");
             CloseCommand.Execute();
         }
     }

@@ -82,6 +82,9 @@ namespace Core.Events.EventManagers
         public void TriggerCharacterSuitModification(HealthSystem.SuitModificationType suitModType)
         {
             playerSuitModEvent.Invoke(suitModType);
+            if (suitModType == HealthSystem.SuitModificationType.FullRepair)
+                EventManager.EOnItemUsed.Invoke("9198590967925931573");
+
             Debug.Log("Suit Modification Event Invoked");
         }
 

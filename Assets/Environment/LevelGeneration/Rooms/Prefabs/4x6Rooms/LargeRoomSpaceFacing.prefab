@@ -3255,7 +3255,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ecc080b5b9646019e2a66d3d2f612a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemySpawnPoints: []
+  enemyPrefabs: []
+  baseEnemyCount: 0
+  hasVerticality: 0
   roomCenter: {fileID: 0}
+  difficultyLevel: 0
+  roomType: 0
+  roomID: 0
+  roomTile: {fileID: 0}
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &7366468080636793263
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -199,10 +199,8 @@ namespace Environment.Interactables.Scripts
         {
             EventManager.EOnObjectEndInteracted.Invoke(this);
             if (interactableType == InteractableType.Container)
-            {
-                if (interactionUI != null) interactionUI.SetActive(false);
-                Debug.Log("End interaction with container");
-            }
+                if (interactionUI != null)
+                    interactionUI.SetActive(false);
 
             if (interactableType == InteractableType.CraftingStation)
             {

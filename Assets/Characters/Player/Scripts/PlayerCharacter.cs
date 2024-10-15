@@ -156,7 +156,10 @@ namespace Characters.Player.Scripts
         public void UseConsumable()
         {
             if (equippableHandler != null && equippableHandler is ConsumableHandler)
+            {
                 equippableHandler.Use(this);
+                EventManager.EOnItemUsed.Invoke(equippedItem.ID.ToString());
+            }
         }
 
         public void CeaseUsing()

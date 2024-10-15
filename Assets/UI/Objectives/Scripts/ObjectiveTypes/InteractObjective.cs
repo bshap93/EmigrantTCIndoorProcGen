@@ -10,6 +10,9 @@ namespace UI.Objectives.Scripts.ObjectiveTypes
         public string interactableObjectName;
         public InteractObjective(string objectiveText) : base(objectiveText)
         {
+        }
+        void OnEnable()
+        {
             EventManager.EOnObjectInteracted.AddListener(OnObjectInteracted);
         }
         void OnObjectInteracted(InteractableObject interactableObj)

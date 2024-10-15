@@ -1,4 +1,5 @@
-﻿using Core.Utilities.Commands;
+﻿using Core.Events;
+using Core.Utilities.Commands;
 using Environment.Interactables.Collectables.Scripts.Commands;
 using Environment.Interactables.Scripts;
 using JetBrains.Annotations;
@@ -108,6 +109,8 @@ namespace Environment.Interactables.Collectables.Scripts
                 CollectGameObjectCommand.Execute();
 
             SetState(CollectableState.Collected);
+
+            EventManager.EOnCollectableCollected.Invoke(objectName);
         }
         public void SetState(CollectableState state)
         {

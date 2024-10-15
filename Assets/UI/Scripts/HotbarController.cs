@@ -18,7 +18,7 @@ namespace UI.Scripts
             if (objectiveManager != null)
             {
                 var currentObjective = objectiveManager.GetCurrentObjective();
-                if (currentObjective is ItemObjective itemObjective)
+                if (currentObjective is ObtainItemObjective itemObjective)
                     itemObjective.CheckIfObjectiveIsCompletedByItemTransfer(itemStack);
             }
         }
