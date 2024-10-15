@@ -1,0 +1,166 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6443405178679325171
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6314465446331910607}
+  - component: {fileID: 3958409091438341983}
+  - component: {fileID: 5098135621916329904}
+  m_Layer: 0
+  m_Name: FireExtinguisherCollectable
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6314465446331910607
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6443405178679325171}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.795, y: 2.0028, z: -14.394}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6286374049799313979}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3958409091438341983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6443405178679325171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa22b9f04af4e3d8ed7304004cdb915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collectableType: 2
+  collectableGameObject: {fileID: 4519611389280754159}
+  tooltipPrefab: {fileID: 8771958076689288674, guid: c2d402c1124e4de4ab01fe5e770b31f7, type: 3}
+  objectName: FireExtinguisher
+  interactionUI: {fileID: 0}
+  itemStack:
+    itemID:
+      val: -1915729737833443553
+    quantity:
+      Value: 1
+--- !u!65 &5098135621916329904
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6443405178679325171}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.68, y: 3.62, z: 1.9}
+  m_Center: {x: 2.12, y: 0, z: 1.92}
+--- !u!1001 &8520676595623319356
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6314465446331910607}
+    m_Modifications:
+    - target: {fileID: 2378509579745578247, guid: 7deabfbfda25025419ffe00a8ef4424d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.38419774
+      objectReference: {fileID: 0}
+    - target: {fileID: 2378509579745578247, guid: 7deabfbfda25025419ffe00a8ef4424d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.38419777
+      objectReference: {fileID: 0}
+    - target: {fileID: 2378509579745578247, guid: 7deabfbfda25025419ffe00a8ef4424d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.38419774
+      objectReference: {fileID: 0}
+    - target: {fileID: 2378509579745578247, guid: 7deabfbfda25025419ffe00a8ef4424d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2378509579745578247, guid: 7deabfbfda25025419ffe00a8ef4424d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2378509579745578247, guid: 7deabfbfda25025419ffe00a8ef4424d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2378509579745578247, guid: 7deabfbfda25025419ffe00a8ef4424d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.60876286
+      objectReference: {fileID: 0}
+    - target: {fileID: 2378509579745578247, guid: 7deabfbfda25025419ffe00a8ef4424d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2378509579745578247, guid: 7deabfbfda25025419ffe00a8ef4424d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7933523
+      objectReference: {fileID: 0}
+    - target: {fileID: 2378509579745578247, guid: 7deabfbfda25025419ffe00a8ef4424d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2378509579745578247, guid: 7deabfbfda25025419ffe00a8ef4424d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2378509579745578247, guid: 7deabfbfda25025419ffe00a8ef4424d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -105
+      objectReference: {fileID: 0}
+    - target: {fileID: 2378509579745578247, guid: 7deabfbfda25025419ffe00a8ef4424d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5226256552234536659, guid: 7deabfbfda25025419ffe00a8ef4424d, type: 3}
+      propertyPath: m_Name
+      value: FireExtinguisher_lowpo
+      objectReference: {fileID: 0}
+    - target: {fileID: 5226256552234536659, guid: 7deabfbfda25025419ffe00a8ef4424d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267106477462197134, guid: 7deabfbfda25025419ffe00a8ef4424d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4b6c16c8bf29c9e40bc66796d0674b6e, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7deabfbfda25025419ffe00a8ef4424d, type: 3}
+--- !u!1 &4519611389280754159 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5226256552234536659, guid: 7deabfbfda25025419ffe00a8ef4424d, type: 3}
+  m_PrefabInstance: {fileID: 8520676595623319356}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6286374049799313979 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2378509579745578247, guid: 7deabfbfda25025419ffe00a8ef4424d, type: 3}
+  m_PrefabInstance: {fileID: 8520676595623319356}
+  m_PrefabAsset: {fileID: 0}
