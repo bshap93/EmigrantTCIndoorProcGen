@@ -151,6 +151,7 @@ namespace Environment.Interactables.Scripts
             UIManager.Instance.inGameConsoleManager
                 .LogMessage("Interacting with object: " + objectName);
 
+
             EventManager.EOnObjectInteracted.Invoke(this);
 
             if (interactableType == InteractableType.Container)

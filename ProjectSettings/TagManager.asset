@@ -13,6 +13,8 @@ TagManager:
   - AiOffIcon
   - HangingWire
   - ItemSlot
+  - ExtinguishableFire
+  - HintGlow
   layers:
   - Default
   - TransparentFX

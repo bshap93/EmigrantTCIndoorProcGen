@@ -245,8 +245,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectives:
-  - {fileID: 11400000, guid: b9752266f33e4bb4092810074af7df87, type: 2}
+  - {fileID: 11400000, guid: 0e09f0465d7f73c4f8c39f2130bb3ef5, type: 2}
+  - {fileID: 11400000, guid: e7730456dc171544aad74214f6e7badf, type: 2}
+  - {fileID: 11400000, guid: 8fd9f3a69199e8d419f24441ec230956, type: 2}
+  - {fileID: 11400000, guid: 6f442f5934b610d4d95479c1f58e9e30, type: 2}
+  - {fileID: 11400000, guid: 21e5d42dddbfa4c49abe42b453d91803, type: 2}
+  - {fileID: 11400000, guid: 083aa6849ed78094a925834c9f29b610, type: 2}
+  - {fileID: 11400000, guid: 97d75f78b414074409b121b714f69436, type: 2}
+  - {fileID: 11400000, guid: 4f6856fb239db56449ec006a10edb202, type: 2}
+  - {fileID: 11400000, guid: d3765ca6104179646b69ddda46efc946, type: 2}
+  - {fileID: 11400000, guid: ef006c031e1534741943cbafe492e95a, type: 2}
+  - {fileID: 0}
   objectiveUI: {fileID: 359255317960994207}
+  currentObjectiveIndex: 0
 --- !u!1 &530022231500243815
 GameObject:
   m_ObjectHideFlags: 0
@@ -1159,7 +1170,7 @@ RectTransform:
   m_GameObject: {fileID: 3231771794027451381}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5361, y: 1.5361, z: 1.5361}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1650932079135972973}
@@ -1204,6 +1215,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectiveText: {fileID: 6672060816571709154}
+  animator: {fileID: 2166702076104452482}
+  objectiveManager: {fileID: 7597651921002265401}
 --- !u!1 &3312833046022048519
 GameObject:
   m_ObjectHideFlags: 0
@@ -6437,7 +6450,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -43, y: 33.333828}
+  m_AnchoredPosition: {x: -43, y: 33.33436}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &285832713451803114
@@ -6637,7 +6650,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3906129058823766740}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 717.3119, y: 459.5999, z: -20.978067}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7071,7 +7084,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6154485791787501132}
   m_HandleRect: {fileID: 5580432771520857205}
   m_Direction: 3
-  m_Value: -0.000005779266
+  m_Value: -0.000014877318
   m_Size: 0.59999996
   m_NumberOfSteps: 0
   m_OnValueChanged:
