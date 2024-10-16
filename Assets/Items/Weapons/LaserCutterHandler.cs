@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Audio.Sounds.Scripts;
 using Characters.Scripts;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ namespace Items.Weapons
         public GameObject hitEffect;
         public GameObject cutEffect;
         public LineRenderer lineRenderer;
+        bool isUsing;
         public override void Use(IDamageable target)
         {
             FireLaserCutter();
@@ -16,6 +18,8 @@ namespace Items.Weapons
         public override void CeaseUsing()
         {
             StartCoroutine(DisableLineRenderer());
+            if (isUsing) AudioManager.OnStopLoopingEffect.Invoke("LaserSoundEffect");
+            isUsing = false;
         }
 
 
@@ -27,6 +31,12 @@ namespace Items.Weapons
             // This would cast rays only against colliders in layer 8.
             // But instead we want to collide against everything except layer 8. The ~ operator does this, it inverts a bitmask.
             // layerMask = ~layerMask;
+
+            if (!isUsing) AudioManager.OnPlayLoopingEffect.Invoke("LaserSoundEffect", firePoint.position, true);
+
+
+            Debug.Log("Firing laser cutter");
+            isUsing = true;
 
 
             RaycastHit hit;

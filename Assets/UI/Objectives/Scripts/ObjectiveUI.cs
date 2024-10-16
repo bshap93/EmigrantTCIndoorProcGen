@@ -25,8 +25,6 @@ namespace UI.Objectives.Scripts
 
             EventManager.EOnObjectiveCompleted.AddListener(OnObjectiveCompleted);
             EventManager.EOnObjectiveAssigned.AddListener(OnObjectiveAssigned);
-
-            Debug.Log(_currentObjective);
         }
 
         // Update is called once per frame

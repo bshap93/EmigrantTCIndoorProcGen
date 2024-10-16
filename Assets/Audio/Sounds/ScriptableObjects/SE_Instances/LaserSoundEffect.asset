@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39cfb935bdde47c493d8ac4047a555ee, type: 3}
   m_Name: LaserSoundEffect
   m_EditorClassIdentifier: 
-  clips: []
+  clips:
+  - {fileID: 8300000, guid: 776ce4e11fd7ed64780ecdfad1c70b29, type: 3}
+  isLooping: 1
+  volume: 1
