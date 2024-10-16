@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Audio.Sounds.Scripts;
 using Characters.Player.Scripts;
 using Characters.Scripts;
 using Core.Events;
@@ -18,6 +19,11 @@ namespace Environment.Hazard.Scripts
 
         float cutProgress;
         Coroutine cuttingCoroutine;
+
+        void Start()
+        {
+            AudioManager.OnPlayLoopingEffect.Invoke("ElectricalWireCrackle", gameObject.transform.position, true);
+        }
 
         void OnDestroy()
         {
@@ -51,6 +57,7 @@ namespace Environment.Hazard.Scripts
         {
             yield return new WaitForSeconds(0.1f); // Small delay to ensure we don't destroy immediately
             sparksParticleSystem.Stop();
+            AudioManager.OnStopLoopingEffect.Invoke("ElectricalWireCrackle");
             scrap.SetActive(true);
             gameObject.SetActive(false);
             Destroy(gameObject);

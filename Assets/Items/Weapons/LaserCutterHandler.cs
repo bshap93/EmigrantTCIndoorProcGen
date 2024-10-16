@@ -10,6 +10,7 @@ namespace Items.Weapons
         public GameObject hitEffect;
         public GameObject cutEffect;
         public LineRenderer lineRenderer;
+        ICuttable currentCuttable;
         bool isUsing;
         public override void Use(IDamageable target)
         {
@@ -55,28 +56,14 @@ namespace Items.Weapons
 
 
                 HandleLasercutterHit(hit);
-                if (hit.collider.isTrigger && hit.transform.gameObject.TryGetComponent(out ICuttable cuttable))
-                {
-                    cutEffect.transform.position = hit.point;
-                    cutEffect.SetActive(true);
-                    var secondsToCut = cuttable.GetSecondsToCut();
-                    cuttable.Cut(secondsToCut);
-
-
-                    StartCoroutine(DisableCutEffect(secondsToCut));
-                }
             }
             else
             {
+                StopCutting();
                 Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white);
             }
         }
 
-        IEnumerator<WaitForSeconds> DisableCutEffect(float seconds)
-        {
-            yield return new WaitForSeconds(seconds);
-            cutEffect.SetActive(false);
-        }
 
         IEnumerator<WaitForSeconds> DisableLineRenderer()
         {
@@ -89,11 +76,39 @@ namespace Items.Weapons
         {
             hitEffect.transform.position = hit.point;
             hitEffect.SetActive(true);
+
             if (hit.transform.gameObject.TryGetComponent(out IDamageable damageable))
                 damageable.TakeDamage(damageable, 0);
 
             if (hit.transform.gameObject.TryGetComponent(out ICuttable cuttable))
-                cuttable.Cut(cuttable.GetSecondsToCut());
+            {
+                if (cuttable != currentCuttable)
+                {
+                    StopCutting();
+                    currentCuttable = cuttable;
+                }
+
+                if (hit.collider.isTrigger)
+                {
+                    cutEffect.transform.position = hit.point;
+                    cutEffect.SetActive(true);
+                }
+
+                cuttable.Cut(Time.deltaTime);
+            }
+            else
+            {
+                StopCutting();
+            }
+        }
+
+        void StopCutting()
+        {
+            if (currentCuttable != null)
+            {
+                cutEffect.SetActive(false);
+                currentCuttable = null;
+            }
         }
     }
 }
