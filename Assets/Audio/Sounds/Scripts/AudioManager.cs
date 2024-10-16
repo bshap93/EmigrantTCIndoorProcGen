@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Audio.Sounds.ScriptableObjects;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,13 +9,12 @@ namespace Audio.Sounds.Scripts
 {
     public class AudioManager : MonoBehaviour
     {
-        // Static events
-        public static PlayEffectEvent OnPlayEffect = new();
-        public static PlayEffectAtPointEvent OnPlayEffectAtPoint = new();
-        public static PlayLoopingEffectEvent OnPlayLoopingEffect = new();
-        public static PlayEffectEvent OnStopLoopingEffect = new();
-
         static AudioManager _instance;
+        // Static events
+        public PlayEffectEvent OnPlayEffect = new();
+        public PlayEffectAtPointEvent OnPlayEffectAtPoint = new();
+        public PlayLoopingEffectEvent OnPlayLoopingEffect = new();
+        public PlayEffectEvent OnStopLoopingEffect = new();
 
         public SoundEffect[] soundEffects;
 
@@ -24,6 +24,7 @@ namespace Audio.Sounds.Scripts
         public PlayLoopingEffectEvent onPlayLoopingEffect;
         public PlayEffectEvent onStopLoopingEffect;
         AudioListener _audioListener;
+        Dictionary<string, Coroutine> _loopingCoroutines;
         Dictionary<string, AudioSource> _loopingSources;
         Dictionary<string, SoundEffect> _soundEffectDictionary;
 
@@ -35,6 +36,7 @@ namespace Audio.Sounds.Scripts
                 DontDestroyOnLoad(gameObject);
                 InitializeSoundEffects();
                 _loopingSources = new Dictionary<string, AudioSource>();
+                _loopingCoroutines = new Dictionary<string, Coroutine>();
                 LinkEvents();
             }
             else
@@ -114,39 +116,59 @@ namespace Audio.Sounds.Scripts
                 return;
             }
 
-            var clip = soundEffect.GetRandomClip();
-            if (clip == null)
-            {
-                Debug.LogErrorFormat("No clips found for sound effect {0}", effectName);
-                return;
-            }
+            if (_loopingSources.TryGetValue(effectName, out var existingSource)) StopLoopingEffect(effectName);
 
-            if (_loopingSources.TryGetValue(effectName, out var existingSource))
+            var audioSource = new GameObject($"LoopingAudio_{effectName}").AddComponent<AudioSource>();
+            audioSource.loop = false; // We'll handle looping manually
+            audioSource.volume = soundEffect.volume;
+            audioSource.transform.position = worldPosition;
+            _loopingSources[effectName] = audioSource;
+
+            if (loop)
             {
-                existingSource.Stop();
-                existingSource.clip = clip;
-                existingSource.loop = loop;
-                existingSource.Play();
-                existingSource.transform.position = worldPosition;
+                _loopingCoroutines[effectName] =
+                    StartCoroutine(LoopAudioCoroutine(effectName, soundEffect, audioSource));
             }
             else
             {
-                var audioSource = new GameObject($"LoopingAudio_{effectName}").AddComponent<AudioSource>();
-                audioSource.clip = clip;
-                audioSource.loop = loop;
+                audioSource.clip = soundEffect.GetRandomClip();
                 audioSource.Play();
-                audioSource.transform.position = worldPosition;
-                _loopingSources[effectName] = audioSource;
             }
         }
+
+        [CanBeNull]
+        IEnumerator<WaitForSeconds> LoopAudioCoroutine(string effectName, SoundEffect soundEffect,
+            AudioSource audioSource)
+        {
+            while (true)
+            {
+                audioSource.clip = soundEffect.GetRandomClip();
+                audioSource.Play();
+
+                // Wait until the clip is nearly finished
+                var clipLength = audioSource.clip.length;
+                var timeToWait = clipLength - 0.1f; // Switch 0.1 seconds before the end
+                yield return new WaitForSeconds(timeToWait);
+
+                // If the effect is no longer looping, break the coroutine
+                if (!_loopingSources.ContainsKey(effectName)) break;
+            }
+        }
+
 
         public void StopLoopingEffect(string effectName)
         {
             if (_loopingSources.TryGetValue(effectName, out var audioSource))
             {
                 audioSource.Stop();
-                Destroy(audioSource.gameObject);
+                // Destroy(audioSource.gameObject);
                 _loopingSources.Remove(effectName);
+            }
+
+            if (_loopingCoroutines.TryGetValue(effectName, out var coroutine))
+            {
+                StopCoroutine(coroutine);
+                _loopingCoroutines.Remove(effectName);
             }
         }
 

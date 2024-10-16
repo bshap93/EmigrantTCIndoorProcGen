@@ -10,8 +10,14 @@ namespace Items.Weapons
         public GameObject hitEffect;
         public GameObject cutEffect;
         public LineRenderer lineRenderer;
+        AudioManager audioManager;
         ICuttable currentCuttable;
         bool isUsing;
+
+        void Start()
+        {
+            audioManager = FindObjectOfType<AudioManager>();
+        }
         public override void Use(IDamageable target)
         {
             FireLaserCutter();
@@ -19,7 +25,7 @@ namespace Items.Weapons
         public override void CeaseUsing()
         {
             StartCoroutine(DisableLineRenderer());
-            if (isUsing) AudioManager.OnStopLoopingEffect.Invoke("LaserSoundEffect");
+            if (isUsing) audioManager.OnStopLoopingEffect.Invoke("LaserSoundEffect");
             isUsing = false;
         }
 
@@ -33,7 +39,7 @@ namespace Items.Weapons
             // But instead we want to collide against everything except layer 8. The ~ operator does this, it inverts a bitmask.
             // layerMask = ~layerMask;
 
-            if (!isUsing) AudioManager.OnPlayLoopingEffect.Invoke("LaserSoundEffect", firePoint.position, true);
+            if (!isUsing) audioManager.OnPlayLoopingEffect.Invoke("LaserSoundEffect", firePoint.position, true);
 
 
             Debug.Log("Firing laser cutter");

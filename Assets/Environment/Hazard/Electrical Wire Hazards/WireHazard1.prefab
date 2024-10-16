@@ -4816,7 +4816,7 @@ GameObject:
   - component: {fileID: 1223325869852211043}
   - component: {fileID: 86621045430868191}
   m_Layer: 0
-  m_Name: HangingWire_02
+  m_Name: HangingWire_03
   m_TagString: HangingWire
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4927,6 +4927,7 @@ MonoBehaviour:
   scrap: {fileID: 6992445484791610501}
   secondsToCut: 1
   associatedObjective: {fileID: 0}
+  audioManager: {fileID: 0}
 --- !u!65 &86621045430868191
 BoxCollider:
   m_ObjectHideFlags: 0

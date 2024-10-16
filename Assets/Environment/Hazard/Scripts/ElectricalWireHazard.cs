@@ -10,6 +10,7 @@ namespace Environment.Hazard.Scripts
 {
     public class ElectricalWireHazard : MonoBehaviour, ICuttable
     {
+        public static int wireCount;
         public ParticleSystem sparksParticleSystem;
         public GameObject scrap;
 
@@ -17,19 +18,26 @@ namespace Environment.Hazard.Scripts
 
         [SerializeField] DestroyObjective associatedObjective;
 
+        [SerializeField] AudioManager audioManager;
+
         float cutProgress;
         Coroutine cuttingCoroutine;
 
         void Start()
         {
-            AudioManager.OnPlayLoopingEffect.Invoke("ElectricalWireCrackle", gameObject.transform.position, true);
+            audioManager = FindObjectOfType<AudioManager>();
+            wireCount++;
+            audioManager.OnPlayLoopingEffect.Invoke("ElectricalWireCrackle", transform.position, true);
         }
+
 
         void OnDestroy()
         {
             EventManager.EOnObjectDestroyed.Invoke(gameObject);
+            wireCount--;
+            if (wireCount == 0)
+                audioManager.OnStopLoopingEffect.Invoke("ElectricalWireCrackle");
         }
-
 
         void OnTriggerEnter(Collider other)
         {
@@ -57,7 +65,6 @@ namespace Environment.Hazard.Scripts
         {
             yield return new WaitForSeconds(0.1f); // Small delay to ensure we don't destroy immediately
             sparksParticleSystem.Stop();
-            AudioManager.OnStopLoopingEffect.Invoke("ElectricalWireCrackle");
             scrap.SetActive(true);
             gameObject.SetActive(false);
             Destroy(gameObject);

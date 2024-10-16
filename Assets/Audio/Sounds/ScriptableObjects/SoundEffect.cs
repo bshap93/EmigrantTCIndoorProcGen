@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Audio.Sounds.ScriptableObjects
 {
@@ -16,10 +17,25 @@ namespace Audio.Sounds.ScriptableObjects
 
         int _currentClipIndex;
 
+        List<int> _remainingClipIndices;
+
         public AudioClip GetRandomClip()
         {
             if (clips.Length == 0) return null;
-            return clips[Random.Range(0, clips.Length)];
+
+            if (_remainingClipIndices == null || _remainingClipIndices.Count == 0) ResetClipIndices();
+
+            var randomIndex = Random.Range(0, _remainingClipIndices.Count);
+            var clipIndex = _remainingClipIndices[randomIndex];
+            _remainingClipIndices.RemoveAt(randomIndex);
+
+            return clips[clipIndex];
+        }
+
+        void ResetClipIndices()
+        {
+            _remainingClipIndices = new List<int>();
+            for (var i = 0; i < clips.Length; i++) _remainingClipIndices.Add(i);
         }
 
         public AudioClip GetClipByIndex(int index)
