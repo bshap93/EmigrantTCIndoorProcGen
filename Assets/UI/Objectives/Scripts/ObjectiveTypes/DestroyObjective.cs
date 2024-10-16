@@ -9,7 +9,7 @@ namespace UI.Objectives.Scripts.ObjectiveTypes
     {
         public int objectsToDestroyCount;
         public string objectTag;
-        public DestroyManager destroyManager;
+        DestroyManager _destroyManager;
 
 
         public DestroyObjective(string objectiveText) : base(objectiveText)
@@ -19,22 +19,28 @@ namespace UI.Objectives.Scripts.ObjectiveTypes
 
         void OnEnable()
         {
-            if (destroyManager == null) destroyManager = FindObjectOfType<DestroyManager>();
+            if (_destroyManager == null) _destroyManager = FindObjectOfType<DestroyManager>();
             EventManager.EOnObjectDestroyed.AddListener(OnObjectDestroyed);
-            // destroyManager.NeededNumberToDestroyByTag[objectTag] = objectsToDestroyCount;
-            destroyManager.AddTag(objectTag, objectsToDestroyCount);
+            _destroyManager.NeededNumberToDestroyByTag[objectTag] = objectsToDestroyCount;
+            _destroyManager.AddTag(objectTag, objectsToDestroyCount);
             Debug.Log("DestroyObjective OnEnable");
+        }
+
+        void OnDisable()
+        {
+            EventManager.EOnObjectDestroyed.RemoveListener(OnObjectDestroyed);
         }
         void OnObjectDestroyed(GameObject destroyedGameObject)
         {
-            if (destroyedGameObject.CompareTag(objectTag)) destroyManager.IncrementDestroyedObject(objectTag);
-            
+            if (destroyedGameObject.CompareTag(objectTag)) _destroyManager.IncrementDestroyedObject(objectTag);
+
 
             CheckIfObjectiveIsCompleted();
         }
         public void CheckIfObjectiveIsCompleted()
         {
-            if (destroyManager.CheckIfObjectiveIsComplete(objectTag))
+            var objects = GameObject.FindGameObjectsWithTag(objectTag);
+            if (objects.Length == 0)
             {
                 isCompleted = true;
                 EventManager.EOnObjectiveCompleted.Invoke(this);

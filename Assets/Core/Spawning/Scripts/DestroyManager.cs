@@ -8,6 +8,11 @@ namespace Core.Spawning.Scripts
         public readonly Dictionary<string, int> NeededNumberToDestroyByTag = new();
         public Dictionary<string, int> NumDestroyedObjectsByTag = new();
 
+        void Awake()
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+
         public void AddTag(string destroyedObjectTag, int numNeededToDestroy)
         {
             NeededNumberToDestroyByTag[destroyedObjectTag] = numNeededToDestroy;
