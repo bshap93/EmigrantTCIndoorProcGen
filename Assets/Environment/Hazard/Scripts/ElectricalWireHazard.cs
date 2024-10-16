@@ -16,6 +16,9 @@ namespace Environment.Hazard.Scripts
 
         [SerializeField] DestroyObjective associatedObjective;
 
+        float cutProgress;
+        Coroutine cuttingCoroutine;
+
         void OnDestroy()
         {
             EventManager.EOnObjectDestroyed.Invoke(gameObject);
@@ -35,21 +38,21 @@ namespace Environment.Hazard.Scripts
         }
         public void Cut(float seconds)
         {
-            StartCoroutine(DestroyWire(secondsToCut));
+            cutProgress += seconds;
+            if (cutProgress >= secondsToCut && cuttingCoroutine == null)
+                cuttingCoroutine = StartCoroutine(DestroyWire());
         }
         public float GetSecondsToCut()
         {
             return secondsToCut;
         }
 
-        IEnumerator<WaitForSeconds> DestroyWire(float secondsToCut)
+        IEnumerator<WaitForSeconds> DestroyWire()
         {
-            yield return new WaitForSeconds(secondsToCut);
+            yield return new WaitForSeconds(0.1f); // Small delay to ensure we don't destroy immediately
             sparksParticleSystem.Stop();
             scrap.SetActive(true);
             gameObject.SetActive(false);
-
-
             Destroy(gameObject);
         }
     }
