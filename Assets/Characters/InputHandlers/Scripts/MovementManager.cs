@@ -1,5 +1,4 @@
 ﻿using Characters.NPCs.Scripts.Commands.Move;
-using Characters.Scripts.Commands.Move;
 using UnityEngine;
 
 namespace Characters.InputHandlers.Scripts
@@ -23,6 +22,7 @@ namespace Characters.InputHandlers.Scripts
         MoveCommand _moveLeftCommand;
         MoveCommand _moveRightCommand;
         MoveCommand _moveUpCommand;
+
 
         // Singleton instance
         public static MovementManager Instance { get; private set; }

@@ -1,7 +1,6 @@
-using Characters.NPCs.Scripts.Commands.Move;
 using UnityEngine;
 
-namespace Characters.Scripts.Commands.Move
+namespace Characters.NPCs.Scripts.Commands.Move
 {
     // Command for moving the character forward
 

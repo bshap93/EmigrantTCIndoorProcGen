@@ -1,6 +1,8 @@
-﻿using Characters.InputHandlers.Scripts;
+﻿using Audio.Sounds.Player.Scripts;
+using Characters.InputHandlers.Scripts;
 using Characters.Player.Scripts;
 using Characters.Player.Scripts.Movement;
+using Core.Events;
 using Core.InputHandler.Scripts;
 using Polyperfect.Crafting.Integration;
 using UnityEngine;
@@ -15,7 +17,11 @@ namespace Characters.Player.InputHandlers.Scripts
         RotatePlayerDirection rotatePlayerDirection;
         [SerializeField] CategoryObject pistolCategoryObject;
         [SerializeField] CategoryObject consumableCategoryObject;
+        [SerializeField] GameObject player;
+        [FormerlySerializedAs("_characterFootsteps")] [SerializeField]
+        CharacterFootsteps characterFootsteps;
 
+        bool _isMoving;
 
         void Start()
         {
@@ -31,35 +37,53 @@ namespace Characters.Player.InputHandlers.Scripts
 
         public void HandleInput()
         {
-            HandleMovementInput();
+            var wasMoving = _isMoving;
+            _isMoving = HandleMovementInput();
+
+            if (_isMoving && !wasMoving)
+            {
+                EventManager.EOnCharacterIsMoving.Invoke(movementManager.walkSpeed);
+                characterFootsteps.PlayFootsteps();
+            }
+            else if (!_isMoving && wasMoving)
+            {
+                EventManager.EOnCharacterStoppedMoving.Invoke();
+                characterFootsteps.StopFootsteps();
+            }
+
             HandleItemUseInput();
         }
 
-        void HandleMovementInput()
+        bool HandleMovementInput()
         {
+            var isMoving = false;
+
             if (Input.GetKey(KeyCode.W))
             {
                 movementManager.ExecuteMoveUpCommand();
                 rotatePlayerDirection.ExecuteRotateUpCommand();
+                isMoving = true;
             }
-
-            if (Input.GetKey(KeyCode.S))
+            else if (Input.GetKey(KeyCode.S))
             {
                 movementManager.ExecuteMoveDownCommand();
                 rotatePlayerDirection.ExecuteRotateDownCommand();
+                isMoving = true;
             }
-
-            if (Input.GetKey(KeyCode.A))
+            else if (Input.GetKey(KeyCode.A))
             {
                 movementManager.ExecuteMoveLeftCommand();
                 rotatePlayerDirection.ExecuteRotateLeftCommand();
+                isMoving = true;
             }
-
-            if (Input.GetKey(KeyCode.D))
+            else if (Input.GetKey(KeyCode.D))
             {
                 movementManager.ExecuteMoveRightCommand();
                 rotatePlayerDirection.ExecuteRotateRightCommand();
+                isMoving = true;
             }
+
+            return isMoving;
         }
 
         void HandleItemUseInput()

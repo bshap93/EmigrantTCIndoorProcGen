@@ -42,5 +42,9 @@ namespace Core.Events
         public static readonly UnityEvent<string> EOnCollectableCollected = new();
 
         public static readonly UnityEvent<BaseItemObject> EOnEquippedItem = new();
+
+        public static readonly UnityEvent<float> EOnCharacterIsMoving = new();
+
+        public static readonly UnityEvent EOnCharacterStoppedMoving = new();
     }
 }

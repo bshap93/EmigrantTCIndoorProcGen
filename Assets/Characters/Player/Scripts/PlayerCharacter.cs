@@ -74,12 +74,6 @@ namespace Characters.Player.Scripts
             equippableHandler = GetComponentInChildren<EquippableHandler>();
         }
 
-        void OnDestroy()
-        {
-            // _dungenCharacter.OnTileChanged -= OnCharacterTileChanged;
-            // playerEventManager.RemoveListenerFromPlayerTakesDamageEvent(TakeDamage);
-        }
-
         // Handle debug damage
         public void TakeDamage(IDamageable dmgeable, float damage)
         {

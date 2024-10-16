@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Audio.Sounds.Player.Scripts;
 using Audio.Sounds.ScriptableObjects;
+using Core.Events;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Events;
@@ -24,6 +26,8 @@ namespace Audio.Sounds.Scripts
         public PlayLoopingEffectEvent onPlayLoopingEffect;
         public PlayEffectEvent onStopLoopingEffect;
         AudioListener _audioListener;
+
+        CharacterFootsteps _characterFootsteps;
         Dictionary<string, Coroutine> _loopingCoroutines;
         Dictionary<string, AudioSource> _loopingSources;
         Dictionary<string, SoundEffect> _soundEffectDictionary;
@@ -45,6 +49,20 @@ namespace Audio.Sounds.Scripts
             }
         }
 
+        void Start()
+        {
+            EventManager.EOnCharacterIsMoving.AddListener(PlayFootsteps);
+            EventManager.EOnCharacterStoppedMoving.AddListener(StopPlayingFootsteps);
+        }
+        void StopPlayingFootsteps()
+        {
+            _characterFootsteps.StopFootsteps();
+        }
+        void PlayFootsteps(float arg0)
+        {
+            _characterFootsteps.PlayFootsteps();
+        }
+
         void LinkEvents()
         {
             OnPlayEffect.AddListener(PlayEffect);
@@ -61,6 +79,7 @@ namespace Audio.Sounds.Scripts
         void InitializeSoundEffects()
         {
             _soundEffectDictionary = new Dictionary<string, SoundEffect>();
+            _characterFootsteps = FindObjectOfType<CharacterFootsteps>();
             foreach (var soundEffect in soundEffects)
             {
                 Debug.LogFormat("Registered effect {0}", soundEffect.name);

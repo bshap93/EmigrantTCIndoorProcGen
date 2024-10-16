@@ -12,6 +12,7 @@ namespace Characters.NPCs.Scripts.Commands.Move
         protected readonly float Speed;
         float _verticalVelocity;
 
+
         protected MoveCommand(Transform cameraTransform, CharacterController controller, float speed)
         {
             CameraTransform = cameraTransform;
