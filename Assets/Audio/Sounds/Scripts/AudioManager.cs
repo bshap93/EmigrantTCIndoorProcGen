@@ -161,7 +161,7 @@ namespace Audio.Sounds.Scripts
             if (_loopingSources.TryGetValue(effectName, out var audioSource))
             {
                 audioSource.Stop();
-                // Destroy(audioSource.gameObject);
+                Destroy(audioSource.gameObject);
                 _loopingSources.Remove(effectName);
             }
 
