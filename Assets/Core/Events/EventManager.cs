@@ -1,4 +1,5 @@
 ﻿using Environment.Interactables.Scripts;
+using Polyperfect.Crafting.Integration;
 using UI.Objectives.Scripts;
 using UnityEngine;
 using UnityEngine.Events;
@@ -39,5 +40,7 @@ namespace Core.Events
         public static readonly UnityEvent<string> EOnItemUsed = new();
 
         public static readonly UnityEvent<string> EOnCollectableCollected = new();
+
+        public static readonly UnityEvent<BaseItemObject> EOnEquippedItem = new();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Characters.Player.Scripts;
 using Characters.Scripts;
+using Core.Events;
 using Core.GameManager.Scripts;
 using Polyperfect.Crafting.Demo;
 using Polyperfect.Crafting.Integration;
@@ -32,6 +33,7 @@ namespace Items.Equipment.Consumables
         public override void Equip(BaseItemObject item, IDamageable equipper)
         {
             Debug.Log("Equipping " + item.name);
+            EventManager.EOnEquippedItem.Invoke(item);
             currentItemObejct = item;
             PlayerCharacter.Instance.equippedItem = item;
             PlayerCharacter.Instance.equippableHandler = this;

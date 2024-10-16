@@ -32,12 +32,16 @@ namespace UI.Objectives.Scripts
         // Update is called once per frame
         public void OnObjectiveCompleted(Objective objective)
         {
-            animator.SetBool(Active, false);
-            _currentObjective.isActive = false;
-            _currentObjective.isCompleted = true;
-            _currentObjective = null;
-            objectiveText.text = string.Empty;
-            objectiveManager.CompleteCurrentObjective();
+            if (objective.name == _currentObjective.name)
+            {
+                Debug.Log("Objective Completed: " + objective.objectiveText);
+                animator.SetBool(Active, false);
+                _currentObjective.isActive = false;
+                _currentObjective.isCompleted = true;
+                _currentObjective = null;
+                objectiveText.text = string.Empty;
+                objectiveManager.CompleteCurrentObjective();
+            }
         }
         public void OnObjectiveAssigned(Objective objective)
         {
@@ -47,6 +51,7 @@ namespace UI.Objectives.Scripts
             _currentObjective.isCompleted = false;
             animator.SetBool(Active, true);
             objectiveText.text = objective.objectiveText;
+            EventManager.EOnObjectiveAssigned.Invoke(objective);
         }
     }
 }

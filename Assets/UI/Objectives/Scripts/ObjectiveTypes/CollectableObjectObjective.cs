@@ -14,6 +14,7 @@ namespace UI.Objectives.Scripts.ObjectiveTypes
         void OnEnable()
         {
             EventManager.EOnCollectableCollected.AddListener(OnObjectCollected);
+            hasLocation = true;
         }
         void OnObjectCollected(string objName)
         {

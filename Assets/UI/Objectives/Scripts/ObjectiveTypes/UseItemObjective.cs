@@ -16,6 +16,7 @@ namespace UI.Objectives.Scripts.ObjectiveTypes
         void OnEnable()
         {
             EventManager.EOnItemUsed.AddListener(OnItemUsed);
+            hasLocation = false;
         }
         void OnItemUsed(string itemUsed)
         {

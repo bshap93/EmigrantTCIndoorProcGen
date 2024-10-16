@@ -15,6 +15,7 @@ TagManager:
   - ItemSlot
   - ExtinguishableFire
   - HintGlow
+  - HintTransform
   layers:
   - Default
   - TransparentFX

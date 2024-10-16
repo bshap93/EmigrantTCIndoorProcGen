@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace UI.Objectives.Scripts
@@ -10,6 +11,9 @@ namespace UI.Objectives.Scripts
         [FormerlySerializedAs("ObjectiveText")]
         public bool isActive;
         public string objectiveText;
+        public bool hasLocation;
+        [CanBeNull] public Transform location;
+        public string objectiveId;
 
 
         protected Objective(string objectiveText)

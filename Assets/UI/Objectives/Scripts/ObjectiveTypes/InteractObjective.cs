@@ -14,6 +14,7 @@ namespace UI.Objectives.Scripts.ObjectiveTypes
         void OnEnable()
         {
             EventManager.EOnObjectInteracted.AddListener(OnObjectInteracted);
+            hasLocation = true;
         }
         void OnObjectInteracted(InteractableObject interactableObj)
         {

@@ -1,4 +1,5 @@
 using Core.Events;
+using UI.Objectives.Scripts;
 using UnityEngine;
 
 namespace Environment.Interactables.Scripts
@@ -6,31 +7,33 @@ namespace Environment.Interactables.Scripts
     public class InteractableGlowHint : MonoBehaviour
     {
         public GameObject glowParticle;
-        InteractableObject _interactableObject;
+        public Objective objective;
 
         void Start()
         {
-            _interactableObject = GetComponent<InteractableObject>();
         }
 
         void OnEnable()
         {
-            EventManager.EOnObjectInteracted.AddListener(OnObjectInteracted);
-            glowParticle.SetActive(true);
+            EventManager.EOnObjectiveAssigned.AddListener(OnObjectiveAssigned);
+            EventManager.EOnObjectiveCompleted.AddListener(OnObjectiveCompleted);
         }
 
         void OnDisable()
         {
-            EventManager.EOnObjectInteracted.RemoveListener(OnObjectInteracted);
+            EventManager.EOnObjectiveAssigned.RemoveListener(OnObjectiveAssigned);
+            EventManager.EOnObjectiveCompleted.RemoveListener(OnObjectiveCompleted);
         }
-        void OnObjectInteracted(InteractableObject interactableObject)
+        void OnObjectiveCompleted(Objective arg0)
         {
-            if (interactableObject.name == _interactableObject.name)
-            {
-                glowParticle.SetActive(false);
-                enabled = false;
-            }
+            if (arg0.objectiveId == objective.objectiveId) glowParticle.SetActive(false);
         }
+        void OnObjectiveAssigned(Objective arg0)
+        {
+            Debug.Log("Objective assigned: " + arg0.objectiveId);
+            if (arg0.objectiveId == objective.objectiveId) glowParticle.SetActive(true);
+        }
+
         // Start is called before the first frame update
 
         // Update is called once per frame

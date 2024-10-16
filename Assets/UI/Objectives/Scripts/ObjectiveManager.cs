@@ -11,6 +11,7 @@ namespace UI.Objectives.Scripts
 
         [FormerlySerializedAs("_currentObjectiveIndex")] [SerializeField]
         int currentObjectiveIndex;
+        public GameObject glowEffect;
         Objective _currentObjective;
         void Start()
         {
