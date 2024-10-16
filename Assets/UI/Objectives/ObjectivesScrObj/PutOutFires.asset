@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: PutOutFires
   m_EditorClassIdentifier: 
   isCompleted: 0
-  isActive: 0
+  isActive: 1
   objectiveText: Put out the Fires before they Reach Medical Bay
   hasLocation: 0
   location: {fileID: 0}
   objectiveId: put_out_fires
-  objectsToDestroyCount: 8
+  objectsToDestroyCount: 7
   objectTag: ExtinguishableFire
   destroyManager: {fileID: 0}

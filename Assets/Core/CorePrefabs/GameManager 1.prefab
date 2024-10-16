@@ -290,6 +290,7 @@ Transform:
   m_Children:
   - {fileID: 3426617586337187016}
   - {fileID: 1204471024542998170}
+  - {fileID: 7143390399012812718}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2671552378996435928
@@ -323,7 +324,7 @@ GameObject:
   - component: {fileID: 1204471024542998170}
   - component: {fileID: 8650890566765122064}
   m_Layer: 0
-  m_Name: ShipManager
+  m_Name: ShipSystemManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -605,3 +606,47 @@ MonoBehaviour:
   OnEndHold:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &7252081219076252663
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7143390399012812718}
+  - component: {fileID: 4176832460580493292}
+  m_Layer: 0
+  m_Name: SpawnDestroyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7143390399012812718
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7252081219076252663}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1890394862997802727}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4176832460580493292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7252081219076252663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4a4850f1187c0644a63765c510d6569, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

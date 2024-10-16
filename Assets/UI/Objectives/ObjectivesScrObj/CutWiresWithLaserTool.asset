@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58dc311a12404c86baa0e56a557fa48a, type: 3}
   m_Name: CutWiresWithLaserTool
   m_EditorClassIdentifier: 
-  isCompleted: 0
-  isActive: 0
+  isCompleted: 1
+  isActive: 1
   objectiveText: Hit those hazardous hanging wires with the laser tool
   hasLocation: 0
   location: {fileID: 0}

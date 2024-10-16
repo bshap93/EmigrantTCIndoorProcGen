@@ -51,7 +51,6 @@ namespace UI.Objectives.Scripts
             _currentObjective.isCompleted = false;
             animator.SetBool(Active, true);
             objectiveText.text = objective.objectiveText;
-            EventManager.EOnObjectiveAssigned.Invoke(objective);
         }
     }
 }

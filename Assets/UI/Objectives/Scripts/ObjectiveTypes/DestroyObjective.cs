@@ -1,7 +1,6 @@
 ﻿using Core.Events;
 using Core.Spawning.Scripts;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace UI.Objectives.Scripts.ObjectiveTypes
 {
@@ -10,17 +9,17 @@ namespace UI.Objectives.Scripts.ObjectiveTypes
     {
         public int objectsToDestroyCount;
         public string objectTag;
+        public DestroyManager destroyManager;
 
-        [FormerlySerializedAs("_destroyManager")] [SerializeField]
-        DestroyManager destroyManager;
 
         public DestroyObjective(string objectiveText) : base(objectiveText)
         {
         }
 
+
         void OnEnable()
         {
-            destroyManager = FindObjectOfType<DestroyManager>();
+            if (destroyManager == null) destroyManager = FindObjectOfType<DestroyManager>();
             EventManager.EOnObjectDestroyed.AddListener(OnObjectDestroyed);
             // destroyManager.NeededNumberToDestroyByTag[objectTag] = objectsToDestroyCount;
             destroyManager.AddTag(objectTag, objectsToDestroyCount);
@@ -29,6 +28,7 @@ namespace UI.Objectives.Scripts.ObjectiveTypes
         void OnObjectDestroyed(GameObject destroyedGameObject)
         {
             if (destroyedGameObject.CompareTag(objectTag)) destroyManager.IncrementDestroyedObject(objectTag);
+            
 
             CheckIfObjectiveIsCompleted();
         }

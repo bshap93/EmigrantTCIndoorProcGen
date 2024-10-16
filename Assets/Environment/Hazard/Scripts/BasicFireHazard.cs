@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Characters.Player.Scripts;
 using Characters.Scripts;
+using Core.Events;
 using UnityEngine;
 
 namespace Environment.Hazard.Scripts
@@ -18,6 +19,11 @@ namespace Environment.Hazard.Scripts
 
                 playerCharacter.TakeDamage(playerCharacter, 50);
             }
+        }
+        
+        void OnDestroy()
+        {
+            EventManager.EOnObjectDestroyed.Invoke(gameObject);
         }
 
 
