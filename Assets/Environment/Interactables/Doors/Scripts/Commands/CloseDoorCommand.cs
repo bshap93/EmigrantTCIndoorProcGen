@@ -5,9 +5,9 @@ namespace Environment.Interactables.Doors.Scripts.Commands
 {
     public class CloseDoorCommand : ISimpleCommand
     {
-        readonly OpenableDoor _openableDoor;
+        readonly OpenableObject _openableDoor;
 
-        public CloseDoorCommand(OpenableDoor openableDoor)
+        public CloseDoorCommand(OpenableObject openableDoor)
         {
             _openableDoor = openableDoor;
         }

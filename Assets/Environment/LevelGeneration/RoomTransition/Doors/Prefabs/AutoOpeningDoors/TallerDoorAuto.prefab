@@ -390,6 +390,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agentsAllowedToOpen: 0000000001000000
   speed: 3
+  openable: 1
   hatchRightHalf: {fileID: 2871011519157741054}
   hatchLeftHalf: {fileID: 0}
   hatchRightOpenOffset: {x: 0, y: -3.011, z: 0}
