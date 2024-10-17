@@ -10,6 +10,7 @@ namespace Environment.Interactables.SceneTransitions.Scripts
         public void ChangeScene()
         {
             SceneManager.LoadScene(sceneName);
+            gameObject.SetActive(false);
         }
     }
 }

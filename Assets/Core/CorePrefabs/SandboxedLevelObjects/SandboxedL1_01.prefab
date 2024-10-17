@@ -422,6 +422,37 @@ MonoBehaviour:
   hideConditionalObjects: 0
   spawnedBlockerPrefab: {fileID: 0}
   fileVersion: 1
+--- !u!1 &327485266902046986
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 711166860815592661}
+  m_Layer: 0
+  m_Name: 'Hatch '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &711166860815592661
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327485266902046986}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5830734116428701137}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &393547887358865495
 GameObject:
   m_ObjectHideFlags: 0
@@ -13225,7 +13256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2932665421755404405, guid: 41b233c47c5ca32489589ea48faaeb9a, type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4507764001523730044, guid: 41b233c47c5ca32489589ea48faaeb9a, type: 3}
       propertyPath: m_SizeDelta.y
@@ -13233,7 +13264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4507764001523730044, guid: 41b233c47c5ca32489589ea48faaeb9a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0001373291
+      value: 0.000091552734
       objectReference: {fileID: 0}
     - target: {fileID: 5147351630440378709, guid: 41b233c47c5ca32489589ea48faaeb9a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16542,6 +16573,9 @@ PrefabInstance:
       addedObject: {fileID: 8447573275653300240}
     - targetCorrespondingSourceObject: {fileID: 3555865302520631450, guid: b47f9335fcb5fdb4bbdc324aa3738607, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 711166860815592661}
+    - targetCorrespondingSourceObject: {fileID: 3555865302520631450, guid: b47f9335fcb5fdb4bbdc324aa3738607, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 102570650073511399}
     - targetCorrespondingSourceObject: {fileID: 3555865302520631450, guid: b47f9335fcb5fdb4bbdc324aa3738607, type: 3}
       insertIndex: -1
@@ -17128,7 +17162,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1639117567363414, guid: 4104a72cfb048934993fb687c088d8ff, type: 3}
       propertyPath: m_Name
-      value: SM_Bld_Floor_Small_Hatch_01
+      value: LevelHatch
       objectReference: {fileID: 0}
     - target: {fileID: 4260739354259230, guid: 4104a72cfb048934993fb687c088d8ff, type: 3}
       propertyPath: m_LocalScale.x
@@ -17285,7 +17319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 555fc3bff7b54069821e3b2e0b04b919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: AirlockLevel
+  sceneName: BareAirlockL2
 --- !u!114 &2763633140639727135
 MonoBehaviour:
   m_ObjectHideFlags: 0

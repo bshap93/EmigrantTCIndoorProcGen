@@ -2,7 +2,6 @@
 using Core.Events;
 using Core.Events.EventManagers;
 using Environment.Interactables.Openable.Scripts;
-using Environment.Interactables.SceneTransitions.Scripts;
 using Environment.Interactables.Triggerables.Scripts;
 using JetBrains.Annotations;
 using UI;
@@ -158,7 +157,9 @@ namespace Environment.Interactables.Scripts
                 if (interactionUI != null)
                     interactionUI.SetActive(true);
 
-            if (interactableType == InteractableType.LevelHatch) GetComponent<SceneChangeTrigger>().ChangeScene();
+            if (interactableType == InteractableType.LevelHatch)
+                if (interactionUI != null)
+                    interactionUI.SetActive(true);
         }
 
 
@@ -208,6 +209,10 @@ namespace Environment.Interactables.Scripts
                 if (interactionUI != null) interactionUI.SetActive(false);
                 Debug.Log("End interaction with crafting station");
             }
+
+            if (interactableType == InteractableType.LevelHatch)
+                if (interactionUI != null)
+                    interactionUI.SetActive(false);
         }
 
         void OnInteractHandler(InteractableObject interactableObject)
