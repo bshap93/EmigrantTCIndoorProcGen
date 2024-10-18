@@ -30,7 +30,7 @@ namespace Environment.Hazard.Scripts
         {
             if (floorManager.isElectricictyOn == false) liveWire = false;
 
-            audioManager = GameManager.Instance.audioManager;
+            audioManager = AudioManager.Instance;
             currentSceneName = SceneManager.GetActiveScene().name;
 
 
