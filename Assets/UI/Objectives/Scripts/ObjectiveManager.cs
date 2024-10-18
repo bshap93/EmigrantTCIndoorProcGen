@@ -46,7 +46,7 @@ namespace UI.Objectives.Scripts
                 Debug.Log("All objectives completed!");
             }
         }
-        public object GetCurrentObjective()
+        public Objective GetCurrentObjective()
         {
             return _currentObjective;
         }
