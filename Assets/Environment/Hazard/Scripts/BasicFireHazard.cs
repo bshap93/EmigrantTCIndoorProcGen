@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Audio.Sounds.Scripts;
 using Characters.Player.Scripts;
 using Characters.Scripts;
 using Core.Events;
@@ -9,6 +11,19 @@ namespace Environment.Hazard.Scripts
     public class BasicFireHazard : MonoBehaviour, IExtinguishable
     {
         [SerializeField] float secondsToExtinguish = 0.5f;
+        [SerializeField] AudioManager audioManager;
+
+
+        void Start()
+        {
+            AudioManager.Instance.PlayLoopingEffect("FireBlazing", transform.position, true);
+            EventManager.EOnObjectDestroyed.AddListener(OnThisFireExtinguished);
+        }
+
+        void OnDestroy()
+        {
+            EventManager.EOnObjectDestroyed.Invoke(gameObject);
+        }
         void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
@@ -20,11 +35,6 @@ namespace Environment.Hazard.Scripts
                 playerCharacter.TakeDamage(playerCharacter, 50);
             }
         }
-        
-        void OnDestroy()
-        {
-            EventManager.EOnObjectDestroyed.Invoke(gameObject);
-        }
 
 
         public void Extinguish(float sToExtinguish)
@@ -34,6 +44,10 @@ namespace Environment.Hazard.Scripts
         public float GetSecondsToExtinguish()
         {
             return secondsToExtinguish;
+        }
+        void OnThisFireExtinguished(GameObject arg0)
+        {
+            throw new NotImplementedException();
         }
         IEnumerator<WaitForSeconds> ExtinguishFire()
         {
