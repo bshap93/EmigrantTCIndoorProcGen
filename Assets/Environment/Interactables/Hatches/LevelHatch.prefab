@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2167975355869818386
 RectTransform:
   m_ObjectHideFlags: 0
@@ -976,7 +976,7 @@ GameObject:
   - component: {fileID: 187242119028168228}
   - component: {fileID: 5984324840949337390}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: L1Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6345,7 +6345,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8449662452668694047}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.5754395, y: 0.10375023, z: -9.534}
   m_LocalScale: {x: 1.9841, y: 1.9841, z: 1.9841}
   m_ConstrainProportionsScale: 0
@@ -6440,7 +6440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openableObject: {fileID: 2874394792054154555}
-  interactionUI: {fileID: 0}
+  interactionUI: {fileID: 1217917396348373231}
   triggerableObject: {fileID: 0}
   broken: 0
   objectName: LevelLadderHatch
