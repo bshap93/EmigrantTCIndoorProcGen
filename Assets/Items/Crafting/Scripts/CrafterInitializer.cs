@@ -3,20 +3,23 @@ using Polyperfect.Crafting.Integration.UGUI;
 using UI.Scripts;
 using UnityEngine;
 
-public class CrafterInitializer : MonoBehaviour
+namespace Items.Crafting.Scripts
 {
-    public UGUICrafter crafter;
-    // Start is called before the first frame update
-    void Start()
+    public class CrafterInitializer : MonoBehaviour
     {
-        var hotbarController = FindObjectOfType<HotbarController>();
-        GameObject hotbar;
-
-        if (hotbarController != null)
+        public UGUICrafter crafter;
+        // Start is called before the first frame update
+        void Start()
         {
-            hotbar = hotbarController.gameObject;
-            crafter.StartingInventory = hotbar.GetComponent<ChildSlotsInventory>();
-            crafter.StartingOutput = hotbar.GetComponent<ChildSlotsInventory>();
+            var hotbarController = FindObjectOfType<HotbarController>();
+            GameObject hotbar;
+
+            if (hotbarController != null)
+            {
+                hotbar = hotbarController.gameObject;
+                crafter.StartingInventory = hotbar.GetComponent<ChildSlotsInventory>();
+                crafter.StartingOutput = hotbar.GetComponent<ChildSlotsInventory>();
+            }
         }
     }
 }
