@@ -21,6 +21,33 @@ namespace Environment.Hazard.Scripts
         [SerializeField] AudioManager audioManager;
         [SerializeField] bool liveWire = true;
         [SerializeField] FloorManager floorManager;
+        // Static reference to the AudioManager
+        private static AudioManager sharedAudioManager;
+        static ElectricalWireHazard()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+        private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            // Find all ElectricalWireHazard objects in the new scene and set their AudioManager
+            ElectricalWireHazard[] wires = FindObjectsOfType<ElectricalWireHazard>();
+            foreach (ElectricalWireHazard wire in wires)
+            {
+                wire.SetAudioManager(sharedAudioManager);
+            }
+        }
+        void Awake()
+        {
+            // If this is the first ElectricalWireHazard to be created, find the AudioManager
+            if (sharedAudioManager == null)
+            {
+                sharedAudioManager = FindObjectOfType<AudioManager>();
+            }
+        }
+        void SetAudioManager(object sharedAudioManager)
+        {
+            throw new System.NotImplementedException();
+        }
 
         float _cutProgress;
         Coroutine _cuttingCoroutine;
@@ -28,17 +55,16 @@ namespace Environment.Hazard.Scripts
 
         void Start()
         {
-            if (floorManager.isElectricictyOn == false) liveWire = false;
-
-            audioManager = AudioManager.Instance;
+            
             currentSceneName = SceneManager.GetActiveScene().name;
-
-
-            if (!WireCountPerScene.ContainsKey(currentSceneName)) WireCountPerScene[currentSceneName] = 0;
+            if (!WireCountPerScene.ContainsKey(currentSceneName))
+            {
+                WireCountPerScene[currentSceneName] = 0;
+            }
             WireCountPerScene[currentSceneName]++;
 
-            if (liveWire)
-                audioManager.OnPlayLoopingEffect.Invoke("ElectricalWireCrackle", transform.position, true);
+            if (liveWire && sharedAudioManager != null)
+                sharedAudioManager.OnPlayLoopingEffect.Invoke("ElectricalWireCrackle", transform.position, true);
         }
 
         void OnEnable()
@@ -48,12 +74,12 @@ namespace Environment.Hazard.Scripts
         void OnDestroy()
         {
             EventManager.EOnObjectDestroyed.Invoke(gameObject);
-
+            
             if (WireCountPerScene.ContainsKey(currentSceneName))
             {
                 WireCountPerScene[currentSceneName]--;
-                if (WireCountPerScene[currentSceneName] == 0 && liveWire)
-                    audioManager.OnStopLoopingEffect.Invoke("ElectricalWireCrackle");
+                if (WireCountPerScene[currentSceneName] == 0 && liveWire && sharedAudioManager != null)
+                    sharedAudioManager.OnStopLoopingEffect.Invoke("ElectricalWireCrackle");
             }
         }
 
@@ -68,6 +94,13 @@ namespace Environment.Hazard.Scripts
                 playerCharacter.TakeDamage(playerCharacter, 50);
             }
         }
+        
+        // Method to set the AudioManager (called when a new scene is loaded)
+        public void SetAudioManager(AudioManager audioManager)
+        {
+            sharedAudioManager = audioManager;
+        }
+
 
         public void Cut(float seconds)
         {
