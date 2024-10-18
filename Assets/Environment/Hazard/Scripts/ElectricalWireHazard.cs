@@ -10,7 +10,7 @@ namespace Environment.Hazard.Scripts
 {
     public class ElectricalWireHazard : MonoBehaviour, ICuttable
     {
-        public static int wireCount;
+        public static int WireCount;
         public ParticleSystem sparksParticleSystem;
         public GameObject scrap;
 
@@ -20,28 +20,31 @@ namespace Environment.Hazard.Scripts
 
         [SerializeField] AudioManager audioManager;
 
-        float cutProgress;
-        Coroutine cuttingCoroutine;
+        [SerializeField] bool liveWire = true;
+
+        float _cutProgress;
+        Coroutine _cuttingCoroutine;
 
         void Start()
         {
             audioManager = FindObjectOfType<AudioManager>();
-            wireCount++;
-            audioManager.OnPlayLoopingEffect.Invoke("ElectricalWireCrackle", transform.position, true);
+            WireCount++;
+            if (liveWire)
+                audioManager.OnPlayLoopingEffect.Invoke("ElectricalWireCrackle", transform.position, true);
         }
 
 
         void OnDestroy()
         {
             EventManager.EOnObjectDestroyed.Invoke(gameObject);
-            wireCount--;
-            if (wireCount == 0)
+            WireCount--;
+            if (WireCount == 0 && liveWire)
                 audioManager.OnStopLoopingEffect.Invoke("ElectricalWireCrackle");
         }
 
         void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
+            if (other.CompareTag("Player") && liveWire)
             {
                 var playerCharacter = other.GetComponent<PlayerCharacter>();
 
@@ -52,9 +55,9 @@ namespace Environment.Hazard.Scripts
         }
         public void Cut(float seconds)
         {
-            cutProgress += seconds;
-            if (cutProgress >= secondsToCut && cuttingCoroutine == null)
-                cuttingCoroutine = StartCoroutine(DestroyWire());
+            _cutProgress += seconds;
+            if (_cutProgress >= secondsToCut && _cuttingCoroutine == null)
+                _cuttingCoroutine = StartCoroutine(DestroyWire());
         }
         public float GetSecondsToCut()
         {

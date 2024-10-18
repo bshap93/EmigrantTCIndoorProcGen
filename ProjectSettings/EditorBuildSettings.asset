@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SurvivalCraftingDeckLevels/BridgeLevelAndProjectRoot.unity
+    path: Assets/Scenes/BridgeLevelAndProjectRoot.unity
     guid: 532ce4a5b92d0b3409ba6a0f44e60193
   - enabled: 1
     path: Assets/Scenes/SurvivalCraftingDeckLevels/AirlockLevel.unity
