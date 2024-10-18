@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/SurvivalCraftingDeckLevels/AirlockLevel.unity
     guid: c47b2b0b565eb624894a8c137b0f01b5
   - enabled: 1
-    path: Assets/Scenes/SandboxedScenes/SandboxedBridggeLevel.unity
+    path: Assets/Scenes/SandboxedScenes/Dustbin/SandboxedBridggeLevel.unity
     guid: 2c1bf626b7cbf5e428905adae177366e
   - enabled: 1
     path: Assets/Scenes/BareLevels/BareAirlockL2.unity
