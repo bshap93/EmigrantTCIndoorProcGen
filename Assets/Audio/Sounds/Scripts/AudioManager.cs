@@ -11,7 +11,6 @@ namespace Audio.Sounds.Scripts
 {
     public class AudioManager : MonoBehaviour
     {
-        static AudioManager _instance;
         // Static events
         public PlayEffectEvent OnPlayEffect = new();
         public PlayEffectAtPointEvent OnPlayEffectAtPoint = new();
@@ -32,11 +31,14 @@ namespace Audio.Sounds.Scripts
         Dictionary<string, AudioSource> _loopingSources;
         Dictionary<string, SoundEffect> _soundEffectDictionary;
 
+        public static AudioManager Instance { get; private set; }
+
+
         void Awake()
         {
-            if (_instance == null)
+            if (Instance == null)
             {
-                _instance = this;
+                Instance = this;
                 DontDestroyOnLoad(gameObject);
                 InitializeSoundEffects();
                 _loopingSources = new Dictionary<string, AudioSource>();
