@@ -21,6 +21,11 @@ namespace UI.Objectives.Scripts
 
         public Dictionary<Objective, GameObject> HintParticleSystems;
 
+        void Awake()
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+
 
         // Start is called before the first frame update
         void Start()
@@ -32,7 +37,15 @@ namespace UI.Objectives.Scripts
 
             HintParticleSystems = new Dictionary<Objective, GameObject>();
             var hints = FindObjectsOfType<InteractableGlowHint>();
-            foreach (var hint in hints) HintParticleSystems.Add(hint.objective, hint.glowParticle);
+            foreach (var hint in hints)
+                if (hint != null)
+                {
+                    HintParticleSystems[_currentObjective] = hint.glowParticle;
+                    if (hint.objective == null)
+                        Debug.LogError("InteractableGlowHint " + hint.name + " does not have an objective assigned!");
+                    else
+                        Debug.Log("Added hint for " + hint.objective.objectiveText);
+                }
         }
 
         // Update is called once per frame

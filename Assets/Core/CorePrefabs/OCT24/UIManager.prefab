@@ -6354,7 +6354,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 21e5d42dddbfa4c49abe42b453d91803, type: 2}
   - {fileID: 11400000, guid: 0e09f0465d7f73c4f8c39f2130bb3ef5, type: 2}
   objectiveUI: {fileID: 6759061695432108142}
-  currentObjectiveIndex: 0
+  currentObjectiveIndex: 4
   glowEffect: {fileID: 1242912157399330, guid: 6066b7833d493734a9af353bbd046758, type: 3}
 --- !u!1 &3526669559537264819
 GameObject:
@@ -6465,7 +6465,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -43, y: -33.333046}
+  m_AnchoredPosition: {x: -43, y: -33.33292}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2151176871355121286
@@ -12017,7 +12017,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4403835751062601561}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 717.3119, y: 459.5999, z: -20.978067}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

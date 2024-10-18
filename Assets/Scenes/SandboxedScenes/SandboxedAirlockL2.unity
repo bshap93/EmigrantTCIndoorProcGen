@@ -187,6 +187,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 409788868352147864, guid: 4b86fcb79f2281543a223dd794a13a89, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2035132416}
+    - target: {fileID: 409788868352147864, guid: 4b86fcb79f2281543a223dd794a13a89, type: 3}
+      propertyPath: consoleManagerObject
+      value: 
+      objectReference: {fileID: 1430891794}
     - target: {fileID: 1610797627137705592, guid: 4b86fcb79f2281543a223dd794a13a89, type: 3}
       propertyPath: m_LocalPosition.x
       value: 717.3119
@@ -236,6 +244,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b86fcb79f2281543a223dd794a13a89, type: 3}
+--- !u!114 &1144552409 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5290091254980871036, guid: f9ee24cc6ee95a941adcd033ff10d3d4, type: 3}
+  m_PrefabInstance: {fileID: 1537933160}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7e074fadc321934b98bcb1ed6622a13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1147481867
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,7 +409,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4287597187187634758, guid: d09bf87f3d788264a8630f44bbadbf91, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 33.33391
+      value: 33.334194
       objectReference: {fileID: 0}
     - target: {fileID: 4403835751062601561, guid: d09bf87f3d788264a8630f44bbadbf91, type: 3}
       propertyPath: m_Name
@@ -702,6 +721,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 885456d0d304eef4992dbc765dbca85b, type: 3}
+--- !u!1 &1430891794 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5833621373587039117, guid: d09bf87f3d788264a8630f44bbadbf91, type: 3}
+  m_PrefabInstance: {fileID: 1266911635}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1467135042
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -938,6 +962,33 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d103d65aaa62f34e8e9ad872c5735fb, type: 3}
+--- !u!1 &2035132416 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3304470985527851840, guid: 885456d0d304eef4992dbc765dbca85b, type: 3}
+  m_PrefabInstance: {fileID: 1367707742}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2035132417 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 394382251971133429, guid: 885456d0d304eef4992dbc765dbca85b, type: 3}
+  m_PrefabInstance: {fileID: 1367707742}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035132416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a88b36b9f6c34a5fa3ec851def8696ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2035132428 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9095503374746591845, guid: 885456d0d304eef4992dbc765dbca85b, type: 3}
+  m_PrefabInstance: {fileID: 1367707742}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035132416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f67264dffc94fa98677cb288e3f124a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2098202381
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -946,6 +997,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4420680184375689245, guid: a95bf73b1a3dc7a41b65430a1de4fb1f, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2035132416}
+    - target: {fileID: 4420680184375689245, guid: a95bf73b1a3dc7a41b65430a1de4fb1f, type: 3}
+      propertyPath: movementManager
+      value: 
+      objectReference: {fileID: 1144552409}
+    - target: {fileID: 4420680184375689245, guid: a95bf73b1a3dc7a41b65430a1de4fb1f, type: 3}
+      propertyPath: characterFootsteps
+      value: 
+      objectReference: {fileID: 2035132417}
+    - target: {fileID: 4420680184375689245, guid: a95bf73b1a3dc7a41b65430a1de4fb1f, type: 3}
+      propertyPath: rotatePlayerDirection
+      value: 
+      objectReference: {fileID: 2035132428}
     - target: {fileID: 8157692978542729149, guid: a95bf73b1a3dc7a41b65430a1de4fb1f, type: 3}
       propertyPath: m_Name
       value: InputHandler
