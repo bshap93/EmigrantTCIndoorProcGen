@@ -12,11 +12,12 @@ namespace Environment.Hazard.Scripts
     {
         [SerializeField] float secondsToExtinguish = 0.5f;
         [SerializeField] AudioManager audioManager;
+        [SerializeField] string audioClipName = "FireBlazing";
 
 
         void Start()
         {
-            AudioManager.Instance.PlayLoopingEffect("FireBlazing", transform.position, true);
+            AudioManager.Instance.PlayLoopingEffect(audioClipName, transform.position, true);
             EventManager.EOnObjectDestroyed.AddListener(OnThisFireExtinguished);
         }
 
