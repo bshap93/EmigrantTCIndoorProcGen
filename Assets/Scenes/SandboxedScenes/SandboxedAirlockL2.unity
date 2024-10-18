@@ -399,18 +399,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
-    - target: {fileID: 4973426239672760356, guid: 6236c63328b84024caa80acaf375fa66, type: 3}
-      propertyPath: soundEffects.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4973426239672760356, guid: 6236c63328b84024caa80acaf375fa66, type: 3}
-      propertyPath: soundEffects.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: 69354ad7ff4dc91459ea9c268b812495, type: 2}
-    - target: {fileID: 4973426239672760356, guid: 6236c63328b84024caa80acaf375fa66, type: 3}
-      propertyPath: soundEffects.Array.data[4]
-      value: 
-      objectReference: {fileID: 11400000, guid: 750bce5b186f66f4eb69489f6919f6fe, type: 2}
     - target: {fileID: 5767813149718824932, guid: 6236c63328b84024caa80acaf375fa66, type: 3}
       propertyPath: m_LocalPosition.x
       value: 717.3119
@@ -897,7 +885,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4287597187187634758, guid: d09bf87f3d788264a8630f44bbadbf91, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 33.334747
+      value: 33.33373
       objectReference: {fileID: 0}
     - target: {fileID: 4403835751062601561, guid: d09bf87f3d788264a8630f44bbadbf91, type: 3}
       propertyPath: m_Name

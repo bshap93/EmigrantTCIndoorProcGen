@@ -60,7 +60,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3e9a127cef904bd44b6336066a504f34, type: 2}
   - {fileID: 11400000, guid: 7abeb69d129b3444dba5511cc4b2658f, type: 2}
   - {fileID: 11400000, guid: 01e710ad6de8e9c4593cdd4160cd8d91, type: 2}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 69354ad7ff4dc91459ea9c268b812495, type: 2}
+  - {fileID: 11400000, guid: 750bce5b186f66f4eb69489f6919f6fe, type: 2}
   onPlayEffect:
     m_PersistentCalls:
       m_Calls: []
