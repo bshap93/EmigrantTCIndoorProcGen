@@ -3,6 +3,7 @@ using Audio.Sounds.Scripts;
 using Characters.Player.Scripts;
 using Characters.Scripts;
 using Core.Events;
+using Core.GameManager.Scripts;
 using UI.Objectives.Scripts.ObjectiveTypes;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -29,7 +30,7 @@ namespace Environment.Hazard.Scripts
         {
             if (floorManager.isElectricictyOn == false) liveWire = false;
 
-            audioManager = AudioManager.Instance;
+            audioManager = GameManager.Instance.audioManager;
             currentSceneName = SceneManager.GetActiveScene().name;
 
 
