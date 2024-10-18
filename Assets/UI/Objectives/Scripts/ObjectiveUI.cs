@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Core.Events;
+using Environment.Interactables.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -17,6 +19,8 @@ namespace UI.Objectives.Scripts
 
         Objective _currentObjective;
 
+        public Dictionary<Objective, GameObject> HintParticleSystems;
+
 
         // Start is called before the first frame update
         void Start()
@@ -25,6 +29,10 @@ namespace UI.Objectives.Scripts
 
             EventManager.EOnObjectiveCompleted.AddListener(OnObjectiveCompleted);
             EventManager.EOnObjectiveAssigned.AddListener(OnObjectiveAssigned);
+
+            HintParticleSystems = new Dictionary<Objective, GameObject>();
+            var hints = FindObjectsOfType<InteractableGlowHint>();
+            foreach (var hint in hints) HintParticleSystems.Add(hint.objective, hint.glowParticle);
         }
 
         // Update is called once per frame
@@ -32,23 +40,27 @@ namespace UI.Objectives.Scripts
         {
             if (objective.name == _currentObjective.name)
             {
-                Debug.Log("Objective Completed: " + objective.objectiveText);
                 animator.SetBool(Active, false);
                 _currentObjective.isActive = false;
                 _currentObjective.isCompleted = true;
                 _currentObjective = null;
                 objectiveText.text = string.Empty;
                 objectiveManager.CompleteCurrentObjective();
+
+                if (HintParticleSystems.ContainsKey(objective))
+                    HintParticleSystems[objective].SetActive(false);
             }
         }
         public void OnObjectiveAssigned(Objective objective)
         {
-            Debug.Log("Objective Assigned: " + objective.objectiveText);
             _currentObjective = objective;
             _currentObjective.isActive = true;
             _currentObjective.isCompleted = false;
             animator.SetBool(Active, true);
             objectiveText.text = objective.objectiveText;
+
+            if (HintParticleSystems.ContainsKey(objective))
+                HintParticleSystems[objective].SetActive(true);
         }
     }
 }

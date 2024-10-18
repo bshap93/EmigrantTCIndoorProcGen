@@ -64,19 +64,22 @@ namespace Characters.Player.InputHandlers.Scripts
                 rotatePlayerDirection.ExecuteRotateUpCommand();
                 isMoving = true;
             }
-            else if (Input.GetKey(KeyCode.S))
+
+            if (Input.GetKey(KeyCode.S))
             {
                 movementManager.ExecuteMoveDownCommand();
                 rotatePlayerDirection.ExecuteRotateDownCommand();
                 isMoving = true;
             }
-            else if (Input.GetKey(KeyCode.A))
+
+            if (Input.GetKey(KeyCode.A))
             {
                 movementManager.ExecuteMoveLeftCommand();
                 rotatePlayerDirection.ExecuteRotateLeftCommand();
                 isMoving = true;
             }
-            else if (Input.GetKey(KeyCode.D))
+
+            if (Input.GetKey(KeyCode.D))
             {
                 movementManager.ExecuteMoveRightCommand();
                 rotatePlayerDirection.ExecuteRotateRightCommand();
