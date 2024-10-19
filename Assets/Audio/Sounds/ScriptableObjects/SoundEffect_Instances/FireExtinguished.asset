@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39cfb935bdde47c493d8ac4047a555ee, type: 3}
-  m_Name: ExtinguishedFire
+  m_Name: FireExtinguished
   m_EditorClassIdentifier: 
   clips:
   - {fileID: 8300000, guid: 262e68a6e01edd54ba776f2c848da942, type: 3}

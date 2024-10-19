@@ -1,18 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Audio.Sounds.Scripts;
 using Characters.Player.Scripts;
 using Characters.Scripts;
 using Core.Events;
-using Core.GameManager.Scripts;
 using UI.Objectives.Scripts.ObjectiveTypes;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace Environment.Hazard.Scripts
 {
     public class ElectricalWireHazard : MonoBehaviour, ICuttable
     {
         static readonly Dictionary<string, int> WireCountPerScene = new();
+        static AudioManager _sharedAudioManager;
+        // Static reference to the AudioManager
+        [FormerlySerializedAs("BeaconParticleSystem")]
+        public ParticleSystem beaconParticleSystem;
         public ParticleSystem sparksParticleSystem;
         public GameObject scrap;
 
@@ -21,50 +26,36 @@ namespace Environment.Hazard.Scripts
         [SerializeField] AudioManager audioManager;
         [SerializeField] bool liveWire = true;
         [SerializeField] FloorManager floorManager;
-        // Static reference to the AudioManager
-        private static AudioManager sharedAudioManager;
-        static ElectricalWireHazard()
-        {
-            SceneManager.sceneLoaded += OnSceneLoaded;
-        }
-        private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            // Find all ElectricalWireHazard objects in the new scene and set their AudioManager
-            ElectricalWireHazard[] wires = FindObjectsOfType<ElectricalWireHazard>();
-            foreach (ElectricalWireHazard wire in wires)
-            {
-                wire.SetAudioManager(sharedAudioManager);
-            }
-        }
-        void Awake()
-        {
-            // If this is the first ElectricalWireHazard to be created, find the AudioManager
-            if (sharedAudioManager == null)
-            {
-                sharedAudioManager = FindObjectOfType<AudioManager>();
-            }
-        }
-        void SetAudioManager(object sharedAudioManager)
-        {
-            throw new System.NotImplementedException();
-        }
 
         float _cutProgress;
         Coroutine _cuttingCoroutine;
         string currentSceneName;
+        static ElectricalWireHazard()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+        void Awake()
+        {
+            // If this is the first ElectricalWireHazard to be created, find the AudioManager
+            if (_sharedAudioManager == null) _sharedAudioManager = FindObjectOfType<AudioManager>();
+        }
 
         void Start()
         {
-            
             currentSceneName = SceneManager.GetActiveScene().name;
-            if (!WireCountPerScene.ContainsKey(currentSceneName))
-            {
-                WireCountPerScene[currentSceneName] = 0;
-            }
+            if (!WireCountPerScene.ContainsKey(currentSceneName)) WireCountPerScene[currentSceneName] = 0;
             WireCountPerScene[currentSceneName]++;
 
-            if (liveWire && sharedAudioManager != null)
-                sharedAudioManager.OnPlayLoopingEffect.Invoke("ElectricalWireCrackle", transform.position, true);
+            if (liveWire && _sharedAudioManager != null)
+            {
+                _sharedAudioManager.OnPlayLoopingEffect.Invoke("ElectricalWireCrackle", transform.position, true);
+            }
+            else
+            {
+                sparksParticleSystem.Stop();
+                beaconParticleSystem.Stop();
+                Debug.Log("Wire is not live");
+            }
         }
 
         void OnEnable()
@@ -74,12 +65,12 @@ namespace Environment.Hazard.Scripts
         void OnDestroy()
         {
             EventManager.EOnObjectDestroyed.Invoke(gameObject);
-            
+
             if (WireCountPerScene.ContainsKey(currentSceneName))
             {
                 WireCountPerScene[currentSceneName]--;
-                if (WireCountPerScene[currentSceneName] == 0 && liveWire && sharedAudioManager != null)
-                    sharedAudioManager.OnStopLoopingEffect.Invoke("ElectricalWireCrackle");
+                if (WireCountPerScene[currentSceneName] == 0 && liveWire && _sharedAudioManager != null)
+                    _sharedAudioManager.OnStopLoopingEffect.Invoke("ElectricalWireCrackle");
             }
         }
 
@@ -94,12 +85,6 @@ namespace Environment.Hazard.Scripts
                 playerCharacter.TakeDamage(playerCharacter, 50);
             }
         }
-        
-        // Method to set the AudioManager (called when a new scene is loaded)
-        public void SetAudioManager(AudioManager audioManager)
-        {
-            sharedAudioManager = audioManager;
-        }
 
 
         public void Cut(float seconds)
@@ -112,6 +97,22 @@ namespace Environment.Hazard.Scripts
         public float GetSecondsToCut()
         {
             return secondsToCut;
+        }
+        static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            // Find all ElectricalWireHazard objects in the new scene and set their AudioManager
+            var wires = FindObjectsOfType<ElectricalWireHazard>();
+            foreach (var wire in wires) wire.SetAudioManager(_sharedAudioManager);
+        }
+        void SetAudioManager(object sharedAudioManager)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Method to set the AudioManager (called when a new scene is loaded)
+        public void SetAudioManager(AudioManager audioManager)
+        {
+            _sharedAudioManager = audioManager;
         }
 
         IEnumerator<WaitForSeconds> DestroyWire()

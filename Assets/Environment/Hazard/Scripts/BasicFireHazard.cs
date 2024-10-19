@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Audio.Sounds.Scripts;
 using Characters.Player.Scripts;
@@ -10,8 +9,10 @@ namespace Environment.Hazard.Scripts
 {
     public class BasicFireHazard : MonoBehaviour, IExtinguishable
     {
+        static readonly Dictionary<string, int> FireCountPerScene = new();
+
+        static AudioManager _audioManager;
         [SerializeField] float secondsToExtinguish = 0.5f;
-        [SerializeField] AudioManager audioManager;
         [SerializeField] string audioClipName = "FireBlazing";
         [SerializeField] string extinguishedAudioClipName = "FireExtinguished";
 
@@ -50,9 +51,8 @@ namespace Environment.Hazard.Scripts
         void OnThisFireExtinguished(GameObject arg0)
         {
             if (arg0 == gameObject)
-            {
-                AudioManager.Instance.StopLoopingEffect(audioClipName);
-            }
+                // AudioManager.Instance.StopLoopingEffect(audioClipName);
+                AudioManager.Instance.PlayEffect(extinguishedAudioClipName);
         }
         IEnumerator<WaitForSeconds> ExtinguishFire()
         {
