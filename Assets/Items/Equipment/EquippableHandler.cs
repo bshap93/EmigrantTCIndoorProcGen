@@ -1,4 +1,4 @@
-﻿using Characters.Scripts;
+﻿using Environment.ObjectAttributes.Interfaces;
 using Items.Inventory.Scripts;
 using Polyperfect.Crafting.Demo;
 using Polyperfect.Crafting.Integration;

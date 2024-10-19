@@ -1,6 +1,6 @@
 ﻿using System;
 using Characters.Enemies.Attacks.Commands;
-using Characters.Scripts;
+using Environment.ObjectAttributes.Interfaces;
 using Items.Equipment;
 using Polyperfect.Crafting.Integration;
 

@@ -1,7 +1,7 @@
 ﻿using Characters.Player.Scripts;
-using Characters.Scripts;
 using Core.Events;
 using Core.GameManager.Scripts;
+using Environment.ObjectAttributes.Interfaces;
 using Polyperfect.Crafting.Demo;
 using Polyperfect.Crafting.Integration;
 using UnityEngine;

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Characters.Enemies.Attacks.Commands;
-using Characters.Scripts;
 using DG.Tweening;
+using Environment.ObjectAttributes.Interfaces;
 using UnityEngine;
 
 namespace Characters.Enemies.Attacks.MeeleeAttacks

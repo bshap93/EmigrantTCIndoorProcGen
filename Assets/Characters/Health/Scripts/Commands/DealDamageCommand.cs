@@ -1,6 +1,6 @@
 ﻿using Characters.Enemies;
-using Characters.Scripts;
 using Core.Events.EventManagers;
+using Environment.ObjectAttributes.Interfaces;
 using UnityEngine;
 
 namespace Characters.Health.Scripts.Commands

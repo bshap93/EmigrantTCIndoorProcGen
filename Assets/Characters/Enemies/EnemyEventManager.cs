@@ -1,7 +1,7 @@
 ﻿using System;
 using Characters.Health.Scripts.States;
-using Characters.Scripts;
 using Core.Events.EventManagers;
+using Environment.ObjectAttributes.Interfaces;
 using UnityEngine;
 using UnityEngine.Events;
 

@@ -1,4 +1,4 @@
-﻿using Characters.Scripts;
+﻿using Environment.ObjectAttributes.Interfaces;
 
 namespace Characters.Enemies.Attacks.Commands
 {

@@ -1,6 +1,6 @@
 ﻿using Characters.Health.Scripts.States;
-using Characters.Scripts;
 using Environment.Interactables.Scripts;
+using Environment.ObjectAttributes.Interfaces;
 using UnityEngine;
 using UnityEngine.Events;
 

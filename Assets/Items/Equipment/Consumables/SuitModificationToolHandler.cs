@@ -1,7 +1,7 @@
 ﻿using Characters.Health.Scripts.States;
 using Characters.Player.Scripts;
-using Characters.Scripts;
 using Core.Events.EventManagers;
+using Environment.ObjectAttributes.Interfaces;
 using Items.Equipment.Commands;
 using Polyperfect.Crafting.Integration;
 

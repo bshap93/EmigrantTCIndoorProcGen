@@ -1,4 +1,4 @@
-﻿namespace Characters.Scripts
+﻿namespace Environment.ObjectAttributes.Interfaces
 {
     public interface IExtinguishable
     {

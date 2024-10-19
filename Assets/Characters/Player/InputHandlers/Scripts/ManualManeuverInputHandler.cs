@@ -15,7 +15,8 @@ namespace Characters.Player.InputHandlers.Scripts
         [SerializeField] MovementManager movementManager;
         [FormerlySerializedAs("playerRotationInputHandler")] [SerializeField]
         RotatePlayerDirection rotatePlayerDirection;
-        [SerializeField] CategoryObject pistolCategoryObject;
+        [FormerlySerializedAs("pistolCategoryObject")] [SerializeField]
+        CategoryObject weaponCategory;
         [SerializeField] CategoryObject consumableCategoryObject;
         [SerializeField] GameObject player;
         [FormerlySerializedAs("_characterFootsteps")] [SerializeField]
@@ -94,7 +95,7 @@ namespace Characters.Player.InputHandlers.Scripts
             if (PlayerCharacter.Instance.equippedItem == null) return;
 
 
-            if (pistolCategoryObject.Contains(PlayerCharacter.Instance.equippedItem))
+            if (weaponCategory.Contains(PlayerCharacter.Instance.equippedItem))
             {
                 if (Input.GetMouseButton(1) && Input.GetMouseButton(0))
                     PlayerCharacter.Instance.PerformAttack(null);

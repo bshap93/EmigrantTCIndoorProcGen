@@ -1,4 +1,4 @@
-﻿using Characters.Scripts;
+﻿using Environment.ObjectAttributes.Interfaces;
 using JetBrains.Annotations;
 
 namespace Characters.Enemies.Attacks.Commands

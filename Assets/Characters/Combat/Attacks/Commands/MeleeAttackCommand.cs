@@ -1,5 +1,5 @@
 ﻿using Characters.Enemies.Attacks.Commands;
-using Characters.Scripts;
+using Environment.ObjectAttributes.Interfaces;
 using UnityEngine;
 
 namespace Combat.Attacks.Commands

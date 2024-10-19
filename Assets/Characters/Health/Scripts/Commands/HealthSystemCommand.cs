@@ -1,5 +1,5 @@
-﻿using Characters.Scripts;
-using Core.Events.EventManagers;
+﻿using Core.Events.EventManagers;
+using Environment.ObjectAttributes.Interfaces;
 
 namespace Characters.Health.Scripts.Commands
 {

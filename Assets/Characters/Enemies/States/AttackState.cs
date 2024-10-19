@@ -1,5 +1,5 @@
-﻿using Characters.Scripts;
-using DG.Tweening;
+﻿using DG.Tweening;
+using Environment.ObjectAttributes.Interfaces;
 using UnityEngine;
 
 namespace Characters.Enemies.States

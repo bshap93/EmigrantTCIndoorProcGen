@@ -1,6 +1,6 @@
 ﻿using Characters.Health.Scripts.States;
 
-namespace Characters.Scripts
+namespace Environment.ObjectAttributes.Interfaces
 {
     public interface IDamageable
     {

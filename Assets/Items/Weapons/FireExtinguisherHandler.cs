@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Characters.Scripts;
+using Environment.ObjectAttributes.Interfaces;
 using UnityEngine;
 
 namespace Items.Weapons

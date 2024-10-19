@@ -1,5 +1,5 @@
 ﻿using Characters.Health.Scripts.States;
-using Characters.Scripts;
+using Environment.ObjectAttributes.Interfaces;
 using UnityEngine.Events;
 
 namespace Core.Events.EventManagers

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using Audio.Sounds.Scripts;
 using Characters.Player.Scripts;
-using Characters.Scripts;
 using Core.Events;
+using Environment.ObjectAttributes.Interfaces;
 using UI.Objectives.Scripts.ObjectiveTypes;
 using UnityEngine;
 using UnityEngine.SceneManagement;

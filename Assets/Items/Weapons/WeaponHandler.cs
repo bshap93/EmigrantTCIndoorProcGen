@@ -1,6 +1,6 @@
 ﻿using Characters.Player.Scripts;
-using Characters.Scripts;
 using Core.GameManager.Scripts;
+using Environment.ObjectAttributes.Interfaces;
 using Items.Equipment;
 using Polyperfect.Crafting.Demo;
 using Polyperfect.Crafting.Integration;
