@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 37d1d15d29554f74adc015bc9e54d16e, type: 3}
-  m_Name: BaseItemObjecte238478b
+  m_Name: ElectricalJumperTool
   m_EditorClassIdentifier: 
   id:
-    val: 6805416685852676993
+    val: 3316069507764513122

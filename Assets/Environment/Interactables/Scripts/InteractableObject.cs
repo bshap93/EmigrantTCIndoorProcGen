@@ -17,12 +17,13 @@ namespace Environment.Interactables.Scripts
             Container,
             Door,
             Display,
-            Panel,
+            BreakableDoorPanel,
             CraftingStation,
             Console,
             LevelHatch,
             Triggerable,
-            PowerNode
+            PowerNode,
+            Npc
         }
 
         [SerializeField] [CanBeNull] OpenableObject openableObject;

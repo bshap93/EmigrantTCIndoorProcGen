@@ -1,10 +1,11 @@
-﻿using JetBrains.Annotations;
+﻿using Core.Utilities.Commands;
+using JetBrains.Annotations;
 using UI.Objectives.Scripts;
 using UnityEngine;
 
 namespace Environment.Interactables.Triggerables.Scripts.Commands
 {
-    public class TriggerTurnOffHazardGasCommand
+    public class TriggerTurnOffHazardGasCommand : ISimpleCommand
     {
         readonly GameObject[] _hazardGas;
         [CanBeNull] readonly Objective _objectiveCompleted;
