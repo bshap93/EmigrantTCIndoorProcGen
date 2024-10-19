@@ -13,6 +13,7 @@ namespace Environment.Hazard.Scripts
         [SerializeField] float secondsToExtinguish = 0.5f;
         [SerializeField] AudioManager audioManager;
         [SerializeField] string audioClipName = "FireBlazing";
+        [SerializeField] string extinguishedAudioClipName = "FireExtinguished";
 
 
         void Start()
@@ -48,7 +49,10 @@ namespace Environment.Hazard.Scripts
         }
         void OnThisFireExtinguished(GameObject arg0)
         {
-            throw new NotImplementedException();
+            if (arg0 == gameObject)
+            {
+                AudioManager.Instance.StopLoopingEffect(audioClipName);
+            }
         }
         IEnumerator<WaitForSeconds> ExtinguishFire()
         {
