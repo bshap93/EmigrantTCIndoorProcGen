@@ -16,6 +16,8 @@ namespace Environment.LevelGeneration.RoomTransition.Doors.Scripts
         [FormerlySerializedAs("_doorComponent")] [CanBeNull]
         public Door doorComponent;
         public bool canBeForcedOpen;
+
+        [FormerlySerializedAs("open")] public bool openTrigger;
         Vector3 _closedPosition;
 
         float _currentFramePosition;
@@ -33,6 +35,7 @@ namespace Environment.LevelGeneration.RoomTransition.Doors.Scripts
         void Update()
         {
             if (_currentState == OpenableState.Opening || _currentState == OpenableState.Closing) MoveObject();
+            if (openTrigger) OpenManuallyOpenedDoor();
         }
 
         public void UpdateSystemStatus(bool hasPower, bool hasAI)
@@ -44,6 +47,7 @@ namespace Environment.LevelGeneration.RoomTransition.Doors.Scripts
 
         public void OpenManuallyOpenedDoor()
         {
+            openTrigger = false;
             OpenCommand.Execute();
         }
 

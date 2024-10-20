@@ -6,10 +6,7 @@ namespace Items.Weapons
 {
     public class AxeHandler : WeaponHandler
     {
-        public GameObject breakEffect;
-
         public float checkRadius = 0.5f; // Adjust based on your axe's size
-        public LayerMask breakableLayer; // Set this in the Inspector
 
         AudioManager audioManager;
 

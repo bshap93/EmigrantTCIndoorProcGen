@@ -37,6 +37,7 @@ namespace UI.Objectives.Scripts
 
             HintParticleSystems = new Dictionary<Objective, GameObject>();
             var hints = FindObjectsOfType<InteractableGlowHint>();
+            if (_currentObjective == null) _currentObjective = objectiveManager.GetCurrentObjective();
             foreach (var hint in hints)
                 if (hint != null)
                 {
