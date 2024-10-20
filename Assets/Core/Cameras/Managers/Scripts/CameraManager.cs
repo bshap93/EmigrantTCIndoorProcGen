@@ -10,14 +10,14 @@ namespace Core.Cameras.Managers.Scripts
     public enum CameraTypeEnum
     {
         Player = 10,
-        Room = 5
+        EventTriggered = 5
     }
 
     public class CameraManager : MonoBehaviour
     {
         public GameObject playerCamera;
-        public GameObject roomCamera;
         public PlayerCharacter player;
+        public EventTriggerCameraController eventTriggerCameraController;
 
         PlayerViewCameraController _playerViewCameraController;
 
@@ -48,17 +48,22 @@ namespace Core.Cameras.Managers.Scripts
             _playerViewCameraController.Initialize();
         }
 
+        public void SetEventTriggeredCamera(GameObject eventTriggeredCamera)
+        {
+            eventTriggerCameraController.SetEventTriggeredCamera(eventTriggeredCamera);
+        }
+
         public void SetActiveCamera(CameraTypeEnum virtualCamera)
         {
             switch (virtualCamera)
             {
                 case CameraTypeEnum.Player:
                     playerCamera.GetComponent<CinemachineVirtualCamera>().Priority = 10;
-                    roomCamera.GetComponent<CinemachineVirtualCamera>().Priority = 5;
+                    eventTriggerCameraController.SetTriggerCamPriority(5);
                     break;
-                case CameraTypeEnum.Room:
+                case CameraTypeEnum.EventTriggered:
                     playerCamera.GetComponent<CinemachineVirtualCamera>().Priority = 5;
-                    roomCamera.GetComponent<CinemachineVirtualCamera>().Priority = 10;
+                    eventTriggerCameraController.SetTriggerCamPriority(10);
 
                     break;
             }

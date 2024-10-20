@@ -6,6 +6,7 @@ namespace Environment.Interactables.Triggerables.Scripts
     public abstract class TriggerableObject : MonoBehaviour
     {
         [FormerlySerializedAs("IsTriggered")] public bool isTriggered;
+        public GameObject eventTriggerCamera;
 
         public void Trigger()
         {
