@@ -16,8 +16,7 @@ namespace Core.Cameras.Managers.Scripts
     public class CameraManager : MonoBehaviour
     {
         public GameObject playerCamera;
-        public PlayerCharacter player;
-        public EventTriggerCameraController eventTriggerCameraController;
+        PlayerCharacter _player;
 
         PlayerViewCameraController _playerViewCameraController;
 
@@ -35,22 +34,15 @@ namespace Core.Cameras.Managers.Scripts
             {
                 Destroy(gameObject); // Prevent duplicates
             }
-
-            // SetActiveCamera(0);
         }
 
         void Start()
         {
-            if (player == null) player = PlayerCharacter.Instance;
+            if (_player == null) _player = PlayerCharacter.Instance;
             // Subscribe to the player damage event
-            player.playerEventManager.AddListenerToHealthChangedEvent(OnPlayerDamage);
+            _player.playerEventManager.AddListenerToHealthChangedEvent(OnPlayerDamage);
             _playerViewCameraController = GetComponentInChildren<PlayerViewCameraController>();
             _playerViewCameraController.Initialize();
-        }
-
-        public void SetEventTriggeredCamera(GameObject eventTriggeredCamera)
-        {
-            eventTriggerCameraController.SetEventTriggeredCamera(eventTriggeredCamera);
         }
 
         public void SetActiveCamera(CameraTypeEnum virtualCamera)
@@ -59,12 +51,6 @@ namespace Core.Cameras.Managers.Scripts
             {
                 case CameraTypeEnum.Player:
                     playerCamera.GetComponent<CinemachineVirtualCamera>().Priority = 10;
-                    eventTriggerCameraController.SetTriggerCamPriority(5);
-                    break;
-                case CameraTypeEnum.EventTriggered:
-                    playerCamera.GetComponent<CinemachineVirtualCamera>().Priority = 5;
-                    eventTriggerCameraController.SetTriggerCamPriority(10);
-
                     break;
             }
         }
@@ -74,10 +60,6 @@ namespace Core.Cameras.Managers.Scripts
             ShakeCamera(0.5f, 0.5f, 10, 90);
         }
 
-        public void SetActiveRoom(GameObject room)
-        {
-            throw new NotImplementedException();
-        }
 
         public void ShakeCamera(float duration, float strength, int vibrato, float randomness)
         {
@@ -88,6 +70,16 @@ namespace Core.Cameras.Managers.Scripts
                     x => cameraOffset.m_Offset = x,
                     duration, strength, vibrato, randomness)
                 .SetEase(Ease.OutQuad);
+        }
+
+        public void SetFollowObject(GameObject followObject)
+        {
+            playerCamera.GetComponent<CinemachineVirtualCamera>().Follow = followObject.transform;
+        }
+
+        public void SetActiveRoom(GameObject room)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -161,6 +161,10 @@ namespace Environment.Interactables.Scripts
             if (interactableType == InteractableType.LevelHatch)
                 if (interactionUI != null)
                     interactionUI.SetActive(true);
+
+            if (interactableType == InteractableType.BreakableDoorPanel)
+                if (interactionUI != null)
+                    interactionUI.SetActive(true);
         }
 
 

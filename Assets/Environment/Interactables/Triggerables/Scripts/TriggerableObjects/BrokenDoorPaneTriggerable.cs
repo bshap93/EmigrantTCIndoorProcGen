@@ -1,11 +1,12 @@
-﻿using Environment.Interactables.Triggerables.Scripts.Commands;
+﻿using DG.Tweening;
 using UnityEngine;
 
 namespace Environment.Interactables.Triggerables.Scripts.TriggerableObjects
 {
     public class BrokenDoorPaneTriggerable : TriggerableObject
     {
-        public GameObject doorOpenedByThisTrigger;
+        public GameObject doorObject;
+        public Vector3 openOffset;
 
         void Start()
         {
@@ -15,8 +16,8 @@ namespace Environment.Interactables.Triggerables.Scripts.TriggerableObjects
 
         public override void OnTrigger()
         {
-            var command = new TriggerOpenDoorCommand();
-            command.Execute();
+            Debug.Log("BrokenDoorPaneTriggerable triggered");
+            doorObject.transform.DOMove(doorObject.transform.position + openOffset, 1f);
         }
     }
 }
