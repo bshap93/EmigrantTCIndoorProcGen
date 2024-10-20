@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.48376858, b: 0.9150943, a: 1}
+  m_Color: {r: 0, g: 0.77790135, b: 0.9137255, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
@@ -301,7 +301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.25133762, b: 0.4811321, a: 0.9411765}
+  m_Color: {r: 0, g: 0.3977311, b: 0.48235294, a: 0.9411765}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
@@ -419,7 +419,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 036e6349de7eaac4fad31c8a4ab33753, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aa07cfc12eed0864abfc1866c173ca58, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -577,7 +577,7 @@ GameObject:
   - component: {fileID: 6809935568471938248}
   - component: {fileID: 7676173840605021603}
   m_Layer: 5
-  m_Name: CoolectOxygenTooltip
+  m_Name: SpeakToNPCTooltip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1017,17 +1017,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1990594193549166204, guid: 885468d8abd1b34438bfcbab11fcf7c5, type: 3}
       propertyPath: m_text
-      value: 'to collect oxygen
+      value: 'to speak with Medic
 
 '
       objectReference: {fileID: 0}
     - target: {fileID: 1990594193549166204, guid: 885468d8abd1b34438bfcbab11fcf7c5, type: 3}
       propertyPath: m_fontSize
-      value: 42
+      value: 40.9
       objectReference: {fileID: 0}
     - target: {fileID: 1990594193549166204, guid: 885468d8abd1b34438bfcbab11fcf7c5, type: 3}
       propertyPath: m_fontSizeBase
-      value: 42
+      value: 40.9
       objectReference: {fileID: 0}
     - target: {fileID: 4164625289371221798, guid: 885468d8abd1b34438bfcbab11fcf7c5, type: 3}
       propertyPath: m_Pivot.x

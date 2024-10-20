@@ -1,4 +1,4 @@
-﻿namespace Environment.Interactables.Triggerables.Commands
+﻿namespace Environment.Interactables.Triggerables.Scripts.Commands
 {
     public interface ITriggerableCommand
     {
