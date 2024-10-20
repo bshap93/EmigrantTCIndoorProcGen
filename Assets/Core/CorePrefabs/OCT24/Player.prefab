@@ -22099,6 +22099,11 @@ MonoBehaviour:
     positionOffset: {x: 0, y: 0, z: 0}
     rotationOffset: {x: 0, y: 0, z: 0}
     baseItemObject: {fileID: 11400000, guid: aab0df336104bea41973e8d41467626b, type: 2}
+  - itemName: 
+    itemPrefab: {fileID: 5605079859099494153, guid: cf91640a49bb7a843beecc0149564392, type: 3}
+    positionOffset: {x: 0, y: 0, z: 0}
+    rotationOffset: {x: 0, y: 0, z: 0}
+    baseItemObject: {fileID: 11400000, guid: b72496789501219449262ad977e767b4, type: 2}
 --- !u!1 &6791308211611078008
 GameObject:
   m_ObjectHideFlags: 0
@@ -24867,8 +24872,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitialObject:
-    item: {fileID: 0}
-    count: 0
+    item: {fileID: 11400000, guid: b72496789501219449262ad977e767b4, type: 2}
+    count: 1
   AllowInsert: 1
   AllowExtract: 1
   ConstraintCollection: {fileID: 11400000, guid: bcf7601ee56978d40a8847fe4503ab41, type: 2}
