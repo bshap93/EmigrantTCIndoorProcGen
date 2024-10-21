@@ -4226,8 +4226,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitialObject:
-    item: {fileID: 0}
-    count: 0
+    item: {fileID: 11400000, guid: bb30ab371933fa94989b8979a7cd7361, type: 2}
+    count: 1
   AllowInsert: 1
   AllowExtract: 1
   ConstraintCollection: {fileID: 11400000, guid: bcf7601ee56978d40a8847fe4503ab41, type: 2}
@@ -6288,8 +6288,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitialObject:
-    item: {fileID: 0}
-    count: 0
+    item: {fileID: 11400000, guid: a067a9d99d5b7ad4ebc6839db9cd9da3, type: 2}
+    count: 1
   AllowInsert: 1
   AllowExtract: 1
   ConstraintCollection: {fileID: 11400000, guid: bcf7601ee56978d40a8847fe4503ab41, type: 2}
@@ -7435,8 +7435,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitialObject:
-    item: {fileID: 0}
-    count: 0
+    item: {fileID: 11400000, guid: b4522a7322faf084a962f5ab4ed32743, type: 2}
+    count: 1
   AllowInsert: 1
   AllowExtract: 1
   ConstraintCollection: {fileID: 11400000, guid: bcf7601ee56978d40a8847fe4503ab41, type: 2}
@@ -26993,8 +26993,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitialObject:
-    item: {fileID: 0}
-    count: 0
+    item: {fileID: 11400000, guid: cbe00b42be85a3c449f1286130b9f0ea, type: 2}
+    count: 1
   AllowInsert: 1
   AllowExtract: 1
   ConstraintCollection: {fileID: 11400000, guid: bcf7601ee56978d40a8847fe4503ab41, type: 2}

@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementManager: {fileID: 0}
   rotatePlayerDirection: {fileID: 0}
-  pistolCategoryObject: {fileID: 11400000, guid: e49f3296d4a042c46b7a2b8c7cba1c90, type: 2}
+  weaponCategory: {fileID: 11400000, guid: 53b542cac108cde44a376a7294ae794a, type: 2}
   consumableCategoryObject: {fileID: 11400000, guid: 1b5b4c9116677f44f845d9098052e656, type: 2}
   player: {fileID: 0}
   characterFootsteps: {fileID: 0}
