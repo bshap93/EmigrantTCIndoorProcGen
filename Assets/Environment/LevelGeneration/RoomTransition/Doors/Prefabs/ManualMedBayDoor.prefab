@@ -181,7 +181,6 @@ GameObject:
   - component: {fileID: 1921739932453670102}
   - component: {fileID: 2008502302869018129}
   - component: {fileID: 3803129173827957927}
-  - component: {fileID: 1646152182127181092}
   m_Layer: 7
   m_Name: ManualMedBayDoor
   m_TagString: Untagged
@@ -267,26 +266,6 @@ MonoBehaviour:
   m_Bidirectional: 1
   m_AutoUpdatePosition: 0
   m_Area: 0
---- !u!114 &1646152182127181092
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6977282462925180781}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 678afcbe4a604d0b8af1ca43de70b0c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentsAllowedToOpen: 
-  speed: 3
-  openable: 1
-  movingDoor: {fileID: 1354126125565614587}
-  openOffset: {x: 0, y: 0, z: 0}
-  doorComponent: {fileID: 2008502302869018129}
-  canBeForcedOpen: 0
-  openTrigger: 0
 --- !u!1 &7703292899554368621
 GameObject:
   m_ObjectHideFlags: 0
