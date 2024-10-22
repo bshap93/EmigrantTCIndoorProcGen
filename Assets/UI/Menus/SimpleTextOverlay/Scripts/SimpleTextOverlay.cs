@@ -28,7 +28,19 @@ namespace UI.Menus.SimpleTextOverlay.Scripts
             _currentOverlayState = OverlayState.Normal;
             button = GetComponentInChildren<Button>();
             buttonText = button.GetComponentInChildren<TMP_Text>();
-            button.onClick.AddListener(OnButtonClick);
+        }
+
+        public void OnButtonClick()
+        {
+            switch (_currentOverlayState)
+            {
+                case OverlayState.Paused:
+                    EventManager.EResumeGame?.Invoke();
+                    break;
+                case OverlayState.Dead:
+                    Debug.Log("Restarting Game");
+                    break;
+            }
         }
 
         public void SetState(OverlayState overlayState)
@@ -53,6 +65,7 @@ namespace UI.Menus.SimpleTextOverlay.Scripts
             overlayPanel.color = new Color(0, 0, 0, 0.5f);
             overlayText.text = "Paused";
             buttonText.text = "Resume";
+            _currentOverlayState = OverlayState.Paused;
             gameObject.SetActive(true);
         }
 
@@ -61,20 +74,8 @@ namespace UI.Menus.SimpleTextOverlay.Scripts
             overlayPanel.color = new Color(0, 0, 0, 0.5f);
             overlayText.text = "You Died";
             buttonText.text = "Restart";
+            _currentOverlayState = OverlayState.Dead;
             gameObject.SetActive(true);
-        }
-
-        public void OnButtonClick()
-        {
-            if (_currentOverlayState == OverlayState.Paused)
-            {
-                SetState(OverlayState.Normal);
-            }
-            else if (_currentOverlayState == OverlayState.Dead)
-            {
-                SetState(OverlayState.Normal);
-                EventManager.ERestartCurrentLevel?.Invoke();
-            }
         }
     }
 }

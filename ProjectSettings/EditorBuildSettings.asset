@@ -4,5 +4,20 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/SurvivalCraftingDeckLevels/BridgeLevelAndProjectRoot.unity
+    guid: 532ce4a5b92d0b3409ba6a0f44e60193
+  - enabled: 1
+    path: Assets/Scenes/SurvivalCraftingDeckLevels/Dustbin/AirlockLevel.unity
+    guid: c47b2b0b565eb624894a8c137b0f01b5
+  - enabled: 1
+    path: Assets/Scenes/SandboxedScenes/Dustbin/SandboxedBridggeLevel.unity
+    guid: 2c1bf626b7cbf5e428905adae177366e
+  - enabled: 1
+    path: Assets/Scenes/BareLevels/BareAirlockL2.unity
+    guid: 1362a9d0425a9de4bb407f4cb8f477be
+  - enabled: 1
+    path: Assets/Scenes/SurvivalCraftingDeckLevels/L2.unity
+    guid: d3ce8aff2496879409ce139f17780af3
   m_configObjects: {}

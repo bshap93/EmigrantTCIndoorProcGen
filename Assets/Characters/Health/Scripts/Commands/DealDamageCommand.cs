@@ -1,4 +1,6 @@
-﻿using Core.Events;
+﻿using Characters.Enemies;
+using Core.Events.EventManagers;
+using Environment.ObjectAttributes.Interfaces;
 using UnityEngine;
 
 namespace Characters.Health.Scripts.Commands
@@ -6,14 +8,20 @@ namespace Characters.Health.Scripts.Commands
     public class DealDamageCommand : IHealthSystemCommand
 
     {
-        public void Execute(HealthSystem healthSystem, float value)
+        public void Execute(IDamageable damageable, float value, ICharacterEventManager eventManager)
         {
-            Debug.Log(
-                "Health drops from " + healthSystem.CurrentHealth + " to " + (healthSystem.CurrentHealth - value));
+            var healthSystem = damageable.GetHealthSystem();
+            if (damageable is Enemy)
+                Debug.Log(
+                    healthSystem.characterName + "'s Health drops from " + healthSystem.currentSuitIntegrity + " to " +
+                    (healthSystem.currentSuitIntegrity - value));
 
-            healthSystem.CurrentHealth -= value;
-            EventManager.EChangeHealth.Invoke(healthSystem.CurrentHealth - value);
-            if (healthSystem.CurrentHealth <= 0) EventManager.ENotifyCharacterDied.Invoke(healthSystem.CharacterName);
+            healthSystem.currentSuitIntegrity -= value;
+
+
+            eventManager.TriggerCharacterChangeHealth(healthSystem.currentSuitIntegrity, true);
+            if (healthSystem.currentSuitIntegrity <= 0)
+                eventManager.TriggerCharacterDied(healthSystem.characterName);
         }
     }
 }

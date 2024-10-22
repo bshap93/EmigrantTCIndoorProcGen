@@ -17,6 +17,9 @@ namespace Core.GameManager.Scripts
             isPaused = false;
             _pauseGameCommand = new PauseGameCommand();
             _resumeGameCommand = new ResumeGameCommand();
+
+            EventManager.EPauseGame.AddListener(OnPauseGame);
+            EventManager.EResumeGame.AddListener(OnResumeGame);
         }
 
         void Update()
@@ -28,17 +31,9 @@ namespace Core.GameManager.Scripts
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 if (isPaused)
-                {
-                    _resumeGameCommand.Execute();
                     EventManager.EResumeGame?.Invoke();
-                    isPaused = false;
-                }
                 else
-                {
-                    _pauseGameCommand.Execute();
                     EventManager.EPauseGame?.Invoke();
-                    isPaused = true;
-                }
             }
         }
 
@@ -46,11 +41,13 @@ namespace Core.GameManager.Scripts
         void OnPauseGame()
         {
             _pauseGameCommand.Execute();
+            isPaused = true;
         }
 
         void OnResumeGame()
         {
             _resumeGameCommand.Execute();
+            isPaused = false;
         }
     }
 }

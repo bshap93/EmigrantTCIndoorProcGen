@@ -33,6 +33,7 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
+
 # Visual Studio / MonoDevelop generated
 .vs/
 .vscode/

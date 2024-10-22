@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1a05d0af8694ce8a7fec0c9e94b669f, type: 3}
+  m_Name: DamageInflicting
+  m_EditorClassIdentifier: 
+  id:
+    val: 4303494262324068488
+  members:
+  - {fileID: 11400000, guid: b4522a7322faf084a962f5ab4ed32743, type: 2}
+  - {fileID: 11400000, guid: b72496789501219449262ad977e767b4, type: 2}
+  data:
+  - 10
+  - 10

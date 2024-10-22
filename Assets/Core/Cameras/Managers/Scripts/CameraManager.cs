@@ -1,6 +1,7 @@
 ﻿using System;
+using Characters.Player.Scripts;
 using Cinemachine;
-using Core.Events;
+using Core.Cameras.Scripts;
 using DG.Tweening;
 using UnityEngine;
 
@@ -9,13 +10,16 @@ namespace Core.Cameras.Managers.Scripts
     public enum CameraTypeEnum
     {
         Player = 10,
-        Room = 5
+        EventTriggered = 5
     }
 
     public class CameraManager : MonoBehaviour
     {
         public GameObject playerCamera;
-        public GameObject roomCamera;
+        PlayerCharacter _player;
+
+        PlayerViewCameraController _playerViewCameraController;
+
 
         public static CameraManager Instance { get; private set; }
 
@@ -30,13 +34,15 @@ namespace Core.Cameras.Managers.Scripts
             {
                 Destroy(gameObject); // Prevent duplicates
             }
-
-            // SetActiveCamera(0);
         }
 
         void Start()
         {
-            EventManager.EDealDamage.AddListener(OnPlayerDamage);
+            if (_player == null) _player = PlayerCharacter.Instance;
+            // Subscribe to the player damage event
+            _player.playerEventManager.AddListenerToHealthChangedEvent(OnPlayerDamage);
+            _playerViewCameraController = GetComponentInChildren<PlayerViewCameraController>();
+            _playerViewCameraController.Initialize();
         }
 
         public void SetActiveCamera(CameraTypeEnum virtualCamera)
@@ -45,26 +51,15 @@ namespace Core.Cameras.Managers.Scripts
             {
                 case CameraTypeEnum.Player:
                     playerCamera.GetComponent<CinemachineVirtualCamera>().Priority = 10;
-                    roomCamera.GetComponent<CinemachineVirtualCamera>().Priority = 5;
-                    break;
-                case CameraTypeEnum.Room:
-                    playerCamera.GetComponent<CinemachineVirtualCamera>().Priority = 5;
-                    roomCamera.GetComponent<CinemachineVirtualCamera>().Priority = 10;
-
                     break;
             }
         }
 
-        void OnPlayerDamage(string character, float damage)
+        void OnPlayerDamage(float damage, bool isDamage)
         {
-            // Camera shake effect
             ShakeCamera(0.5f, 0.5f, 10, 90);
         }
 
-        public void SetActiveRoom(GameObject room)
-        {
-            throw new NotImplementedException();
-        }
 
         public void ShakeCamera(float duration, float strength, int vibrato, float randomness)
         {
@@ -75,6 +70,16 @@ namespace Core.Cameras.Managers.Scripts
                     x => cameraOffset.m_Offset = x,
                     duration, strength, vibrato, randomness)
                 .SetEase(Ease.OutQuad);
+        }
+
+        public void SetFollowObject(GameObject followObject)
+        {
+            playerCamera.GetComponent<CinemachineVirtualCamera>().Follow = followObject.transform;
+        }
+
+        public void SetActiveRoom(GameObject room)
+        {
+            throw new NotImplementedException();
         }
     }
 }

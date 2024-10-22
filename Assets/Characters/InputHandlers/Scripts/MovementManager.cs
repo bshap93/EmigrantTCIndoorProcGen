@@ -1,4 +1,4 @@
-﻿using Characters.Scripts.Commands.Move;
+﻿using Characters.NPCs.Scripts.Commands.Move;
 using UnityEngine;
 
 namespace Characters.InputHandlers.Scripts
@@ -23,6 +23,7 @@ namespace Characters.InputHandlers.Scripts
         MoveCommand _moveRightCommand;
         MoveCommand _moveUpCommand;
 
+
         // Singleton instance
         public static MovementManager Instance { get; private set; }
 
@@ -45,6 +46,15 @@ namespace Characters.InputHandlers.Scripts
 
         void Start()
         {
+            if (player == null)
+                player = GameObject.FindWithTag("Player");
+
+            if (mainCamera == null)
+                mainCamera = Camera.main;
+
+            if (controller == null)
+                controller = player.GetComponent<CharacterController>();
+
             // Initialize movement commands with the camera's transform
             _moveUpCommand = new MoveForwardCommand(mainCamera.transform, controller, walkSpeed);
             _moveDownCommand = new MoveBackwardCommand(mainCamera.transform, controller, walkSpeed);

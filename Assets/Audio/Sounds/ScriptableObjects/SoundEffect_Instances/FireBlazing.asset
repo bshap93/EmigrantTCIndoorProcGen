@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39cfb935bdde47c493d8ac4047a555ee, type: 3}
+  m_Name: FireBlazing
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: 54e91280b35f20c4b94330fec62172bb, type: 3}
+  - {fileID: 8300000, guid: 10c0a342b6b13f2439034dc297e5f843, type: 3}
+  isLooping: 0
+  volume: 1
+  isLayered: 1

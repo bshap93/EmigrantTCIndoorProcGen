@@ -1,8 +1,11 @@
-using Characters.Health.Scripts;
-using Characters.Player.Scripts;
+using Core.Events.EventManagers;
 using Core.SaveSystem.Scripts;
+using Core.ShipSystems.Scripts;
+using Items.Inventory.Scripts;
+using JetBrains.Annotations;
 using UI.ETCCustomCursor.Scripts.Commands;
 using UI.InGameConsole.Scripts;
+using UI.Objectives.Scripts;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -15,39 +18,59 @@ namespace Core.GameManager.Scripts
 
         public UnityEvent<string> onSystemActivated;
 
-        public SaveManager saveManager;
+        public GameObject player;
+
+        [CanBeNull] public SaveManager saveManager;
+
+        public InGameConsoleManager inGameConsoleManager;
+
+        public ItemWorldFragmentManager itemWorldFragmentManager;
         DisableCursorCommand _disableCursorCommand;
 
         EnableFreeCursorCommand _enableFreeCursorCommand;
 
-        InGameConsoleManager _inGameConsoleManager;
+        ObjectiveManager _objectiveManager;
+
+        PlayerEventManager _playerEventManager;
+
+        ShipSystemManager _shipSystemManager;
         public static GameManager Instance { get; private set; }
 
 
         void Awake()
         {
-            if (Instance == null)
-                Instance = this;
-            else
+            if (Instance != null)
+            {
                 Destroy(gameObject);
+                return;
+            }
+
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
 
 
         void Start()
         {
-            _inGameConsoleManager = consoleManagerObject.GetComponent<InGameConsoleManager>();
-
-            PlayerStateController.Instance.HealthSystem =
-                new HealthSystem("Player", 100, _inGameConsoleManager);
+            _playerEventManager = player.GetComponent<PlayerEventManager>();
 
 
-            _disableCursorCommand = new DisableCursorCommand();
+            _objectiveManager = GetComponentInChildren<ObjectiveManager>();
+
+            _shipSystemManager = GetComponentInChildren<ShipSystemManager>();
+
+            if (itemWorldFragmentManager == null)
+                // It's a child of the GameManager object
+                itemWorldFragmentManager = GetComponentInChildren<ItemWorldFragmentManager>();
+
+
+            // _disableCursorCommand = new DisableCursorCommand();
             _enableFreeCursorCommand = new EnableFreeCursorCommand();
 
-            _disableCursorCommand.Execute();
+            // _disableCursorCommand.Execute();
 
 
-            saveManager.InitializedDungeonLevel(null);
+            if (saveManager != null) saveManager.InitializedDungeonLevel(null);
         }
     }
 }

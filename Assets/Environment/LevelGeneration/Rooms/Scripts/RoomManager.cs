@@ -1,17 +1,17 @@
-﻿using Core.DataStructures;
+﻿using System.Collections.Generic;
+using Characters.Player.Scripts;
+using Core.Events;
+using DunGen;
 using Sirenix.Utilities;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Environment.LevelGeneration.Rooms.Scripts
 {
     public class RoomManager : MonoBehaviour
     {
         public Room[] rooms;
-        public UnityEvent onRoomGeneration;
-
-        public SerializableDictionary<Room, GameObject[]> roomFloorTiles;
-
+        int _roomCounter;
+        RuntimeDungeon _runtimeDungeon;
 
         public static RoomManager Instance { get; set; }
         void Awake()
@@ -32,7 +32,8 @@ namespace Environment.LevelGeneration.Rooms.Scripts
 
         void Start()
         {
-            onRoomGeneration ??= new UnityEvent();
+            _roomCounter = 0;
+            _runtimeDungeon = GetComponent<RuntimeDungeon>();
         }
 
 
@@ -46,8 +47,37 @@ namespace Environment.LevelGeneration.Rooms.Scripts
             {
                 // Disable Update by setting the enabled property to false
                 enabled = false; // Disables the Update method from running again
-                onRoomGeneration.Invoke();
+                EventManager.EOnRoomGeneration.Invoke();
+                OnDungeonGenerated(_runtimeDungeon.Generator);
+                PlayerCharacter.Instance.navMeshAgent.enabled = true;
             }
+        }
+
+        void OnDungeonGenerated(DungeonGenerator generator)
+        {
+            var dungeonGameObject = GameObject.Find("Dungeon");
+            var roomGameObjects = GetChildren(dungeonGameObject);
+
+
+            foreach (var roomGameObject in roomGameObjects)
+            {
+                _roomCounter++;
+                var roomId = _roomCounter;
+
+                var roomComponent = roomGameObject.GetComponent<Room>();
+                if (roomComponent != null)
+                    roomComponent.InitializeRoom(_roomCounter); // Initialize room with the counter as ID
+            }
+        }
+
+
+        List<GameObject> GetChildren(GameObject parent)
+        {
+            var children = new List<GameObject>();
+
+            foreach (Transform child in parent.transform) children.Add(child.gameObject);
+
+            return children;
         }
     }
 }

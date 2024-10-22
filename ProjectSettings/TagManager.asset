@@ -6,6 +6,16 @@ TagManager:
   tags:
   - Floor
   - VirtualCamera
+  - Enemy
+  - PowerOnIcon
+  - PowerOffIcon
+  - AiOnIcon
+  - AiOffIcon
+  - HangingWire
+  - ItemSlot
+  - ExtinguishableFire
+  - HintGlow
+  - HintTransform
   layers:
   - Default
   - TransparentFX
@@ -16,7 +26,7 @@ TagManager:
   - NonWalkableArea
   - Obstacle
   - Ceiling
-  - 
+  - Floor
   - 
   - 
   - 

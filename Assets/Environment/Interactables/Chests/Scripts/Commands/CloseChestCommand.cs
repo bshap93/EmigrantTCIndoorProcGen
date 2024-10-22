@@ -5,15 +5,15 @@ namespace Environment.Interactables.Chests.Scripts.Commands
 {
     public class CloseChestCommand : ISimpleCommand
     {
-        readonly OpenableChest _openableChest;
+        readonly OpenableChest _openableDoor;
 
-        public CloseChestCommand(OpenableChest openableChest)
+        public CloseChestCommand(OpenableChest openableDoor)
         {
-            _openableChest = openableChest;
+            _openableDoor = openableDoor;
         }
         public void Execute()
         {
-            _openableChest.SetState(OpenableObject.OpenableState.Closing);
+            _openableDoor.SetState(OpenableObject.OpenableState.Closing);
         }
     }
 }

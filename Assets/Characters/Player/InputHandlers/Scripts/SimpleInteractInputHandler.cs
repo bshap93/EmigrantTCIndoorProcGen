@@ -33,7 +33,7 @@ namespace Characters.Player.InputHandlers.Scripts
 
         public void HandleInput()
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.F) && _currentInteractable != null)
+            if (Input.GetKeyDown(KeyCode.F) && _currentInteractable != null)
             {
                 _interactSimpleCommand = new InteractSimpleCommand();
                 _interactSimpleCommand.Execute(_currentInteractable); // Execute interaction on the stored interactable

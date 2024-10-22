@@ -9,12 +9,12 @@ namespace Core.SaveSystem.Scripts
 {
     public class SaveManager : MonoBehaviour
     {
-        [FormerlySerializedAs("playerCharacter")]
-        public PlayerStateController playerStateController; // Drag the PlayerCharacter object here
+        [FormerlySerializedAs("player")] [FormerlySerializedAs("playerStateController")]
+        public PlayerCharacter playerCharacter; // Drag the PlayerCharacter object here
         Transform _initialCameraTransform; // Drag the Camera object here
         void Start()
         {
-            if (PlayerStateController.Instance == null)
+            if (PlayerCharacter.Instance == null)
                 Debug.LogError("PlayerCharacter is not initialized!");
 
             if (LevelManager.Instance == null)
@@ -26,7 +26,7 @@ namespace Core.SaveSystem.Scripts
         [Button("Save Game")]
         public void SaveGame()
         {
-            if (playerStateController == null || LevelManager.Instance == null)
+            if (playerCharacter == null || LevelManager.Instance == null)
             {
                 Debug.LogError(
                     "Missing references in SaveManager. Ensure PlayerCharacter and LevelManager are assigned.");
@@ -35,7 +35,7 @@ namespace Core.SaveSystem.Scripts
             }
 
             // Simple test save
-            ES3.Save("playerPosition", playerStateController.transform.position);
+            ES3.Save("playerPosition", playerCharacter.transform.position);
             ES3.Save("cameraTransform", _initialCameraTransform);
             ES3.Save("dungeonSeed", LevelManager.Instance.GetSeed());
             SaveDungeonLevels();
@@ -74,7 +74,7 @@ namespace Core.SaveSystem.Scripts
                 return;
             }
 
-            playerStateController.transform.position = ES3.Load<Vector3>("playerPosition");
+            playerCharacter.transform.position = ES3.Load<Vector3>("playerPosition");
             LevelManager.Instance.GenerateLevel(ES3.Load<int>("dungeonSeed"));
             _initialCameraTransform.position = ES3.Load<Vector3>("cameraTransform");
             LoadDungeonLevels();

@@ -1,75 +1,39 @@
-﻿using Characters.Health.Scripts;
-using Characters.Health.Scripts.Commands;
-using Characters.Health.Scripts.Debugging;
-using Core.Events;
-using DunGen;
-using Plugins.DunGen.Code;
-using Sirenix.OdinInspector;
-using UI;
+﻿using Characters.Player.Scripts.States;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Characters.Player.Scripts
 {
     public class PlayerStateController : MonoBehaviour
     {
-        [FormerlySerializedAs("characterDamageManager")]
-        [FormerlySerializedAs("dealDamageToCharacter")]
-        [FormerlySerializedAs("manuallyDamageCharacter")]
-        [FormerlySerializedAs("healthSystemDebug")]
-        public EditorButtonDealDamage editorButtonDealDamage;
-        DungenCharacter _dungenCharacter;
-        Transform _initialOrientation;
+        PlayerState _currentState;
+        PlayerCharacter _playerCharacter;
 
-        public HealthSystem HealthSystem;
-
-        public static PlayerStateController Instance { get; private set; }
-
-        public float CurrentHealth => HealthSystem.CurrentHealth;
-
-
-        void Awake()
+        public void Update()
         {
-            if (Instance != null)
+            if (_currentState != null) _currentState.Update(_playerCharacter);
+        }
+
+        public void Initialize(PlayerCharacter playerCharacter, PlayerState initialState)
+        {
+            _playerCharacter = playerCharacter;
+            _currentState = initialState;
+            _currentState.Enter(_playerCharacter); // Set the initial state
+        }
+
+        public void ChangeState(PlayerState newState)
+        {
+            if (_currentState.GetType() != newState.GetType())
             {
-                Destroy(gameObject);
-                return;
+                if (_currentState != null)
+                    _currentState.Exit(_playerCharacter);
+
+                _currentState = newState;
+                _currentState.Enter(_playerCharacter);
             }
-
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
-
-        void Start()
+        public PlayerState GetCurrentState()
         {
-            _initialOrientation = transform;
-            _dungenCharacter = GetComponent<DungenCharacter>();
-            _dungenCharacter.OnTileChanged += OnCharacterTileChanged;
-            // This must be done before  GameManager
-            HealthSystem = new HealthSystem("Player", 100, UIManager.Instance.inGameConsoleManager);
-            EventManager.EDealDamage.AddListener(HandleDamage);
-            EventManager.ERestartCurrentLevel.AddListener(ResetPlayer);
-        }
-
-        [Button("Reset Player")]
-        public void ResetPlayer()
-        {
-            HealthSystem.CurrentHealth = HealthSystem.MaxHealth;
-            transform.position = _initialOrientation.position;
-            transform.rotation = _initialOrientation.rotation;
-        }
-
-        void OnCharacterTileChanged(DungenCharacter character, Tile previousTile, Tile
-            newTile)
-        {
-            Debug.Log("Character moved to a new tile!");
-        }
-
-        // Handle debug damage
-        void HandleDamage(string character, float damage)
-        {
-            var dealDamageCommand = new DealDamageCommand();
-            dealDamageCommand.Execute(Instance.HealthSystem, damage);
+            return _currentState;
         }
     }
 }

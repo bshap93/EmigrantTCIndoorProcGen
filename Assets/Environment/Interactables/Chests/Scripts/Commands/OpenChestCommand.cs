@@ -5,17 +5,17 @@ namespace Environment.Interactables.Chests.Scripts.Commands
 {
     public class OpenChestCommand : ISimpleCommand
     {
-        readonly OpenableChest _openableChest;
+        readonly OpenableChest _openableDoor;
 
-        public OpenChestCommand(OpenableChest openableChest)
+        public OpenChestCommand(OpenableChest openableDoor)
         {
-            _openableChest = openableChest;
+            _openableDoor = openableDoor;
         }
 
 
         public void Execute()
         {
-            _openableChest.SetState(OpenableObject.OpenableState.Opening);
+            _openableDoor.SetState(OpenableObject.OpenableState.Opening);
         }
     }
 }

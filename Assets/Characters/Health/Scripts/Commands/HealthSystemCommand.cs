@@ -1,7 +1,10 @@
-﻿namespace Characters.Health.Scripts.Commands
+﻿using Core.Events.EventManagers;
+using Environment.ObjectAttributes.Interfaces;
+
+namespace Characters.Health.Scripts.Commands
 {
     public interface IHealthSystemCommand
     {
-        void Execute(HealthSystem healthSystem, float value);
+        void Execute(IDamageable damageable, float value, ICharacterEventManager eventManager);
     }
 }
