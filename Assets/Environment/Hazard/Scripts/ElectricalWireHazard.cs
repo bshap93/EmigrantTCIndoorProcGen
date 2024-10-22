@@ -54,7 +54,6 @@ namespace Environment.Hazard.Scripts
             {
                 sparksParticleSystem.Stop();
                 beaconParticleSystem.Stop();
-                Debug.Log("Wire is not live");
             }
         }
 

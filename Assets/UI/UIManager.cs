@@ -96,13 +96,16 @@ namespace UI
             EventManager.EPauseGame.RemoveListener(OnPauseGame);
 
             UnityAction<float, bool> healthChange = OnHealthChanged;
-            _playerEventManager.RemoveListenerFromSuitIntegrityChange(healthChange);
+            if (_playerEventManager != null)
+                _playerEventManager.RemoveListenerFromSuitIntegrityChange(healthChange);
 
             UnityAction<float, bool> oxygenChange = OnOxygenChanged;
-            _playerEventManager.RemoveListenerFromOxygenChange(oxygenChange);
+            if (_playerEventManager != null)
+                _playerEventManager.RemoveListenerFromOxygenChange(oxygenChange);
 
             UnityAction<string> dead = OnDead;
-            _playerEventManager.RemoveListenerFromCharacterEvent(dead);
+            if (_playerEventManager != null)
+                _playerEventManager.RemoveListenerFromCharacterEvent(dead);
 
             SceneManager.sceneLoaded -= OnSceneLoaded;
         }

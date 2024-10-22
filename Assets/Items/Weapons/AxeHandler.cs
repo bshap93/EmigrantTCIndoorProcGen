@@ -32,7 +32,6 @@ namespace Items.Weapons
         }
         bool SwingAxeAtForwardTarget()
         {
-            Debug.Log("Swinging axe");
             isSwinging = true;
             // audioManager.OnPlayEffect.Invoke("AxeSwing");
 
@@ -41,7 +40,6 @@ namespace Items.Weapons
                 if (hitCollider.gameObject.TryGetComponent(out IBreakable breakable))
                 {
                     breakable.Break();
-                    // breakEffect.SetActive(true);
                     return true;
                 }
 

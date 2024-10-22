@@ -39,13 +39,12 @@ namespace UI.Objectives.Scripts
             var hints = FindObjectsOfType<InteractableGlowHint>();
             if (_currentObjective == null) _currentObjective = objectiveManager.GetCurrentObjective();
             foreach (var hint in hints)
-                if (hint != null)
+                if (hint != null && hint.glowParticle != null)
                 {
-                    HintParticleSystems[_currentObjective] = hint.glowParticle;
+                    // HintParticleSystems[_currentObjective] = hint.glowParticle;
+                    HintParticleSystems.TryAdd(hint.objective, hint.glowParticle);
                     if (hint.objective == null)
                         Debug.LogError("InteractableGlowHint " + hint.name + " does not have an objective assigned!");
-                    else
-                        Debug.Log("Added hint for " + hint.objective.objectiveText);
                 }
         }
 

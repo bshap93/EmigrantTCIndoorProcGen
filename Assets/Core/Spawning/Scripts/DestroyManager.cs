@@ -22,7 +22,6 @@ namespace Core.Spawning.Scripts
         public void IncrementDestroyedObject(string destroyedObjectTag)
         {
             NumDestroyedObjectsByTag[destroyedObjectTag]++;
-            Debug.Log($"Incremented {destroyedObjectTag} to {NumDestroyedObjectsByTag[destroyedObjectTag]}");
         }
 
         public bool CheckIfObjectiveIsComplete(string objectTag)

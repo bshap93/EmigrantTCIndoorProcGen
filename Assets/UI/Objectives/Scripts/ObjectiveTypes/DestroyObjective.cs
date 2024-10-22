@@ -23,7 +23,6 @@ namespace UI.Objectives.Scripts.ObjectiveTypes
             EventManager.EOnObjectDestroyed.AddListener(OnObjectDestroyed);
             _destroyManager.NeededNumberToDestroyByTag[objectTag] = objectsToDestroyCount;
             _destroyManager.AddTag(objectTag, objectsToDestroyCount);
-            Debug.Log("DestroyObjective OnEnable");
         }
 
         void OnDisable()

@@ -11,6 +11,7 @@ namespace Audio.Sounds.Scripts
 {
     public class AudioManager : MonoBehaviour
     {
+        public bool enableMuteforTesting = false;
         // Static events
         public PlayEffectEvent OnPlayEffect = new();
         public PlayEffectAtPointEvent OnPlayEffectAtPoint = new();
@@ -91,12 +92,14 @@ namespace Audio.Sounds.Scripts
 
         public void PlayEffect(string effectName)
         {
+            if (enableMuteforTesting) return;
             if (_audioListener == null) _audioListener = FindObjectOfType<AudioListener>();
             PlayEffect(effectName, _audioListener.transform.position);
         }
 
         public void PlayEffect(string effectName, Vector3 worldPosition)
         {
+            if (enableMuteforTesting) return;
             if (!_soundEffectDictionary.TryGetValue(effectName, out var soundEffect))
             {
                 Debug.LogErrorFormat("Sound effect {0} not registered", effectName);
@@ -131,6 +134,7 @@ namespace Audio.Sounds.Scripts
 
         public void PlayLoopingEffect(string effectName, Vector3 worldPosition, bool loop)
         {
+            if (enableMuteforTesting) return;
             if (!_soundEffectDictionary.TryGetValue(effectName, out var soundEffect))
             {
                 Debug.LogErrorFormat("Sound effect {0} not registered", effectName);
