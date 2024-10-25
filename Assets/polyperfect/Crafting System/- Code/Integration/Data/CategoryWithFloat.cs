@@ -8,7 +8,7 @@ namespace Polyperfect.Crafting.Integration
     [CreateAssetMenu(menuName = "Polyperfect/Categories/With Float")]
     public class CategoryWithFloat : BaseCategoryWithData<DATA_TYPE>
     {
-        [SerializeField] protected List<DATA_TYPE> data = new();
+        [SerializeField] protected List<DATA_TYPE> data = new List<DATA_TYPE>();
         public override string __Usage => "A collection whose members have floating point values as their data.";
         public override IReadOnlyList<DATA_TYPE> Data => data;
 

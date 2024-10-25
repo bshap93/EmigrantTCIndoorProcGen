@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Polyperfect.Common;
 using UnityEngine;
-using Random = System.Random;
 
 namespace Polyperfect.Crafting.Framework
 {
@@ -12,16 +11,16 @@ namespace Polyperfect.Crafting.Framework
     [Serializable]
     public struct RuntimeID : IEquatable<RuntimeID>
     {
-        public static IReadOnlyDictionary<RuntimeID, string> SettableStaticNameLookup { get; set; }
-        static Random random;
+        public static IReadOnlyDictionary<RuntimeID,string> SettableStaticNameLookup { get; set; }
+        static System.Random random;
         static RuntimeID()
         {
-            random = new Random();
+            random = new System.Random();
         }
         //public readonly Guid id;
         [SerializeField] long val;
         public long NumericID => val;
-        public RuntimeID(long id)
+        public RuntimeID(long id) 
         {
             val = id;
         }
@@ -54,9 +53,7 @@ namespace Polyperfect.Crafting.Framework
         public override string ToString()
         {
             if (SettableStaticNameLookup != null && SettableStaticNameLookup.TryGetValue(this, out var str))
-                return $"{str}({val.ToString()})";
-
-            ;
+                return $"{str}({val.ToString()})";;
             return val.ToString();
         }
 
@@ -66,10 +63,6 @@ namespace Polyperfect.Crafting.Framework
         public static RuntimeID Random()
         {
             return new RuntimeID(random.NextLong());
-        }
-        public long GetVal()
-        {
-            return val;
         }
     }
 }

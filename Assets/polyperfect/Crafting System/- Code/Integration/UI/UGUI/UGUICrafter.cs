@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Polyperfect.Common;
 using Polyperfect.Crafting.Framework;
@@ -11,15 +12,15 @@ namespace Polyperfect.Crafting.Integration.UGUI
     [RequireComponent(typeof(Crafter))]
     public class UGUICrafter : ItemUserBase
     {
-        [SerializeField] List<RecipeCategoryObject> MadeCategories = new();
-        [SerializeField] public ChildSlotsInventory StartingInventory;
-        [SerializeField] public ChildSlotsInventory StartingOutput;
+        [SerializeField] List<RecipeCategoryObject> MadeCategories = new List<RecipeCategoryObject>();
+        [SerializeField] ChildSlotsInventory StartingInventory;
+        [SerializeField] ChildSlotsInventory StartingOutput;
         [SerializeField] ChildConstructor PossibilitiesConstructor;
         [SerializeField] RecipeDisplay RecipeDisplay;
         [SerializeField] Text RecipeNameText;
         Crafter crafter;
-        string startingText;
         public override string __Usage => "Easy crafting";
+        string startingText;
         void Awake()
         {
             crafter = GetComponent<Crafter>();
@@ -30,11 +31,6 @@ namespace Polyperfect.Crafting.Integration.UGUI
                 startingText = RecipeNameText.text;
         }
 
-        protected void Start()
-        {
-            UpdateCraftables();
-        }
-
         void OnDisable()
         {
             crafter.Recipe = null;
@@ -42,11 +38,12 @@ namespace Polyperfect.Crafting.Integration.UGUI
                 RecipeNameText.text = startingText;
         }
 
-        IEnumerable<RuntimeID> GetRelevantRecipes()
+        protected void Start()
         {
-            return World.RecipeIDs.Where(
-                recipeID => MadeCategories.Any(category => World.CategoryContains(category, recipeID)));
+            UpdateCraftables();
         }
+
+        IEnumerable<RuntimeID> GetRelevantRecipes() => World.RecipeIDs.Where(recipeID => MadeCategories.Any(category => World.CategoryContains(category, recipeID)));
 
         public IEnumerable<RuntimeID> GetCraftableRecipesGivenInventory(IEnumerable<ItemStack> inventory)
         {
@@ -67,7 +64,6 @@ namespace Polyperfect.Crafting.Integration.UGUI
             crafter.Recipe = new SimpleRecipe(World.GetRecipeInputs(recipeID), World.GetRecipeOutputs(recipeID));
             if (RecipeNameText)
                 RecipeNameText.text = World.GetName(recipeID);
-
             RecipeDisplay.DisplayRecipe(recipeID);
         }
 
@@ -85,12 +81,11 @@ namespace Polyperfect.Crafting.Integration.UGUI
                 (go, recipeID) =>
                 {
                     var evt = new EventTrigger.TriggerEvent();
-                    evt.AddListener(e => OnRecipeSelected(recipeID));
-                    go.AddOrGetComponent<EventTrigger>().triggers.Add(
-                        new EventTrigger.Entry { callback = evt, eventID = EventTriggerType.PointerClick });
-
+                    evt.AddListener(e=>OnRecipeSelected(recipeID));
+                    go.AddOrGetComponent<EventTrigger>().triggers.Add(new EventTrigger.Entry(){callback = evt, eventID =  EventTriggerType.PointerClick});
                     go.GetComponent<ChildConstructor>().ConstructAndInsertItems(World.GetRecipeOutputs(recipeID));
                 });
         }
+        
     }
 }

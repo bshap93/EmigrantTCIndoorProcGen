@@ -15,7 +15,7 @@ namespace Items.Scripts
         {
             // Value is the amount of items in the stack
             _amount = itemStack.Value;
-            _id = itemStack.ID.GetVal();
+            // _id = itemStack.ID.GetVal();
         }
     }
 }

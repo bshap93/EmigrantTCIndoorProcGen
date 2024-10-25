@@ -17,8 +17,8 @@ namespace Items.Crafting.Scripts
             if (hotbarController != null)
             {
                 hotbar = hotbarController.gameObject;
-                crafter.StartingInventory = hotbar.GetComponent<ChildSlotsInventory>();
-                crafter.StartingOutput = hotbar.GetComponent<ChildSlotsInventory>();
+                // crafter.StartingInventory = hotbar.GetComponent<ChildSlotsInventory>();
+                // crafter.StartingOutput = hotbar.GetComponent<ChildSlotsInventory>();
             }
         }
     }

@@ -15,9 +15,6 @@ namespace Characters.Player.InputHandlers.Scripts
         [SerializeField] MovementManager movementManager;
         [FormerlySerializedAs("playerRotationInputHandler")] [SerializeField]
         RotatePlayerDirection rotatePlayerDirection;
-        [FormerlySerializedAs("pistolCategoryObject")] [SerializeField]
-        CategoryObject weaponCategory;
-        [SerializeField] CategoryObject consumableCategoryObject;
         [SerializeField] GameObject player;
         [FormerlySerializedAs("_characterFootsteps")] [SerializeField]
         CharacterFootsteps characterFootsteps;
@@ -95,21 +92,21 @@ namespace Characters.Player.InputHandlers.Scripts
             if (PlayerCharacter.Instance.equippedItem == null) return;
 
 
-            if (weaponCategory.Contains(PlayerCharacter.Instance.equippedItem))
-            {
-                if (Input.GetMouseButton(1) && Input.GetMouseButton(0))
-                    PlayerCharacter.Instance.PerformAttack(null);
-                else if (Input.GetMouseButtonUp(0)) PlayerCharacter.Instance.CeaseUsing();
-                else if (Input.GetMouseButton(1))
-                    PlayerCharacter.Instance.EnterCombatReadyState();
-
-                else
-                    PlayerCharacter.Instance.ReturnToExploreState();
-            }
-
-            if (consumableCategoryObject.Contains(PlayerCharacter.Instance.equippedItem))
-                if (Input.GetKey(KeyCode.Return))
-                    PlayerCharacter.Instance.UseConsumable();
+            // if (weaponCategory.Contains(PlayerCharacter.Instance.equippedItem))
+            // {
+            //     if (Input.GetMouseButton(1) && Input.GetMouseButton(0))
+            //         PlayerCharacter.Instance.PerformAttack(null);
+            //     else if (Input.GetMouseButtonUp(0)) PlayerCharacter.Instance.CeaseUsing();
+            //     else if (Input.GetMouseButton(1))
+            //         PlayerCharacter.Instance.EnterCombatReadyState();
+            //
+            //     else
+            //         PlayerCharacter.Instance.ReturnToExploreState();
+            // }
+            //
+            // if (consumableCategoryObject.Contains(PlayerCharacter.Instance.equippedItem))
+            //     if (Input.GetKey(KeyCode.Return))
+            //         PlayerCharacter.Instance.UseConsumable();
         }
     }
 }

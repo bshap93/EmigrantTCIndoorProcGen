@@ -28,7 +28,7 @@ namespace Items.Equipment.Consumables
             _healthSystem.RepairSuitHandler(suitModificationType);
             var suitModificationCommand = new UseSuitModificationCommand(suitModificationType, _playerEventManager);
             suitModificationCommand.Execute();
-            _hotbarInventory.RemoveItem(currentItemObejct.ID);
+            // _hotbarInventory.RemoveItem(currentItemObejct.ID);
         }
 
         public override void CeaseUsing()

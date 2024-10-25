@@ -1,4 +1,9 @@
-﻿using Polyperfect.Crafting.Integration;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
+using Polyperfect.Crafting.Framework;
+using Polyperfect.Crafting.Integration;
+using Polyperfect.Crafting.Placement;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,16 +13,34 @@ namespace Polyperfect.Crafting.Demo
     [RequireComponent(typeof(NavMeshAgent))]
     public class ThirdPersonCommandablePlayer : CommandablePlayer
     {
-        Vector3 lastSetDest;
+        #region Fields
+
+        // public enum ActionType
+        // {
+        //     None,Move,Place,Interact
+        // }
+
+        //ActionType currentAction;
+        public override string __Usage => "Allows various commands such as Move, Gather, and others to be issued.";
+        public BaseItemStackInventory TargetInventory;
+        public float InteractDistance = 1f;
+        public float WalkSpeed = 1.5f;
+        public float RunSpeed = 5f;
+        public float VerticalReach = 3f;
+
+        ICommand currentCommand;
+        NavMeshAgent _agent;
+        #endregion
         protected new void Start()
         {
             base.Start();
-
+            
             _agent = GetComponent<NavMeshAgent>();
             if (!TargetInventory)
             {
                 Debug.LogError($"No target inventory for {nameof(CommandablePlayer)} on {gameObject.name}.");
                 enabled = false;
+                return;
             }
         }
 
@@ -27,11 +50,11 @@ namespace Polyperfect.Crafting.Demo
             switch (currentCommand)
             {
                 case MoveCommand moveCommand:
-                    if (IsInRangeOf(moveCommand.Position))
+                    if (IsInRangeOf(moveCommand.Position)) 
                         moveCommand.Complete();
-
                     break;
             }
+            
         }
 
 
@@ -47,17 +70,19 @@ namespace Polyperfect.Crafting.Demo
             StopInteracting();
             SetDestination(item);
             //currentAction = ActionType.Move;
-        }
+        }  
+
+        Vector3 lastSetDest;
         void SetDestination(Vector3 item)
         {
             var shouldRun = Vector3.Distance(item, lastSetDest) < .5f;
             _agent.speed = shouldRun ? RunSpeed : WalkSpeed;
             lastSetDest = item;
-
+            
             _agent.SetDestination(item);
             _agent.stoppingDistance = .5f;
         }
-
+        
         /*public void PlaceAtPosition(Vector3 position)
         {
             StopInteracting();
@@ -77,7 +102,7 @@ namespace Polyperfect.Crafting.Demo
 
         public void StopMoving()
         {
-            // SetDestination(_agent.nextPosition);
+            SetDestination(_agent.nextPosition);
             //currentAction = ActionType.None;
         }
 
@@ -93,29 +118,30 @@ namespace Polyperfect.Crafting.Demo
         //     //currentAction = ActionType.Interact;
         // }
 
+        
+
 
         public override void IssueCommand(ICommand command)
         {
             command.OnDone += () =>
             {
-                if (currentCommand == command)
+                if (currentCommand == command) 
                     currentCommand = null;
             };
-
             switch (command)
             {
                 case MoveCommand moveCommand:
                     currentCommand?.Cancel();
-                    // MoveTo(moveCommand.Position);
+                    MoveTo(moveCommand.Position);
                     currentCommand = command;
-                    break;
+                    break; 
                 case InteractCommand interactCommand:
                     var targetPosition = interactCommand.Interactable.transform.position;
-                    if (!interactCommand.Interactable.transform.IsChildOf(transform) && !IsInRangeOf(targetPosition))
+                    if (!interactCommand.Interactable.transform.IsChildOf(transform)&&!IsInRangeOf(targetPosition))
                     {
                         var interimMoveCommand = new MoveCommand(targetPosition);
-                        interimMoveCommand.OnComplete += () => IssueCommand(interactCommand);
-                        interimMoveCommand.OnCancel += () => interactCommand.Cancel();
+                        interimMoveCommand.OnComplete += ()=>IssueCommand(interactCommand);
+                        interimMoveCommand.OnCancel += ()=>interactCommand.Cancel();
                         IssueCommand(interimMoveCommand);
                     }
                     else
@@ -130,8 +156,8 @@ namespace Polyperfect.Crafting.Demo
                     if (!IsInRangeOf(placePosition))
                     {
                         var interimMoveCommand = new MoveCommand(placePosition);
-                        interimMoveCommand.OnComplete += () => IssueCommand(placeCommand);
-                        interimMoveCommand.OnCancel += () => placeCommand.Cancel();
+                        interimMoveCommand.OnComplete += ()=>IssueCommand(placeCommand);
+                        interimMoveCommand.OnCancel += ()=>placeCommand.Cancel();
                         IssueCommand(interimMoveCommand);
                     }
                     else
@@ -147,7 +173,7 @@ namespace Polyperfect.Crafting.Demo
                 case StopCommand _:
                     currentCommand?.Cancel();
                     StopInteracting();
-                    // StopMoving();
+                    StopMoving();
                     command.Complete();
                     break;
                 default:
@@ -160,32 +186,14 @@ namespace Polyperfect.Crafting.Demo
         {
             var displacement = targetPosition - transform.position;
             var up = Vector3.up;
-            var verticalDisplacement = Vector3.Project(displacement, up);
+            var verticalDisplacement = Vector3.Project(displacement,up);
             var horizontalDisplacement = Vector3.ProjectOnPlane(displacement, up);
-            if (Vector3.Dot(verticalDisplacement, up) > 0)
+            if (Vector3.Dot(verticalDisplacement,up) > 0)
                 verticalDisplacement = Vector3.MoveTowards(verticalDisplacement, Vector3.zero, VerticalReach);
-
-            return (verticalDisplacement + horizontalDisplacement).magnitude < InteractDistance;
+            
+            return (verticalDisplacement+horizontalDisplacement).magnitude < InteractDistance;
         }
 
-        #region Fields
-
-        // public enum ActionType
-        // {
-        //     None,Move,Place,Interact
-        // }
-
-        //ActionType currentAction;
-        public override string __Usage => "Allows various commands such as Move, Gather, and others to be issued.";
-        public BaseItemStackInventory TargetInventory;
-        public float InteractDistance = 1f;
-        public float WalkSpeed = 1.5f;
-        public float RunSpeed = 5f;
-        public float VerticalReach = 3f;
-
-        ICommand currentCommand;
-        NavMeshAgent _agent;
-
-        #endregion
+        
     }
 }
