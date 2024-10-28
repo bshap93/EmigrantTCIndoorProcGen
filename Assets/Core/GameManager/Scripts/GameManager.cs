@@ -1,5 +1,4 @@
 using Core.Events.EventManagers;
-using Core.SaveSystem.Scripts;
 using Core.ShipSystems.Scripts;
 using Items.Inventory.Scripts;
 using JetBrains.Annotations;
@@ -20,7 +19,6 @@ namespace Core.GameManager.Scripts
 
         public GameObject player;
 
-        [CanBeNull] public SaveManager saveManager;
 
         public InGameConsoleManager inGameConsoleManager;
 
@@ -70,7 +68,6 @@ namespace Core.GameManager.Scripts
             // _disableCursorCommand.Execute();
 
 
-            if (saveManager != null) saveManager.InitializedDungeonLevel(null);
         }
     }
 }

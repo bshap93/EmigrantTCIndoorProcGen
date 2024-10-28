@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using DunGen;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
@@ -52,43 +51,12 @@ namespace Core.Levels
         }
 
 
-        [Button("Generate New Level")]
-        public void GenerateLevel(int? seed)
-        {
-            // Generate a new procedural level using DunGen
-            // Set the seed for the dungeon generator
-            if (seed != null)
-                dungeonSeed = seed.Value;
-            else
-                dungeonSeed = Random.Range(0, int.MaxValue); // Create new seed
-
-            _dungeonGenerator.Seed = dungeonSeed; // Set the seed
-            currentLevelID++; // Increment the level ID
-
-            DungeonLevels.Add(new DungeonLevel(currentLevelID, dungeonSeed));
-
-            // Subscribe to DunGen's OnGenerationComplete event
-            _dungeonGenerator.OnGenerationComplete += HandleDungeonGenerated;
 
 
-            // Start generating the dungeon
-            _dungeonGenerator.Generate();
-
-            onLevelGenerated?.Invoke();
-        }
 
 
-        [Button("Remove Level with Seed")]
-        public void RemoveLevelWithSeed(int seed)
-        {
-            DungeonLevels.RemoveAll(x => x.Seed == seed);
-        }
 
-        [Button("List Current Dungeon Levels")]
-        public void ListCurrentDungeonLevels()
-        {
-            foreach (var level in DungeonLevels) Debug.Log($"Level ID: {level.LevelID}, Seed: {level.Seed}");
-        }
+
 
 
         // Called when DunGen completes the dungeon generation

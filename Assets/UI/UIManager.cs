@@ -63,7 +63,6 @@ namespace UI
                 simpleTextOverlayGameObject.GetComponent<SimpleTextOverlay>();
 
             // Create and set the custom cursor
-            new CustomCursor(cursorName, cursorHotspot);
 
             if (_player == null) _player = GameObject.FindWithTag("Player");
 

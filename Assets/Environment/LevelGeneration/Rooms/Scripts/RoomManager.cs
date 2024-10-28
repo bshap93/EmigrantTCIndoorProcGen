@@ -2,7 +2,6 @@
 using Characters.Player.Scripts;
 using Core.Events;
 using DunGen;
-using Sirenix.Utilities;
 using UnityEngine;
 
 namespace Environment.LevelGeneration.Rooms.Scripts
@@ -40,10 +39,10 @@ namespace Environment.LevelGeneration.Rooms.Scripts
         void Update()
         {
             // Check if rooms are still null or empty
-            if (rooms.IsNullOrEmpty()) rooms = FindObjectsOfType<Room>();
+            if (rooms == null || rooms.Length == 0) rooms = FindObjectsOfType<Room>();
 
             // If rooms are found, stop calling Update
-            if (!rooms.IsNullOrEmpty())
+            if (!(rooms == null || rooms.Length == 0))
             {
                 // Disable Update by setting the enabled property to false
                 enabled = false; // Disables the Update method from running again

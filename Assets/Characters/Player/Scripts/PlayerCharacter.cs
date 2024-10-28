@@ -1,6 +1,5 @@
 ﻿using Characters.Enemies.Attacks.Commands;
 using Characters.Health.Scripts.Commands;
-using Characters.Health.Scripts.Debugging;
 using Characters.Health.Scripts.States;
 using Characters.Player.Scripts.States;
 using Core.Events;
@@ -12,9 +11,10 @@ using Items.Equipment.Consumables;
 using Items.Weapons;
 using Items.Weapons.Scripts;
 using JetBrains.Annotations;
+using MoreMountains.InventoryEngine;
 using Plugins.DunGen.Code;
 using Polyperfect.Crafting.Integration;
-using Sirenix.OdinInspector;
+using Resources.Items.ItemClasses;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
@@ -23,7 +23,6 @@ namespace Characters.Player.Scripts
 {
     public class PlayerCharacter : MonoBehaviour, IDamageable
     {
-        public EditorButtonDealDamage editorButtonDealDamage;
         public NavMeshAgent navMeshAgent;
         public PlayerEventManager playerEventManager;
         [SerializeField] PlayerStateController playerStateController;
@@ -36,6 +35,8 @@ namespace Characters.Player.Scripts
         public BaseItemObject equippedItem;
 
         DungenCharacter _dungenCharacter;
+        
+        public SpriteRenderer RangedToolSprite;
 
 
         HealthSystem _healthSystem;
@@ -69,7 +70,6 @@ namespace Characters.Player.Scripts
             // This must be done before  GameManager
             playerStateController.Initialize(this, new ExploreState(null, mainPlayerAnimator));
             playerEventManager.AddListenerToPlayerTakesDamageEvent(TakeDamage);
-            EventManager.ERestartCurrentLevel.AddListener(ResetPlayer);
             playerEventManager.TriggerCharacterStateInitialized();
             equippableHandler = GetComponentInChildren<EquippableHandler>();
         }
@@ -92,13 +92,7 @@ namespace Characters.Player.Scripts
             _healthSystem.HealSuitIntegrity(value);
         }
 
-        [Button("Reset Player")]
-        public void ResetPlayer()
-        {
-            _healthSystem.currentSuitIntegrity = HealthSystem.MaxSuitIntegrity;
-            transform.position = _initialOrientation.position;
-            transform.rotation = _initialOrientation.rotation;
-        }
+
 
         static void OnCharacterTileChanged(DungenCharacter character, Tile previousTile, Tile
             newTile)
@@ -161,5 +155,10 @@ namespace Characters.Player.Scripts
             if (equippableHandler != null)
                 equippableHandler.CeaseUsing();
         }
+        public void SetRangedTool(Sprite rangedToolSprite, InventoryItem rangedEffector)
+        {
+            RangedToolSprite.sprite = rangedToolSprite;
+        }
+
     }
 }
